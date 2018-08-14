@@ -1,60 +1,35 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Laravel-5.4-Shopping-Cart
+A shopping cart developed using Laravel 5.4
+<p align="center"><img src="https://github.com/henrymbuguak/Laravel-5.4-Shopping-Cart/blob/master/public/Screenshot.png"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### How to set up the project
 
-## About Laravel
+<p>To clone the project, navigate to the folder you want to use for this project and launch your terminal. On your terminal enter the following command: <b>git clone https://github.com/henrymbuguak/Laravel-5.4-Shopping-Cart.git </b> </p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+<p>After cloning the project, enter the following command on your terminal: <b>cd Laravel-5.4-Shopping-Cart</b>After navigating inside the project, run the following command to install dependencies: <b>composer update</b></p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The next step is to configure database connection, open the project on your favourite text editor and locate .env.example file and rename it to .env Enter the database connection in this file. After creating the db connection run the migration by running the following command: <b>php artisan migrate</b>. <br>
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+The last thing we need to do is to seed our database. To do that, just run the following command: <b>php artisan db:seed</b>. Now we are ready to start our development serve by running the following command: <b>php artisan serve</b>. Navigate to browser at http://localhost:8000/ 
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+# The goal of the project
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+The goal of this project is to help you get started in creating a shopping cart using laravel 5.4. Ecommerce is going to be a huge deal in 21st century. Here are the goals we have accomplished:
 
-## Laravel Sponsors
+- We created project from ground up.
+- We created custom authentication for customer to sign in.
+- We created database seeder to seed our products.
+- We added ability for user add products to their shopping cart.
+- We connected our application with stripe online payment services.
+- We also implemented the use of guest and auth middleware.
+- Customers are able to buy items from our application.
+- We store the orders in the database, we also get payment id from stripe.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+# Challenge for you
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
+What we did not implement in this project is the admin dashboard for managing the shopping cart. This could be a good challenge for you to implement.
 
-## Contributing
+# Conclusion
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+To become better at software development, you need to set new challenges for yourself. In the process you will always learn new concept.
