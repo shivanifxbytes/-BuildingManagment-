@@ -20,3 +20,15 @@ Route::get('user/routes', 'HomeController@user')->middleware('user');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+/*Route::group(['module' => 'Admin', 'middleware' => ['Auth','web'], 'namespace' => 'App\Modules\Admin\Controllers'], function() {
+
+    Route::resource('admin', 'App\Modules\Admin\Controllers\AdminController@index');
+
+
+});*/
+Route::group(array('middleware'=>'web','module'=>'Admin','namespace' => 'App\Modules\Admin\Controllers'), function() {
+
+Route::resource('admin','AdminController@index');
+
+});
+//Route::resource('admin','App\Modules\Admin\Controllers\AdminController@index');
