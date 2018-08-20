@@ -14,21 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin/routes', 'HomeController@admin')->middleware('admin');
-Route::get('user/routes', 'HomeController@user')->middleware('user');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-/*Route::group(['module' => 'Admin', 'middleware' => ['Auth','web'], 'namespace' => 'App\Modules\Admin\Controllers'], function() {
 
-    Route::resource('admin', 'App\Modules\Admin\Controllers\AdminController@index');
-
-
-});*/
-Route::group(array('middleware'=>'web','module'=>'Admin','namespace' => 'App\Modules\Admin\Controllers'), function() {
-
-Route::resource('admin','AdminController@index');
-
-});
-//Route::resource('admin','App\Modules\Admin\Controllers\AdminController@index');
+Route::get('/admins', '\App\Modules\Admin\Controllers\AdminController@index')->name('admin')->middleware('auth');
+Route::get('/users', '\App\Modules\Admin\Controllers\UserController@index')->name('user')->middleware('auth');
