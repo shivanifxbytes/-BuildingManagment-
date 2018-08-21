@@ -157,9 +157,9 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-          ArtemSchander\L5Modular\ModuleServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+		ArtemSchander\L5Modular\ModuleServiceProvider::class,
 
     ],
 
