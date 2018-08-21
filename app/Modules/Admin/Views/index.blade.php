@@ -7,7 +7,7 @@
                 <h2> USERS </h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('admin.create') }}"> Create New user</a>
+                <a class="btn btn-success" href="{{ route('admins.create') }}"> Create New user</a>
             </div>
         </div>
     </div>

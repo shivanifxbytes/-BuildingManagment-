@@ -19,14 +19,14 @@ class UserController extends Controller
      */
     public function index()
     {
-       
+       /*
         $users = DB::table('users')
             ->join('user_type', 'users.user_type_id', '=', 'user_type.user_type_id')
             ->leftJoin('user_maintenance', 'user_maintenance.user_id', '=', 'users.id')
             ->select('user_type', 'user_name', 'flat_number', 'amount', 'users.is_deleted as status')
             ->where('users.id', $id)
             ->get();
-        return view("User::index", ['users'=>$users]);
+        return view("User::index", ['users'=>$users]);*/
         
     }
 

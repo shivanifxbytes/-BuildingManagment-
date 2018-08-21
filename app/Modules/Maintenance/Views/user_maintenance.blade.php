@@ -10,7 +10,7 @@
                 <h2>Add New User</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('admin.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('maintenance.index') }}"> Back</a>
             </div>
         </div>
 
@@ -18,15 +18,26 @@
 
 
   <div class="col-sm-4">
-        @if($success)
+     @if ($message = Session::get('success'))
         <div class="alert alert-success">
-            <p>{{$success }}</p>
+            <p>{{ $message }}</p>
         </div>
-        @endif
-    </div>
+    @endif
+  </div>
     <div class="col-sm-4">
+       @if($errors)
+    <div class="alert alert-danger">
+      <ul style="list-style: none;">
+         <li>{{ $errors->first('month') }}</li>
+        <li>{{ $errors->first('amount') }}</li>
+        <li>{{ $errors->first('painding_amount') }}</li>
+        <li>{{ $errors->first('extra_amount') }}</li>
+         
+      </ul>
+    </div>
+    @endif
       <!--  -->
-    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('maintenance.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
          <div class="row">
            
@@ -38,18 +49,18 @@
                    <label for="month">month</label>
 				<select name="month" id="month" class="form-control" >
 					<option value="" selected="selected">month</option>
-					<option value="India">jan</option>
-					<option value="Pakistan">feb</option>
-					<option value="Bhutan">march</option>
-					<option value="Bangladesh">ap</option>
-					<option value="Bangladesh">may</option>
-					<option value="Bangladesh">june</option>
-					<option value="Bangladesh">july</option>
-					<option value="Bangladesh">aug</option>
-					<option value="Bangladesh">sep</option>
-					<option value="Bangladesh">oct</option>
-					<option value="Bangladesh">nov</option>
-					<option value="Bangladesh">dec</option>
+					<option value="jan">jan</option>
+					<option value="feb">feb</option>
+					<option value="march">march</option>
+					<option value="april">april</option>
+					<option value="may">may</option>
+					<option value="june">june</option>
+					<option value="july">july</option>
+					<option value="aug">aug</option>
+					<option value="sep">sep</option>
+					<option value="oct">oct</option>
+					<option value="nov">nov</option>
+					<option value="dec">dec</option>
 				</select>
                         
                         <span id="product_discount" class="text-danger">
@@ -80,6 +91,7 @@
                         
                         </span>
                     </div> 
+                    
 
 
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">

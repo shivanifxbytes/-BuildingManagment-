@@ -2,6 +2,8 @@
 
 namespace App\Modules\Admin\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -52,10 +54,14 @@ class AdminController extends Controller
     {
 
         $user = Auth::user();
+
         $validator = Validator::make($request->all(), [
+             'user_name' => 'required|string|max:255', 
                 'owner' => 'required',
                 'tenant' => 'required',
                 'flat_number' => 'required',
+                'user_email' => 'required|string|email|max:255|unique:users',
+                'user_password' => 'required|string|min:6|confirmed',
                 'carpet_area' => 'required',
                 'super_built_up_area' => 'required'
         ]);
@@ -67,25 +73,28 @@ class AdminController extends Controller
             //return redirect('admin/create')->with('errors', $errors);
 
         } else {
+            $user_name = request()->input('user_name');
             $owner = request()->input('owner');
             $tenant = request()->input('tenant');
             $flat_number = request()->input('flat_number');
+             $user_email = request()->input('user_email');
+             $user_password = request()->input('user_password');
             $carpet_area = request()->input('carpet_area');
-            $super_built_up_area = request()->input('super_built_up_area');
-           
+            $super_built_up_area = request()->input('super_built_up_area');         
             $insert_array = ['owner' => $owner,
                               'tenant' => $tenant,
                               'flat_number'=>$flat_number,
+                              'user_email'=>$user_email,
+                              'user_password'=>Hash::make($user_password),
                               'carpet_area'=>$carpet_area,
                               'super_built_up_area'=>$super_built_up_area,
-                             'id'=>$user->id,
+                              'user_name'=>$user_name
                              ];
 
        // User::update('users', $update_array, ['id'=>$user->id]);
         
-       print_r($insert_array); die();
-        User::insert('users', $insert_array, ['id'=>$user->id]);
-         return redirect('admin/create')->with('success', 'details updated');  
+        User::insert($insert_array,'users');
+         return redirect('admins.create')->with('success', 'User created successfully.');  
         }
             
        // return redirect('users');
