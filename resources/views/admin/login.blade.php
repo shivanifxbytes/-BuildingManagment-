@@ -27,7 +27,8 @@
                               <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                               <input type="text" class="form-control" name="email" placeholder="{{ __('messages.email') }}" required="" autofocus="" /> <br>
                               <input type="password" class="form-control" name="password" placeholder="*****" required/> 
-                              <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">{{ __('messages.login_button') }}</button>  			
+                              <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">{{ __('messages.login_button') }}</button> 
+                        <a href="{{ url('/') }}/register">{{ __('messages.register_here') }}</a>			
                     </form>			
             </div>
 	</div>

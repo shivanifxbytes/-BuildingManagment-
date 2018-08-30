@@ -2,6 +2,8 @@
 namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Config;
 /**
  * User
  *
@@ -14,20 +16,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  **/
 class User extends Authenticatable
 {
-    use Notifiable;
-     /**
-     *@ShortDescription Table for the Users.
+   use Notifiable;
+    
+    /**
+     *@ShortDescription Table for the users.
      *
      * @var String
      */
-    protected $table = 'user_maintenance';
+    protected $table = 'users';
+   // protected $table = 'user_maintenance';
     /**
-     *@ShortDescription The attributes that are mass assignable.
+     *@ShortDescription  The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'amount','month','pending_amount','extra_amount','user_created_at','user_id'
+        'user_first_name','user_last_name','owner','tenant','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
     ];
 
     /**
@@ -38,18 +42,25 @@ class User extends Authenticatable
     protected $hidden = [
         'user_password',
     ];
-
-     /**
-     *@ShortDescription Remove the updated_at column dependency from the laravel.
-     *
-     * @var Boolean
-     */
-    public $timestamps = FALSE;
-    
-     /**
-     *@ShortDescription Override the primary key.
+  
+    /**
+     *@ShortDescription Override the primary key in the table.
      *
      * @var string
      */
-    //protected $primaryKey = 'user_id';
+ //   protected $primaryKey = 'user_id';
+     /**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
+    */
+public function showUser($id)
+{
+    return DB::table('user_maintenance')
+            ->join('users', 'user_maintenance.user_id', '=', 'users.id')
+            ->select('user_maintenance.amount', 'user_maintenance.month','user_maintenance.user_id', 'user_maintenance.pending_amount', 'extra_amount','users.id','users.user_first_name','users.flat_number')
+            ->where('user_maintenance.user_id', $id)
+            ->get();
+            die();
+}
 }

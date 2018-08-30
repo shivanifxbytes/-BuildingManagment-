@@ -14,6 +14,10 @@ return [
     'Record_updated' => 'Recored Updated Successfully',
     'try_again' => 'Not able to submit data please again later',
     'dashboard' => 'Dashboard',
+    'owner' => 'Owner',
+    'tenant' => 'Tenant',
+    'flat_number' => 'Flat Number',
+    'carpet_area' => 'Carpet Area',
     'users' => 'Users',
     'blogs' => 'Blogs',
     'project_name' => 'Building Managment',
@@ -36,6 +40,7 @@ return [
     'c_password' => 'Confirm Password',
     'add_user' => 'Add User',
     'add_maintenance' => 'Add Maintenance',
+    'maintenance' =>'Show Maintenance',
     'amount' => 'Amount',
     'pending_amount' => 'Pending Amount',
     'extra_amount' => 'Axtra Amount',
@@ -58,5 +63,6 @@ return [
     'full_name' => 'Full Name',
     'joining' => 'Joining Date',
     'status'=> 'Status',
-    'copyright' => 'Copyright @ Fxbytes PVT LTD'  
+    'copyright' => 'Copyright @ Fxbytes PVT LTD',
+    'register_here' => 'For Register Click Here' 
 ];

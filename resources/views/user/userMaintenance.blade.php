@@ -5,14 +5,13 @@
       <h3 class="page-header">
         <i class="fa fa-table"></i>
         
-        <a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenance/0/{{Crypt::encrypt($user_id)}}"> {{__('messages.add_maintenance')}} 
         </a>
       </h3>
       <ol class="breadcrumb">
         <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
         <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>
         <li><i class="fa fa-th-list"></i>
-        
+       
       </li>
       </ol>
     </div>
@@ -39,8 +38,7 @@
               <th><i class="icon_profile"></i>{{ __('messages.amount') }}</th>
               <th><i class="icon_mail_alt"></i>{{ __('messages.month') }}</th>
               <th><i class="icon_calendar"></i>{{ __('messages.pending_amount') }}</th>
-              <th><i class="icon_pin_alt"></i>{{ __('messages.extra_amount') }}</th>             
-              <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
+              <th><i class="icon_pin_alt"></i>{{ __('messages.extra_amount') }}</th>  
             </tr>
           </thead>
           <tbody>                
@@ -52,12 +50,7 @@
               <td>{!! showMonth($row->month) !!}</td>
               <td>{{$row->pending_amount }}</td>
               <td> {{$row->extra_amount}}</td>              
-              <td>
-                <div class="btn-group">
-                 <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/editmaintenance/{{ Crypt::encrypt($row->id) }}/{{ ($row->user_first_name) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp;
-                 <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" style="margin:5px;" data-id="{{ Crypt::encrypt($row->id) }}" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
-               </div>
-             </td>
+              
            </tr>
            @endforeach
          </tbody>

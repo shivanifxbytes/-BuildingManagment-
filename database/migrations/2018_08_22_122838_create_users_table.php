@@ -21,6 +21,12 @@ class CreateUsersTable extends Migration
             $table->integer('user_role_id')->unsigned();
             $table->string('user_email');
             $table->string('password');
+            $table->string('owner')->default('');
+            $table->string('tenant')->default('');
+            $table->integer('flat_number')->nullable();
+            $table->decimal('carpet_area')->nullable();
+            $table->decimal('super_built_up_area')->nullable();
+            $table->rememberToken();
             $table->tinyInteger('user_status');
             $table->timestamps();
         });

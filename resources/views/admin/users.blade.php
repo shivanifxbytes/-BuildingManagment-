@@ -32,23 +32,34 @@
                     <th>{{ __('messages.sno') }}</th>
                     <th><i class="icon_profile"></i>{{ __('messages.full_name') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.email') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.owner') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.tenant') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.carpet_area') }}</th>
                     <th><i class="icon_calendar"></i>{{ __('messages.joining') }}</th>
                     <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
+                    <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                   </tr>
                 </thead>
                 <tbody>
+                 <?php $no = 1; ?>
                   @foreach($users as $key => $row)
                   <tr>
-                    <th>{{$key}}</th>
+                    <th>{{ $no }}</th>
+                     <?php $no++; ?>
                     <td>{{$row->user_first_name}} {{$row->user_last_name}}</td>
                     <td>{{$row->user_email}}</td>
-                    <td>{{ date('d-M Y', strtotime($row->user_created_at)) }}</td>
+                    <td>{{$row->owner}}</td>
+                    <td>{{$row->tenant}}</td>
+                    <td>{{$row->flat_number}}</td>
+                    <td>{{$row->carpet_area}} sq.ft</td>
+                    <td>{{$row->created_at}}</td>
                     <td> {!! showStatus($row->user_status) !!}</td>
                    <td>
                       <div class="btn-group">
-                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp;
-                         <a class="btn btn-alert" title="{{__('messages.edit')}}" href="{{ url('/') }}/showMaintenance/{{ Crypt::encrypt($row->id) }}" data-toggle="tooltip">{{__('messages.maintenance')}}</a> &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
+                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                         <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/showMaintenance/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.maintenance')}}</a> &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                       </div>
                     </td>
                    </tr>

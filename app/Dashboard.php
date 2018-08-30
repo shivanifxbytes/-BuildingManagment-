@@ -40,7 +40,7 @@ public function showUser($id)
 {
     return  DB::table('user_maintenance')
             ->join('users', 'user_maintenance.user_id', '=', 'users.id')
-            ->select('user_maintenance.amount', 'user_maintenance.month', 'user_maintenance.pending_amount', 'extra_amount','users.id')
+            ->select('user_maintenance.amount', 'user_maintenance.month','user_maintenance.user_id', 'user_maintenance.pending_amount', 'extra_amount','users.id','users.user_first_name','users.flat_number')
             ->where('user_maintenance.user_id', $id)
             ->get();
 }

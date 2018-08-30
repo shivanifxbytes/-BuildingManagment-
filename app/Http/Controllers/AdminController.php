@@ -13,7 +13,7 @@ use Config;
 
 class AdminController extends Controller
 {
-	 use AuthenticatesUsers;
+  use AuthenticatesUsers;
     /**
      * Create a new authentication controller instance.
      *
@@ -28,12 +28,14 @@ class AdminController extends Controller
     * @ShortDescription       Load the login view for admin
     * @return                 View
     */
-    public function getLogin()
-    {
+     public function getLogin()
+     {
         if (auth()->guard('admin')->user()) return redirect()->route('dashboard');
         return view('admin.login');
     }
-     public function postLogin(Request $request)
+    
+
+    public function postLogin(Request $request)
     {
         $rules = array(
             'email' => 'required',
@@ -52,28 +54,37 @@ class AdminController extends Controller
             $inputData = array(
                 'user_email' => $request->input('email'),
                 'password' => $request->input('password'),
-                //'user_role_id' => Config::get('constants.ADMIN_ROLE')
+              //  'user_role_id' => Config::get('constants.ADMIN_ROLE')
             );
             
-            if (Auth::guard('admin')->attempt($inputData)) 
-            {
-               return redirect("/dashboard")->with(array("message"=>"Login Successful"));
+            if (Auth::attempt($inputData)) 
+                {
+                    $id=  Auth::user()->user_role_id;
+                    if($id == 1)
+                    {
+                       return redirect("/dashboard")->with(array("message"=>"Login Successful"));
+                    }
+                   else
+                   {
+                     return redirect("/welcome")->with(array("message"=>"Login Successful"))->with($id);
+                 }
+             }
+             else
+             {
+                 
+                //Check Email exist in the database or not
+               if (Admin::where(
+                [['user_email', '=', $inputData['user_email']],
+                ['user_role_id', '=', Config::get('constants.ADMIN_ROLE')]])->first())  
+               {
+                $validator->getMessageBag()->add('password', 'Wrong password');
             }
             else
             {
-                //Check Email exist in the database or not
-                 if (Admin::where(
-                        [['user_email', '=', $inputData['user_email']],
-                        ['user_role_id', '=', Config::get('constants.ADMIN_ROLE')]])->first())  
-                {
-                    $validator->getMessageBag()->add('password', 'Wrong password');
-                }
-                else
-                {
-                    $validator->getMessageBag()->add('email', 'Any account does not exits with this email address');
-                }
-                return redirect()->back()->withErrors($validator)->withInput();
+                $validator->getMessageBag()->add('email', 'Any account does not exits with this email address');
             }
+            return redirect()->back()->withErrors($validator)->withInput();
         }
     }
+}
 }

@@ -11,7 +11,9 @@
     </head>
     <body>
           <!--Header-part-->
-                  @include('includes.header')     
+                 <div class="brand">{{ __('messages.project_name')}}</div>
+   
+    <div id="flags" class="text-center"></div>     
           <!--end-Header-part-->
           <!-- Dynamic content Section -->
           <main role="main" class="container">
