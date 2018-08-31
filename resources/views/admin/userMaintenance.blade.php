@@ -54,7 +54,7 @@
               <td> {{$row->extra_amount}}</td>              
               <td>
                 <div class="btn-group">
-                 <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/editmaintenance/{{ Crypt::encrypt($row->id) }}/{{ ($row->user_first_name) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp;
+                 <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/editmaintenance/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp;
                  <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" style="margin:5px;" data-id="{{ Crypt::encrypt($row->id) }}" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                </div>
              </td>

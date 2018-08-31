@@ -176,7 +176,6 @@ public function deleteUser(Request $request)
         $id = Crypt::decrypt($request->input('id'));
         if(is_int($id)){
             $Admin = Admin::findOrFail($id);
-
             if($Admin->delete()){
                 return Config::get('constants.OPERATION_CONFIRM');
             }else{
@@ -221,32 +220,28 @@ public function addMaintenance($id, $user_id)
 * @ShortDescription       Function run according to the parameter If we get ID it will return edit view 
 * @return                 View
 */
-public function editMaintenance($id, $user_id)
+public function editMaintenance($id, $user_id=Null)
 {
-    if (!empty($id)) 
-    {
-        try 
-        {
-            $id = Crypt::decrypt($id);
-            $check = Maintenance::where('id', '=', $id)->count();
-            if (is_int($id) && $check > 0) 
-            {
-            
-                $data['user_maintenance'] = Maintenance::find($id);
-                return view('admin.editMaintenance', $data);
-            } 
-            else 
-            {
-                return redirect()->back()->withErrors(__('messages.Id_incorrect'));
-            }
-        } 
-        catch (DecryptException $e) 
-        {
-            return view("admin.errors");
+    if (!empty($id)) {
+    try {
+        $id = Crypt::decrypt($id);
+
+        $check = Maintenance::where('id', '=', $id)->count();
+ 
+        if (is_int($id) && $check > 0) {
+         $user = Maintenance::find($id);
+print_r($user);
+die;
+            return view('admin.editMaintenance',['user'=>$user]);
+        } else {
+            return redirect()->back()->withErrors(__('messages.Id_incorrect'));
         }
-    } 
-    return view('admin.editMaintenance');
+    } catch (DecryptException $e) {
+        return view("user.errors");
+    }
 }
+}
+
 /**
 * @DateOfCreation         24 Aug 2018
 * @ShortDescription       This function handle the post request which get after submit 

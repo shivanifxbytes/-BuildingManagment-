@@ -14,7 +14,6 @@ class Dashboard extends Model
      * @var String
      */
     protected $table = 'users';
- 
      /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the dashboard view 
@@ -44,5 +43,4 @@ public function showUser($id)
             ->where('user_maintenance.user_id', $id)
             ->get();
 }
-
 }

@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +15,7 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
  });
 Route::get('/register', 'UserController@register');
-
+Route::post('/register', ['as'=>'register','uses'=>'UserController@userRegister']);
 // Admin Login routes
 Route::get('/', 'AdminController@getLogin');
 Route::post('/', 'AdminController@postLogin');
@@ -43,9 +42,9 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web']], function () {
         Route::get('/showMaintenance/{id?}', ['as'=>'showmaintenance','uses'=>'DashboardController@showmaintenance']);
         // Admin Dashboard Add user
-        Route::get('/addMaintenance/{id?}/{user_id?}', ['as'=>'addmaintenance','uses'=>'DashboardController@addMaintenance']);
+        Route::post('/addMaintenance/{id?}/{user_id?}', ['as'=>'addmaintenance','uses'=>'DashboardController@addMaintenance']);
         // Admin Dashboard Edit user
-        Route::get('/editmaintenance/{id?}/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@editMaintenance']);
+        Route::post('/editmaintenance/{id?}/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@editMaintenance']);
         // Admin Dashboard Post user
 		Route::post('/addMaintenance/{id?}/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@postMaintenence']);
 		 });

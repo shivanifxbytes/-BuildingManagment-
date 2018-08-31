@@ -3,8 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Config;
 
-class maintenance extends Model
+class Maintenance extends Model
 {
      use Notifiable;
      /**
@@ -19,9 +23,8 @@ class maintenance extends Model
      * @var array
      */
     protected $fillable = [
-       'amount','month','pending_amount','extra_amount','user_created_at','user_id','user_status','user_created_at',
+       'amount','month','id','pending_amount','extra_amount','user_created_at','user_id','user_status','user_created_at',
     ];
-
     /**
      *@ShortDescription The attributes that should be hidden for arrays.
      *
@@ -30,18 +33,9 @@ class maintenance extends Model
     protected $hidden = [
         'user_password',
     ];
-
      /**
      *@ShortDescription Remove the updated_at column dependency from the laravel.
      *
      * @var Boolean
      */
-    public $timestamps = FALSE;
-    
-     /**
-     *@ShortDescription Override the primary key.
-     *
-     * @var string
-     */
-    //protected $primaryKey = 'user_id';
 }
