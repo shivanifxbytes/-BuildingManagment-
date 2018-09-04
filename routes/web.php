@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,16 +11,19 @@
 |
 */
 
-Route::get('/welcome', 'UserController@index');
-Route::group(['middleware' => ['web']], function () {
-Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
- });
-Route::get('/register', 'UserController@register');
-Route::post('/register', ['as'=>'register','uses'=>'UserController@userRegister']);
-// Admin Login routes
+// Admin User Login routes
 Route::get('/', 'AdminController@getLogin');
 Route::post('/', 'AdminController@postLogin');
-
+// User routes
+Route::group(['middleware' => ['web']], function () {
+        // User register routes
+        Route::get('/register', 'UserController@register');
+        Route::post('/register', ['as'=>'register','uses'=>'UserController@userRegister']);
+        // User welcome route
+        Route::get('/welcome', 'UserController@index');
+        // User show maintenance
+        Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
+ });
 // Admin Dashboard 
 Route::group(['middleware' => ['web']], function () {
         Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
@@ -42,15 +46,20 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['web']], function () {
         Route::get('/showMaintenance/{id?}', ['as'=>'showmaintenance','uses'=>'DashboardController@showmaintenance']);
         // Admin Dashboard Add user
-        Route::post('/addMaintenance/{id?}/{user_id?}', ['as'=>'addmaintenance','uses'=>'DashboardController@addMaintenance']);
+        Route::get('/addMaintenance/{id?}/{user_id?}', ['as'=>'addmaintenance','uses'=>'DashboardController@addMaintenance']);
         // Admin Dashboard Edit user
-        Route::post('/editmaintenance/{id?}/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@editMaintenance']);
+        Route::get('/editmaintenance/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@editMaintenance']);
         // Admin Dashboard Post user
 		Route::post('/addMaintenance/{id?}/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@postMaintenence']);
 		 });
 // Admin Dashboard delete user
 Route::post('/deleteUser','DashboardController@deleteUser');
 
- 
-
 Route::get('/logout','DashboardController@getLogout');
+
+Auth::routes();
+// Admin Excel for user list
+Route::get('downloadExcel/{type}', 'DashboardController@downloadExcel');
+// Admin for maintenance list
+Route::get('downloadExcel/{type}/{id?}', 'DashboardController@downloadMaintenanceExcel');
+

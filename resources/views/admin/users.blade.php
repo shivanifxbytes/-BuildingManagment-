@@ -8,6 +8,10 @@
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
               <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>
+
+            <a href="{{ url('downloadExcel/xls') }}"><button class="btn btn-success">Download Excel xls</button></a>
+            <a href="{{ url('downloadExcel/xlsx') }}"><button class="btn btn-success">Download Excel xlsx</button></a>
+            <a href="{{ url('downloadExcel/csv') }}"><button class="btn btn-success">Download CSV</button></a>
             </ol>
           </div>
         </div>

@@ -17,6 +17,7 @@ class Maintenance extends Model
      * @var String
      */
     protected $table = 'user_maintenance';
+    
     /**
      *@ShortDescription The attributes that are mass assignable.
      *
@@ -25,6 +26,7 @@ class Maintenance extends Model
     protected $fillable = [
        'amount','month','id','pending_amount','extra_amount','user_created_at','user_id','user_status','user_created_at',
     ];
+
     /**
      *@ShortDescription The attributes that should be hidden for arrays.
      *
@@ -33,9 +35,5 @@ class Maintenance extends Model
     protected $hidden = [
         'user_password',
     ];
-     /**
-     *@ShortDescription Remove the updated_at column dependency from the laravel.
-     *
-     * @var Boolean
-     */
+
 }

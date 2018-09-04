@@ -22,7 +22,7 @@ class Admin extends Authenticatable
      * @var String
      */
     protected $table = 'users';
-  
+   // protected $table = 'user_maintenance';
     /**
      *@ShortDescription  The attributes that are mass assignable.
      *
@@ -37,6 +37,14 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'user_password',
+        'user_password','remember_token',
     ];
+    
+  
+    /**
+     *@ShortDescription Override the primary key in the table.
+     *
+     * @var string
+     */
+ //   protected $primaryKey = 'user_id';
 }

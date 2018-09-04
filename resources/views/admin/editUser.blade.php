@@ -35,6 +35,22 @@
                   <label>{{ __('messages.user_last_name')}}</label>
                   <input type="text" class="form-control" value="{{ $user->user_last_name }}"  name="user_last_name" placeholder="{{ __('messages.user_last_name')}}" required>
                 </div>  
+                <div class="form-group">
+                  <label>{{ __('messages.owner')}}</label>
+                  <input type="text" class="form-control" value="{{ $user->owner }}"  name="owner" placeholder="{{ __('messages.owner')}}" required>
+                </div>  
+                <div class="form-group">
+                  <label>{{ __('messages.tenant')}}</label>
+                  <input type="text" class="form-control" value="{{ $user->tenant }}"  name="tenant" placeholder="{{ __('messages.tenant')}}" required>
+                </div>  
+                <div class="form-group">
+                  <label>{{ __('messages.flat_number')}}</label>
+                  <input type="text" class="form-control" value="{{ $user->flat_number }}"  name="flat_number" placeholder="{{ __('messages.flat_number')}}" required>
+                </div>  
+                <div class="form-group">
+                  <label>{{ __('messages.carpet_area')}}</label>
+                  <input type="text" class="form-control" value="{{ $user->carpet_area }}"  name="carpet_area" placeholder="{{ __('messages.carpet_area')}}" required>
+                </div>  
                 <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 <div class="form-group">
                   <label>Status</label>

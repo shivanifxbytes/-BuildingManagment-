@@ -27,22 +27,22 @@
       <div class="col-lg-12">
         <div class="form-group">
           <label>{{ __('messages.amount')}}</label>
-          <input type="text" class="form-control" name="amount" placeholder="{{ __('messages.amount')}}" value="{{ $user_maintenance->amount}}" required>
+          <input type="text" class="form-control" name="amount" placeholder="{{ __('messages.amount')}}" value="{{ $user->amount}}" required>
         </div>
          <div class="form-group">
           <label for="month">month</label>
-          <input type="text" class="form-control" name="month" placeholder="{{ __('messages.month')}}" value="{{ $user_maintenance->month}}" required>
+          <input type="text" class="form-control" name="month" placeholder="{{ __('messages.month')}}" value="{{ $user->month}}" required>
             <span id="product_discount" class="text-danger">
             
             </span>
         </div> 
         <div class="form-group">
           <label>{{ __('messages.pending_amount')}}</label>
-          <input type="text" class="form-control" value="{{ $user_maintenance->pending_amount}}" name="pending_amount" placeholder="{{ __('messages.pending_amount')}}" required>
+          <input type="text" class="form-control" value="{{ $user->pending_amount}}" name="pending_amount" placeholder="{{ __('messages.pending_amount')}}" required>
         </div> 
         <div class="form-group">
           <label>{{ __('messages.extra_amount')}}</label>
-          <input type="text" class="form-control" value="{{ $user_maintenance->extra_amount}}" name="extra_amount" placeholder="{{ __('messages.extra_amount')}}" required>
+          <input type="text" class="form-control" value="{{ $user->extra_amount}}" name="extra_amount" placeholder="{{ __('messages.extra_amount')}}" required>
         </div>
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">                           
         <div class="form-group">

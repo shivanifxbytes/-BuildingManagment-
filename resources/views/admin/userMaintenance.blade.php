@@ -4,15 +4,18 @@
     <div class="col-lg-12">
       <h3 class="page-header">
         <i class="fa fa-table"></i>
-        
+      @if(isset($user_maintenance[0]->user_first_name)) {{ ucfirst($user_maintenance[0]->user_first_name) }} @endif @if(isset($user_maintenance[0]->user_last_name)) {{ ucfirst($user_maintenance[0]->user_last_name) }} @endif
         <a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenance/0/{{Crypt::encrypt($user_id)}}"> {{__('messages.add_maintenance')}} 
         </a>
       </h3>
       <ol class="breadcrumb">
         <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
         <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>
-        <li><i class="fa fa-th-list"></i>
-        
+        <a href="{{ url('/downloadExcel/xls/'.$user_maintenance[0]->user_id) }}">
+          
+          <button class="btn btn-success">Download Excel xls</button></a>
+            <a href="{{ url('downloadExcel/xlsx') }}"><button class="btn btn-success">Download Excel xlsx</button></a>
+            <a href="{{ url('downloadExcel/csv') }}"><button class="btn btn-success">Download CSV</button></a>
       </li>
       </ol>
     </div>
