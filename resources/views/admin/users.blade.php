@@ -68,8 +68,40 @@
                     </td>
                    </tr>
                   @endforeach
+                 
                 </tbody>
               </table>
+                <form class="form-horizontal" method="post" style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ url('importExcel') }}"   enctype="multipart/form-data">
+                @csrf
+  @if (Session::has('import_success'))
+      <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p>{{ Session::get('import_success') }}</p>
+      </div>
+      @endif
+          @if ($message = Session::get('error_array'))
+      <div class="alert alert-danger">
+        <ul>
+            @foreach(Session::get('error_array') as $key)
+      <li>
+        {{ $key }}  
+        </li>
+        <hr />
+        @endforeach
+        </ul>
+      
+      </div>
+      @endif
+      @if (Session::has('import_error'))
+      <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <p>{{ Session::get('import_error') }}</p>
+      </div>
+      @endif
+ 
+                <input type="file" name="import_file" />
+                <button class="btn btn-primary">Import File</button>
+            </form>
             </section>
           </div>
         </div>

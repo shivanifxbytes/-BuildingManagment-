@@ -10,12 +10,12 @@ use Config;
 
 class Maintenance extends Model
 {
-     use Notifiable;
-     /**
-     *@ShortDescription Table for the Users.
-     *
-     * @var String
-     */
+    use Notifiable;
+    /**
+    *@ShortDescription Table for the Users.
+    *
+    * @var String
+    */
     protected $table = 'user_maintenance';
     
     /**
@@ -36,4 +36,39 @@ class Maintenance extends Model
         'user_password',
     ];
 
+    /**
+     * @DateOfCreation       05 Sep 2018
+     * @DateOfDeprecated
+     * @ShortDescription     This function selects the specified data from table
+     * @LongDescription
+     * @param  string $table_name
+     * @param  array  $select_array
+     * @param  array  $where_array
+     * @return [object]               [StdClass result object]
+     */
+    public static function select($table_name = '', $select_array = [], $where_array = [])
+    {
+        $result = DB::table($table_name)->select($select_array)->where($where_array)->get();
+        return $result;
+    }
+
+    /**
+    * @DateOfCreation       05 Sep 2018
+    * @DateOfDeprecated
+    * @ShortDescription     This function selects the specified data from table
+    * @LongDescription
+    * @param  string $table_name
+    * @param  array  $select_array
+    * @param  array  $where_array
+    * @return [object]               [StdClass result object]
+    */
+    public static function selectMaintenance($id)
+    {
+        return DB::table('user_maintenance')
+            ->join('users', 'user_maintenance.user_id', '=', 'users.id')
+            ->select('user_maintenance.month', 'user_maintenance.user_id', 'users.flat_number')
+            ->where('user_maintenance.user_id', $id)
+            ->get();
+        
+    }
 }

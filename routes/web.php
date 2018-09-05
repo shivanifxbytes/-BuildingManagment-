@@ -62,4 +62,6 @@ Auth::routes();
 Route::get('downloadExcel/{type}', 'DashboardController@downloadExcel');
 // Admin for maintenance list
 Route::get('downloadExcel/{type}/{id?}', 'DashboardController@downloadMaintenanceExcel');
+// Admin for imfort file
+Route::post('importExcel', 'DashboardController@importExcel');
 

@@ -266,7 +266,7 @@ class DashboardController extends Controller
                     'extra_amount'   => $request->input('extra_amount'),
                     'user_status'    => $request->input('status')
                 );
-            if (empty($id)) {
+            if (!empty($id)) {
                 $requestData['user_id'] = Crypt::decrypt($user_id);
                 $user = Maintenance::create($requestData);
                 //insert data in users table
@@ -299,10 +299,11 @@ class DashboardController extends Controller
         Session::flush();
         return redirect('/');
     }
+   
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
+    * @DateOfCreation         04 sep 2018
+    * @ShortDescription       Display a listing of the resource.
+    * @return                 Response
     */
     public function downloadExcel($type)
     {
@@ -316,10 +317,10 @@ class DashboardController extends Controller
     }
     
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    * @DateOfCreation         04 sep 2018
+    * @ShortDescription       Display a listing of the resource.
+    * @return                 Response
+    */
     public function downloadMaintenanceExcel($type, $id)
     {
         $data['user_maintenance'] = $this->dashboardObj->showUser($id);
@@ -329,5 +330,52 @@ class DashboardController extends Controller
                 $sheet->fromArray($data);
             });
         })->download($type);
+    }
+
+    /**
+    * @DateOfCreation         05 sep 2018
+    * @ShortDescription       Display a listing of the resource.
+    * @return                 Response
+    */
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required'
+        ]);
+        $path = $request->file('import_file')->getRealPath();
+        $data = Excel::load($path)->get();
+        //$array = [];
+        $i = 0;
+        $array = [];
+        if ($data->count()) {
+            foreach ($data as $key => $value) {
+                $arr = [
+                    'user_id'        => $value->user_id,
+                    'user_status'    => $value->user_status,
+                    'amount'         => $value->amount,
+                    'month'          => $value->month,
+                    'user_status'    => Config::get('constants.ADMIN_ROLE'),
+                    'pending_amount' => $value->pending_amount,
+                    'extra_amount'   => $value->extra_amount,
+                    'flat_number'    => $value->flat_number
+                     ];
+                   
+                if (!empty($arr)) {
+                    $maintenance_records = Maintenance::selectMaintenance($value->user_id);
+
+                    if (count($maintenance_records) == 0) {
+                        Maintenance::insert($arr);
+                    } else {
+                        $j = $i+1;
+                        $string = "On Excel Record Number ".$j." For User ID ".$value->user_id."month".$value->month."flat number".$value->flat_number."Already paid";
+                        
+                        array_push($array, $string);
+                    }
+                }
+                $i++;
+            }
+        }     
+        $import_success = 'File Imported And Insert Record successfully.';
+        return back()->with(['import_success'=>$import_success,'error_array'=>$array]);
     }
 }

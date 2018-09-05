@@ -7,7 +7,7 @@
    </h3>
     <ol class="breadcrumb">
       <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard"> {{ __('messages.home')}}</a></li>
-      <li><i class="fa fa-file-text-o"></i> {{$userName}}</li>
+      <li><i class="fa fa-file-text-o"></i> </li>
     </ol>
   </div>
 </div>
@@ -17,7 +17,7 @@
   <div class="col-lg-6">
     <section class="panel">
       <header class="panel-heading">
-        {{$userName}}
+        
       </header>
       <div class="panel-body">
         @if ($errors->any())

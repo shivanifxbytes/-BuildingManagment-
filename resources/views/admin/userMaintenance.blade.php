@@ -38,12 +38,14 @@
         <table class="table table-striped table-advance table-hover" id="data-table">
           <thead>
             <tr>
+            
               <th>{{ __('messages.sno') }}</th>
               <th><i class="icon_profile"></i>{{ __('messages.amount') }}</th>
               <th><i class="icon_mail_alt"></i>{{ __('messages.month') }}</th>
               <th><i class="icon_calendar"></i>{{ __('messages.pending_amount') }}</th>
               <th><i class="icon_pin_alt"></i>{{ __('messages.extra_amount') }}</th>             
               <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
+             
             </tr>
           </thead>
           <tbody>                
