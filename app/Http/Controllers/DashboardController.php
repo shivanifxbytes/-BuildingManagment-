@@ -20,6 +20,7 @@ use myhelper;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Session;
 use Excel;
+use App\Master;
 
 class DashboardController extends Controller
 {
@@ -62,6 +63,7 @@ class DashboardController extends Controller
         *
         * @var Array
         */
+
         $data['users'] = $this->dashboardObj->queryData();
         return view('admin.users', $data);
     }
@@ -77,10 +79,7 @@ class DashboardController extends Controller
         if (!empty($user_id)) {
             try {
                 $user_id = Crypt::decrypt($user_id);
-
-
                 $check = Admin::where('id', '=', $user_id)->count();
-                
                 if (is_int($user_id) && $check > 0) {
                     $data['user'] = Admin::find($user_id);
                     return view('admin.editUser', $data);
@@ -109,41 +108,33 @@ class DashboardController extends Controller
             'user_first_name' => 'required|max:50',
             'user_last_name'  => 'required|max:50',
             'owner'           => 'required|max:50',
-            'tenant'          => 'required|max:50',
+            'flat_type'       => 'required|max:50',
             'flat_number'     => 'required|max:50',
             'carpet_area'     => 'required|max:50',
         );
-
         if (empty($user_id)) {
             $rules = array(
-            'user_email'      => 'required|string|email|max:255|unique:users',
-            'password'        => 'required|string|min:6|confirmed',);
+                'user_email'      => 'required|string|email|max:255|unique:users',
+                'password'        => 'required|string|min:6|confirmed',);
         }
-        
-        // set validator
         $validator = Validator::make($request->all(), $rules);
-        
         if ($validator->fails()) {
-            // redirect our admin back to the form with the errors from the validator
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
                 'user_first_name'   => $request->input('user_first_name'),
                 'user_last_name'    => $request->input('user_last_name'),
                 'owner'             => $request->input('owner'),
-                'tenant'            => $request->input('tenant'),
+                'flat_type'         => $request->input('flat_type'),
                 'flat_number'       => $request->input('flat_number'),
                 'carpet_area'       => $request->input('carpet_area'),
                 'user_status'       => Config::get('constants.ADMIN_ROLE'),
                 'user_role_id'      => Config::get('constants.USER_ROLE')
             );
-
             if (empty($user_id)) {
                 $requestData['user_email']    = $request->input('user_email');
                 $requestData['password']      = bcrypt($request->input("password"));
-
                 $user = Admin::create($requestData);
-                
                 //insert data in users table
                 if ($user) {
                     return redirect('adminUser')->with('message', __('messages.Record_added'));
@@ -152,7 +143,6 @@ class DashboardController extends Controller
                 }
             } else {
                 $user_id = Crypt::decrypt($user_id);
-
                 if (is_int($user_id)) {
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
                     return redirect('adminUser')->with('message', __('messages.Record_updated'));
@@ -164,31 +154,7 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         24 Aug 2018
-    * @ShortDescription       Get the ID from the ajax and pass it to the function to delete it
-    * @return                 Response
-    */
-    public function deleteUser(Request $request)
-    {
-        try {
-            $id = Crypt::decrypt($request->input('id'));
-            if (is_int($id)) {
-                $Admin = Admin::findOrFail($id);
-                if ($Admin->delete()) {
-                    return Config::get('constants.OPERATION_CONFIRM');
-                } else {
-                    return Config::get('constants.OPERATION_FAIED');
-                }
-            } else {
-                return Config::get('constants.ID_NOT_CORRECT');
-            }
-        } catch (DecryptException $e) {
-            return Config::get('constants.ID_NOT_CORRECT');
-        }
-    }
-
-    /**
-    * @DateOfCreation         27 Aug 2018
+    * @DateOfCreation         27 August 2018
     * @ShortDescription       Load user maintanence view with list of user whoes user id is equal to maintenance id
     * @return                 View
     */
@@ -200,21 +166,19 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         27 Aug 2018
+    * @DateOfCreation         27 August 2018
     * @ShortDescription       Function run according to the parameter if $user_id is NUll
     *                         then it return add view
     * @return                 View
     */
     public function addMaintenance($id, $user_id)
     {
-        $userName = Auth::user()->user_first_name;
         $user_id = Crypt::decrypt($user_id);
-        $data['userName'] = $userName;
-        return view('admin.addMaintenance', $data);
+        return view('admin.addMaintenance');
     }
 
     /**
-    * @DateOfCreation         27 Aug 2018
+    * @DateOfCreation         27 August 2018
     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
     * @return                 View
     */
@@ -226,7 +190,6 @@ class DashboardController extends Controller
                 $check = Maintenance::where('id', '=', $id)->count();
                 if (is_int($id)) {
                     $user = Maintenance::find($id);
-                    
                     return view('admin.editMaintenance', ['user'=>$user]);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -238,7 +201,7 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         24 Aug 2018
+    * @DateOfCreation         24 August 2018
     * @ShortDescription       This function handle the post request which get after submit
     *                         and function run according to the parameter if $user_id is NUll
     *                         then it will insert the value If we get ID it will update the value
@@ -253,34 +216,38 @@ class DashboardController extends Controller
             'pending_amount' => 'required|max:50',
             'extra_amount'   => 'required|max:50',
         );
-        // set validator
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            // redirect our admin back to the form with the errors from the validator
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                    'amount'         => $request->input('amount'),
-                    'month'          => $request->input('month'),
-                    'pending_amount' => $request->input('pending_amount'),
-                    'extra_amount'   => $request->input('extra_amount'),
-                    'user_status'    => $request->input('status')
-                );
-            if (!empty($id)) {
-                $requestData['user_id'] = Crypt::decrypt($user_id);
-                $user = Maintenance::create($requestData);
-                //insert data in users table
+                'amount'         => $request->input('amount'),
+                'month'          => $request->input('month'),
+                'pending_amount' => $request->input('pending_amount'),
+                'extra_amount'   => $request->input('extra_amount'),
+                'user_status'    => $request->input('status')
+            );
+            if (empty($id)) {
+
+                $user = Maintenance::where('month', $requestData['month'])->where('user_id', '=', $user_id)->get();
+                if (count($user)>0) {
+                    return redirect()->back()->withInput()->withErrors(__('messages.already_paid '));
+                } else {
+                    
+                    $requestData['user_id'] = Crypt::decrypt($user_id);
+                    $user = Maintenance::create($requestData);
+                    
+                }
                 if ($user) {
-                    return redirect('adminUser')->with('message', __('messages.Record_added'));
+                    return redirect()->route('showmaintenance', $user_id)->with('message', __('messages.Record_added'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
             } else {
-                $id = Crypt::decrypt($id);
-            
+                $id = Crypt::encrypt($id);
                 if (is_int($id)) {
-                    $user = Maintenance::where(array('user_id' => $id))->update($requestData); //update data in users table
-                    return redirect('adminUser')->with('message', __('messages.Record_updated'));
+                    $user = Maintenance::where(array('user_id' => $user_id))->update($requestData);
+                    return redirect()->route('showmaintenance', $user_id)->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
@@ -299,9 +266,9 @@ class DashboardController extends Controller
         Session::flush();
         return redirect('/');
     }
-   
+
     /**
-    * @DateOfCreation         04 sep 2018
+    * @DateOfCreation         04 September 2018
     * @ShortDescription       Display a listing of the resource.
     * @return                 Response
     */
@@ -315,9 +282,9 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
-    
+
     /**
-    * @DateOfCreation         04 sep 2018
+    * @DateOfCreation         04 September 2018
     * @ShortDescription       Display a listing of the resource.
     * @return                 Response
     */
@@ -333,7 +300,7 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         05 sep 2018
+    * @DateOfCreation         05 September 2018
     * @ShortDescription       Display a listing of the resource.
     * @return                 Response
     */
@@ -344,7 +311,6 @@ class DashboardController extends Controller
         ]);
         $path = $request->file('import_file')->getRealPath();
         $data = Excel::load($path)->get();
-        //$array = [];
         $i = 0;
         $array = [];
         if ($data->count()) {
@@ -358,24 +324,203 @@ class DashboardController extends Controller
                     'pending_amount' => $value->pending_amount,
                     'extra_amount'   => $value->extra_amount,
                     'flat_number'    => $value->flat_number
-                     ];
-                   
+                ];
                 if (!empty($arr)) {
                     $maintenance_records = Maintenance::selectMaintenance($value->user_id);
-
                     if (count($maintenance_records) == 0) {
                         Maintenance::insert($arr);
                     } else {
                         $j = $i+1;
                         $string = "On Excel Record Number ".$j." For User ID ".$value->user_id."month".$value->month."flat number".$value->flat_number."Already paid";
-                        
                         array_push($array, $string);
                     }
                 }
                 $i++;
             }
-        }     
+        }
         $import_success = 'File Imported And Insert Record successfully.';
         return back()->with(['import_success'=>$import_success,'error_array'=>$array]);
+    }
+
+    /**
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load maintenance master view with list of all maintenance
+    * @return                 View
+    */
+    public function maintenanceMaster()
+    {
+        $data['users'] = $this->dashboardObj->selectMaintenance();
+        return view('admin.maintenanceMaster', $data);
+    }
+
+    /**
+    * @DateOfCreation         19 September 2018
+    * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
+    * @return                 View
+    */
+    public function getMaintenanceMaster($user_id = null)
+    {
+        if (!empty($user_id)) {
+            try {
+                $user_id = Crypt::decrypt($user_id);
+                $check = Master::where('id', '=', $user_id)->count();
+                if (is_int($user_id) && $check > 0) {
+                    $data['user'] = Master::find($user_id)->toArray();
+                    return view('admin.editMaintenanceMaster', $data);
+                } else {
+                    return redirect()->back()->withErrors(__('messages.Id_incorrect'));
+                }
+            } catch (DecryptException $e) {
+                return view("admin.errors");
+            }
+        } else {
+            return view('admin.addMaintenanceMaster');
+        }
+    }
+
+    /**
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       This function handle the post request which get after submit
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
+    public function postMaintenanceMaster(Request $request, $user_id = null)
+    {
+        $rules = array(
+            'maintenance_amount' => 'required|max:50',
+            'flat_type'  => 'required|max:50',
+        );
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        } else {
+            $requestData = array(
+                'maintenance_amount'   => $request->input('maintenance_amount'),
+                'flat_type'    => $request->input('flat_type'),
+            );
+            if (empty($user_id)) {
+                $user = Master::create($requestData);
+                if ($user) {
+                    return redirect('maintenanceMaster')->with('message', __('messages.Record_added'));
+                } else {
+                    return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
+                }
+            } else {
+                $user_id = Crypt::decrypt($user_id);
+                if (is_int($user_id)) {
+                    $user = Master::where(array('id' => $user_id))->update($requestData);
+                    return redirect('maintenanceMaster')->with('message', __('messages.Record_updated'));
+                } else {
+                    return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
+                }
+            }
+        }
+    }
+
+    /**
+    * @DateOfCreation         19 September 2018
+    * @ShortDescription       Function run according to the parameter If we get ID it will return deteled row
+    * @return                 result
+    */
+    public function deleteMaintenanceMastere($user_id = null)
+    {
+        $user_id = Crypt::decrypt($user_id);
+        DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
+        return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
+    }
+ 
+     /**
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load flat type view with list of all flats
+    * @return                 View
+    */
+    public function flatType()
+    {
+        $data['users'] = $this->dashboardObj->selectFlatType();
+        return view('admin.flatType', $data);
+    }
+
+    /**
+    * @DateOfCreation         19 September 2018
+    * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
+    * @return                 View
+    */
+    public function getFlatType($user_id = null)
+    {
+        $this->dashboardObj = new Master();
+        if (!empty($user_id)) {
+            try {
+                $user_id = Crypt::decrypt($user_id);
+                $check= $this->dashboardObj->getFlatId($user_id);
+                //$check = Master::where('id', '=', $user_id)->count();
+                if (is_int($user_id) && $check > 0) {
+                    $data['user'] = $this->dashboardObj->findFlatId($user_id);
+                    return view('admin.editFlatType', $data);
+                } else {
+                    return redirect()->back()->withErrors(__('messages.Id_incorrect'));
+                }
+            } catch (DecryptException $e) {
+                return view("admin.errors");
+            }
+        } else {
+            return view('admin.addFlatType');
+        }
+    }
+
+    /**
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       This function handle the post request which get after submit
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
+    public function postFlatType(Request $request, $user_id = null)
+    {
+        $rules = array(
+            'flat_type'  => 'required|max:50',
+        );
+        // set validator
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            // redirect our admin back to the form with the errors from the validator
+            return redirect()->back()->withInput()->withErrors($validator->errors());
+        } else {
+            $requestData = array(
+                'flat_type'    => $request->input('flat_type'),
+                'created_at'   => date('Y-m-d H-i-s')
+            );
+            if (empty($user_id)) {
+                $user = Master::insert('flat_type', $requestData);
+                //insert data in users table
+                if ($user) {
+                    return redirect('flatType')->with('message', __('messages.Record_added'));
+                } else {
+                    return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
+                }
+            } else {
+                $user_id = Crypt::decrypt($user_id);
+                if (is_int($user_id)) {
+                    $user = Master::where(array('id' => $user_id))->update($requestData);
+                    return redirect('flatType')->with('message', __('messages.Record_updated'));
+                } else {
+                    return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
+                }
+            }
+        }
+    }
+
+    /**
+    * @DateOfCreation         19 September 2018
+    * @ShortDescription       Function run according to the parameter If we get ID it will return deteled row
+    * @return                 result
+    */
+    public function deleteFlatType($user_id = null)
+    {
+        $user_id = Crypt::decrypt($user_id);
+        DB::table('flat_type')->where('id', '=', $user_id)->delete();
+        return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
 }

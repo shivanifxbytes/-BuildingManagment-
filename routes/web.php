@@ -25,16 +25,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
  });
 // Admin Dashboard 
-Route::group(['middleware' => ['web']], function () {
         Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
- });
+ 
 // Admin users route
-Route::group(['middleware' => ['web']], function () {
         Route::get('/users', ['as'=>'users','uses'=>'DashboardController@users']);
- });
-Route::group(['middleware' => ['web']], function () {
         Route::get('/adminUser', ['as'=>'adminUser','uses'=>'DashboardController@users']);
- });
+ 
 Route::get('dashboard/queryData', 'DashboardController@users');
 Route::get('dashboard/show', 'DashboardController@showmaintenance');
 // Admin Add edit route
@@ -64,4 +60,18 @@ Route::get('downloadExcel/{type}', 'DashboardController@downloadExcel');
 Route::get('downloadExcel/{type}/{id?}', 'DashboardController@downloadMaintenanceExcel');
 // Admin for imfort file
 Route::post('importExcel', 'DashboardController@importExcel');
+// Admin maintenanceMaster
+Route::group(['middleware' => ['web']], function () {
+        Route::get('/maintenanceMaster', ['as'=>'maintenanceMaster','uses'=>'DashboardController@maintenanceMaster']);
+        Route::get('/addMaintenanceMaster/{user_id?}', ['as'=>'addMaintenanceMaster','uses'=>'DashboardController@getMaintenanceMaster']);
+        Route::post('/addMaintenanceMaster/{user_id?}', ['as'=>'editMaintenanceMaster','uses'=>'DashboardController@postMaintenanceMaster']);
+        Route::get('/deleteMastere/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteMaintenanceMastere']);
+ });
+// Admin flatTypeMaster
+Route::group(['middleware' => ['web']], function () {
+        Route::get('/flatType', ['as'=>'flatType','uses'=>'DashboardController@flatType']);
+        Route::get('/addFlatType/{user_id?}', ['as'=>'addFlatType','uses'=>'DashboardController@getFlatType']);
+        Route::post('/addFlatType/{user_id?}', ['as'=>'editFlatType','uses'=>'DashboardController@postFlatType']);
+        Route::get('/delete/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteFlatType']);
 
+ });

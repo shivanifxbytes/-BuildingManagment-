@@ -22,8 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('user_email');
             $table->string('password');
             $table->string('owner')->default('');
-            $table->string('tenant')->default('');
-            $table->integer('flat_number')->nullable();
+            $table->string('flat_type')->default('');
+            $table->string('flat_number')->unique();
             $table->decimal('carpet_area')->nullable();
             $table->decimal('super_built_up_area')->nullable();
             $table->rememberToken();

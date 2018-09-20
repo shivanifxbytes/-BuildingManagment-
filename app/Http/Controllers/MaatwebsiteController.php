@@ -44,7 +44,6 @@ class MaatwebsiteDemoController extends Controller
         $request->validate([
             'import_file' => 'required'
         ]);
- 
         $path = $request->file('import_file')->getRealPath();
         $data = Excel::load($path)->get();
  
@@ -56,8 +55,7 @@ class MaatwebsiteDemoController extends Controller
             if(!empty($arr)){
                 Item::insert($arr);
             }
-        }
- 
+        } 
         return back()->with('success', 'Insert Record successfully.');
     }
 }

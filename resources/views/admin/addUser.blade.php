@@ -38,8 +38,16 @@
             <input type="text" class="form-control" name="owner" placeholder="{{ __('messages.owner')}}" required>
           </div> 
           <div class="form-group">
-            <label>{{ __('messages.tenant')}}</label>
-            <input type="text" class="form-control" name="tenant" placeholder="{{ __('messages.tenant')}}" required>
+            <label for="flat_type">Flat Type</label>
+            <select name="flat_type" id="flat_type" class="form-control" >
+              <option value="" selected="selected">Flat</option>
+              <option value="1BHK">1BHK</option>
+              <option value="2BHK">2BHK</option>
+              <option value="3BHK">3BHK</option>
+              <option value="3BHK">Pant House</option>
+            </select>
+            <span id="product_discount" class="text-danger">              
+            </span>
           </div> 
           <div class="form-group">
             <label>{{ __('messages.flat_number')}}</label>

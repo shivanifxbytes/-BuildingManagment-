@@ -27,13 +27,15 @@ class User extends Authenticatable
      */
     protected $table = 'users';
    
+   
+   
     /**
      *@ShortDescription  The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_first_name','user_last_name','owner','tenant','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
+        'user_first_name','user_last_name','owner','flat_type','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
     ];
 
     /**
@@ -48,8 +50,8 @@ class User extends Authenticatable
   
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance
-    * @return                 View
+    * @ShortDescription       This funtion join tow table and select the specified data from table
+    * @return                 [StdClass result object]
     */
     public function showUser($id)
     {

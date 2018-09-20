@@ -7,13 +7,18 @@
        </a>
      </li>
      <li>
-       <a class="" href="{{ url('/') }}/users">
-         <span>{{ __('messages.users') }}</span>
+       <a class="" href="{{ url('/') }}/maintenanceMaster">
+         <span>{{ __('messages.maintenance_master') }}</span>
        </a>
      </li>
      <li>
-       <a class="" href="{{ url('/') }}/adminBlogs">
-         <span>{{ __('messages.blogs') }}</span>
+       <a class="" href="{{ url('/') }}/flatType">
+         <span>{{ __('messages.flat_type') }}</span>
+       </a>
+     </li>
+     <li>
+       <a class="" href="{{ url('/') }}/users">
+         <span>{{ __('messages.flats') }}</span>
        </a>
      </li>
     </ul>

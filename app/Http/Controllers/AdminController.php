@@ -39,7 +39,7 @@ class AdminController extends Controller
 
      /**
     * @DateOfCreation         22 aug 2018
-    * @ShortDescription       Load the login view for admin
+    * @ShortDescription       login user 
     * @return                 View
     */
     public function postLogin(Request $request)

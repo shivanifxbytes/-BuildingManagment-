@@ -15,7 +15,7 @@ $(document).on('click', '.deleteDetail', function () {
     function (isConfirm) {
         if (isConfirm) {
             $.ajax({
-                url: base_url + '/deleteBlog',
+                url: base_url + '/deleteUser',
                 type: 'post',
                 headers: {
                     'X-CSRF-TOKEN': csrf_token
@@ -31,6 +31,10 @@ $(document).on('click', '.deleteDetail', function () {
                         swal("Cancelled", "Something want wrong, Please try again later", "error");
                     }
                 },
+                error:function(xhr)
+                {
+                    console.log(xhr);
+                }
             });
         } else {
             swal("Cancelled", "Your entry is safe :)", "error");

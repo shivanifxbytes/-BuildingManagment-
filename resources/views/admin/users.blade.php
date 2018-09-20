@@ -3,15 +3,11 @@
         <div class="row">
           <div class="col-lg-12">
 
-            <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.users') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addUser"> {{__('messages.add_user')}} </a>
+            <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flats') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addUser"> {{__('messages.add_flat')}} </a>
           </h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
               <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>
-
-            <a href="{{ url('downloadExcel/xls') }}"><button class="btn btn-success">Download Excel xls</button></a>
-            <a href="{{ url('downloadExcel/xlsx') }}"><button class="btn btn-success">Download Excel xlsx</button></a>
-            <a href="{{ url('downloadExcel/csv') }}"><button class="btn btn-success">Download CSV</button></a>
             </ol>
           </div>
         </div>
@@ -37,7 +33,7 @@
                     <th><i class="icon_profile"></i>{{ __('messages.full_name') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.email') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.owner') }}</th>
-                    <th><i class="icon_mail_alt"></i>{{ __('messages.tenant') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.carpet_area') }}</th>
                     <th><i class="icon_calendar"></i>{{ __('messages.joining') }}</th>
@@ -54,7 +50,7 @@
                     <td>{{$row->user_first_name}} {{$row->user_last_name}}</td>
                     <td>{{$row->user_email}}</td>
                     <td>{{$row->owner}}</td>
-                    <td>{{$row->tenant}}</td>
+                    <td>{{$row->flat_type}}</td>
                     <td>{{$row->flat_number}}</td>
                     <td>{{$row->carpet_area}} sq.ft</td>
                     <td>{{$row->created_at}}</td>
@@ -62,46 +58,44 @@
                    <td>
                       <div class="btn-group">
                         <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                         <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/showMaintenance/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.maintenance')}}</a> &nbsp;&nbsp;&nbsp;
+                         <a  class="btn btn-warning custom-button-width .navbar-right" title="{{__('messages.edit')}}" href="{{ url('/') }}/showMaintenance/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.maintenance')}}</a> &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                       </div>
                     </td>
                    </tr>
-                  @endforeach
-                 
+                  @endforeach                 
                 </tbody>
               </table>
-                <form class="form-horizontal" method="post" style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ url('importExcel') }}"   enctype="multipart/form-data">
+              <form class="form-horizontal" method="post" style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ url('importExcel') }}"   enctype="multipart/form-data">
                 @csrf
-  @if (Session::has('import_success'))
-      <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <p>{{ Session::get('import_success') }}</p>
-      </div>
-      @endif
-          @if ($message = Session::get('error_array'))
-      <div class="alert alert-danger">
-        <ul>
-            @foreach(Session::get('error_array') as $key)
-      <li>
-        {{ $key }}  
-        </li>
-        <hr />
-        @endforeach
-        </ul>
-      
-      </div>
-      @endif
-      @if (Session::has('import_error'))
-      <div class="alert alert-danger">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-        <p>{{ Session::get('import_error') }}</p>
-      </div>
-      @endif
- 
-                <input type="file" name="import_file" />
+                @if (Session::has('import_success'))
+                <div class="alert alert-success">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                  <p>{{ Session::get('import_success') }}</p>
+                </div>
+                @endif
+                @if ($message = Session::get('error_array'))
+                <div class="alert alert-danger">
+                  <ul>
+                    @foreach(Session::get('error_array') as $key)
+                    <li>
+                      {{ $key }}  
+                    </li>
+                    <hr />
+                    @endforeach
+                  </ul>
+                </div>
+                @endif
+                @if (Session::has('import_error'))
+                <div class="alert alert-danger">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                  <p>{{ Session::get('import_error') }}</p>
+                </div>
+                @endif
+                <input  type="file" name="import_file" />
                 <button class="btn btn-primary">Import File</button>
-            </form>
+
+              </form>
             </section>
           </div>
         </div>

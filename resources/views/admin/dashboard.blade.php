@@ -13,7 +13,7 @@
            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div class="info-box blue-bg">
               <div class="count">{{ $count['users'] }}</div>
-              <div class="title">{{ __('messages.users') }}</div>
+              <div class="title">{{ __('messages.flats') }}</div>
             </div>
             <!--/.info-box-->
           </div>
