@@ -29,14 +29,14 @@
               <table class="table table-striped table-advance table-hover" id="data-table">
                   <thead>
                   <tr>
-                    <th>{{ __('messages.sno') }}</th>
-                    <th><i class="icon_profile"></i>{{ __('messages.full_name') }}</th>
-                    <th><i class="icon_mail_alt"></i>{{ __('messages.email') }}</th>
+                    <th>{{ __('messages.sno') }}</th>                    
                     <th><i class="icon_mail_alt"></i>{{ __('messages.owner') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.owner_mobile_no') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.carpet_area') }}</th>
                     <th><i class="icon_calendar"></i>{{ __('messages.joining') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.email') }}</th>
                     <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
                     <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                   </tr>
@@ -46,14 +46,14 @@
                   @foreach($users as $key => $row)
                   <tr>
                     <th>{{ $no }}</th>
-                     <?php $no++; ?>
-                    <td>{{$row->user_first_name}} {{$row->user_last_name}}</td>
-                    <td>{{$row->user_email}}</td>
+                     <?php $no++; ?>                                     
                     <td>{{$row->owner}}</td>
+                    <td>{{$row->owner_mobile_no}}</td>
                     <td>{{$row->flat_type}}</td>
                     <td>{{$row->flat_number}}</td>
                     <td>{{$row->carpet_area}} sq.ft</td>
                     <td>{{$row->created_at}}</td>
+                    <td>{{$row->user_email}}</td>
                     <td> {!! showStatus($row->user_status) !!}</td>
                    <td>
                       <div class="btn-group">
@@ -66,7 +66,7 @@
                   @endforeach                 
                 </tbody>
               </table>
-              <form class="form-horizontal" method="post" style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ url('importExcel') }}"   enctype="multipart/form-data">
+              <form class="form-horizontal pull-right"  method="post" style="margin-top: 15px;padding: 10px;" action="{{ url('importExcel') }}"   enctype="multipart/form-data">
                 @csrf
                 @if (Session::has('import_success'))
                 <div class="alert alert-success">
@@ -92,8 +92,11 @@
                   <p>{{ Session::get('import_error') }}</p>
                 </div>
                 @endif
-                <input  type="file" name="import_file" />
+                <div class="pull-right"><input  type="file"  name="import_file" /></div>
+                <div class="clearfix"></div>
+                <div class="pull-right" style="padding: 10px;">
                 <button class="btn btn-primary">Import File</button>
+                </div>
 
               </form>
             </section>

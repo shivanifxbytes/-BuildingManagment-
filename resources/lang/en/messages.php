@@ -16,7 +16,7 @@ return [
     'try_again' => 'Not able to submit data please again later',
     'dashboard' => 'Dashboard',
     'owner' => 'Owner Name',
-    'tenant' => 'Tenant',
+    'tenant' => 'Tenant Name',
     'flat_number' => 'Flat Number',
     'carpet_area' => 'Carpet Area',
     'flats' => 'flats',
@@ -47,7 +47,8 @@ return [
     'user_last_name' => 'User Last Name',
     'publish' => 'Publish',
     'pending' => 'Pending',
-    'submit' => 'Submit',  
+    'submit' => 'Submit',
+    'add' => 'Add',  
     'user_status'=>'user Status',
     'action' => 'Action',
     'edit' => 'Edit',
@@ -63,9 +64,12 @@ return [
     'copyright' => 'Copyright @ Fxbytes PVT LTD',
     'register_here' => 'For Register Click Here',
     'already_paid' => 'Already Paid...',
-    'maintenance_master' => 'Maintenance Master',
+    'maintenance_master' => 'Maintenance',
+    'maintenance_transaction'=>'Monthly Maintenance Transaction',
     'flat_type' => 'Flat Type',
     'flats' => 'Flats',
     'maintenance_amount'=>'Maintenance Amount',
-    'maintenance_master'=>'Maintenance Master'
+    'maintenance_master'=>'Maintenance',
+    'owner_mobile_no'=>'Phone Number',
+    'monthly_expenses' => 'Monthly Expenses'
 ];

@@ -35,7 +35,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_first_name','user_last_name','owner','flat_type','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
+        'tenant_full_name','owner','flat_type','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
     ];
 
     /**
@@ -50,8 +50,8 @@ class User extends Authenticatable
   
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       This funtion join tow table and select the specified data from table
-    * @return                 [StdClass result object]
+    * @ShortDescription       Load user maintenance view with list of all maintenance
+    * @return                 View
     */
     public function showUser($id)
     {
@@ -61,5 +61,16 @@ class User extends Authenticatable
             ->where('user_maintenance.user_id', $id)
             ->get();
         die();
+    }
+
+     /**
+     * @DateOfCreation         23-August-2018
+     * @ShortDescription       This function either get the record or terminate end
+     * @param  [id]            ID of the record to be retrieved
+     * @return [object]     [user record or error]
+     */
+    public function retrieveRecordOrTerminate($id)
+    {
+        return User::findOrFail($id);
     }
 }

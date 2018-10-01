@@ -53,6 +53,7 @@
               <td>
                 <div class="btn-group">
                  <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/editmaintenance/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a>
+                 <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                </div>
              </td>
            </tr>

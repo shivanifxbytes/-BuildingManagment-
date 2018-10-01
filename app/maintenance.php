@@ -71,4 +71,8 @@ class Maintenance extends Model
             ->get();
         
     }
+    /*public static function create()
+    {
+        return Db::table('')
+    }*/
 }

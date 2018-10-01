@@ -24,30 +24,19 @@
         </p>
         @endforeach
         @endif
-        <div class="col-lg-12">
-          <div class="form-group">
-            <label>{{ __('messages.user_first_name')}}</label>
-            <input type="text" class="form-control" name="user_first_name" placeholder="{{ __('messages.user_first_name')}}" required>
-          </div>
-          <div class="form-group">
-            <label>{{ __('messages.user_last_name')}}</label>
-            <input type="text" class="form-control" name="user_last_name" placeholder="{{ __('messages.user_last_name')}}" required>
-          </div> 
+        <div class="col-lg-12">          
           <div class="form-group">
             <label>{{ __('messages.owner')}}</label>
             <input type="text" class="form-control" name="owner" placeholder="{{ __('messages.owner')}}" required>
-          </div> 
+          </div>           
           <div class="form-group">
             <label for="flat_type">Flat Type</label>
             <select name="flat_type" id="flat_type" class="form-control" >
-              <option value="" selected="selected">Flat</option>
-              <option value="1BHK">1BHK</option>
-              <option value="2BHK">2BHK</option>
-              <option value="3BHK">3BHK</option>
-              <option value="3BHK">Pant House</option>
-            </select>
-            <span id="product_discount" class="text-danger">              
-            </span>
+              <option value="" selected="selected">Select Flat Type</option>
+              @foreach($users as $key => $row)
+              <option value="{{$row->flat_type }}">{{$row->flat_type }}</option>
+              @endforeach
+            </select>           
           </div> 
           <div class="form-group">
             <label>{{ __('messages.flat_number')}}</label>
@@ -58,6 +47,10 @@
             <input type="text" class="form-control" name="carpet_area" placeholder="{{ __('messages.carpet_area')}}" required>
           </div> 
           <div class="form-group">
+            <label>Enter Mobile No.</label>          
+              <input id="owner_mobile_no" type="text" class="form-control" name="owner_mobile_no" value="{{ old('owner_mobile_no') }}" required>         
+          </div>
+          <div class="form-group">
             <label>Email</label>
             <input type="text" class="form-control" name="user_email" placeholder="{{ __('messages.email') }}" required="" autofocus="" /> <br>
           </div>
@@ -65,18 +58,12 @@
             <label>Password</label>
             <input type="password" class="form-control" name="password" placeholder="*****" required/> 
           </div> 
+
           <div class="form-group">
             <label for="user_password-confirm">{{ __('Confirm Password') }}</label>
             <input id="user_password-confirm" type="password" class="form-control" name="password_confirmation" required>           
           </div>                            
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-          <div class="form-group">
-            <label>Status</label>
-            <select class="form-control" name="status" required>
-              <option value="1">{{ __('messages.publish')}}</option>
-              <option value="0">{{ __('messages.pending')}}</option>
-            </select>
-          </div>
           <div class="form-group">
             <label>&nbsp;</label>
             <button type="submit" class="btn btn-primary">{{ __('messages.submit')}}</button>

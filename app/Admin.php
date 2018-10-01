@@ -22,16 +22,15 @@ class Admin extends Authenticatable
      * @var String
      */
     protected $table = 'users';
-
+   // protected $table = 'user_maintenance';
     /**
      *@ShortDescription  The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'user_first_name','user_last_name','owner','flat_type','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
+        'tenant_full_name','owner','flat_type','owner_mobile_no','tenant_mobile_no','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
     ];
-    
     /**
      *@ShortDescription The attributes that should be hidden for arrays.
      *
@@ -40,5 +39,12 @@ class Admin extends Authenticatable
     protected $hidden = [
         'user_password','remember_token',
     ];
-
+    
+  
+    /**
+     *@ShortDescription Override the primary key in the table.
+     *
+     * @var string
+     */
+ //   protected $primaryKey = 'user_id';
 }

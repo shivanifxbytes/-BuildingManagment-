@@ -26,7 +26,7 @@
         <div class="col-lg-12">
           <div class="form-group">
             <label>{{ __('messages.amount')}}</label>
-            <input type="text" class="form-control" name="amount" value="{{ $user['maintenance_amount']}}" placeholder="{{ __('messages.amount')}}" required>
+            <input type="text" class="form-control" name="maintenance_amount" value="{{ $user['maintenance_amount']}}" placeholder="{{ __('messages.amount')}}" required>
           </div>
           <div class="form-group">
             <label for="flat_type">Flat Type</label>

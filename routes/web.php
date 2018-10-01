@@ -50,7 +50,6 @@ Route::group(['middleware' => ['web']], function () {
 		 });
 // Admin Dashboard delete user
 Route::post('/deleteUser','DashboardController@deleteUser');
-
 Route::get('/logout','DashboardController@getLogout');
 
 Auth::routes();
@@ -75,3 +74,5 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/delete/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteFlatType']);
 
  });
+ Route::get('/maintenanceTransaction', ['as'=>'maintenanceTransaction','uses'=>'DashboardController@maintenanceTransaction']);
+  Route::post('/paid','DashboardController@paidmaintenanceTransaction');

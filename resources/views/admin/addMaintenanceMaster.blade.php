@@ -31,17 +31,15 @@
             <input type="text" class="form-control" name="maintenance_amount" placeholder="{{ __('messages.amount')}}" required>
           </div>
           <div class="form-group">
+             
             <label for="flat_type">Flat Type</label>
             <select name="flat_type" id="flat_type" class="form-control" >
-              <option value="" selected="selected">Flat</option>
-              <option value="1BHK">1BHK</option>
-              <option value="2BHK">2BHK</option>
-              <option value="3BHK">3BHK</option>
-              <option value="3BHK">Pant House</option>
+              <option value="" selected="selected">Select Flat Type</option>
+              @foreach($users as $key => $row)
+              <option value="{{$row->flat_type }}">{{$row->flat_type }}</option>
+               @endforeach
             </select>
-            <span id="product_discount" class="text-danger">              
-            </span>
-          </div> 
+          </div>
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">           
           <div class="form-group">
             <label>&nbsp;</label>

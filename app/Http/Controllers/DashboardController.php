@@ -21,6 +21,8 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Session;
 use Excel;
 use App\Master;
+use App\Transaction;
+use Carbon;
 
 class DashboardController extends Controller
 {
@@ -32,6 +34,8 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->dashboardObj = new Dashboard();
+                $this->userobj = new User();
+
     }
 
     /**
@@ -80,9 +84,9 @@ class DashboardController extends Controller
             try {
                 $user_id = Crypt::decrypt($user_id);
                 $check = Admin::where('id', '=', $user_id)->count();
-                if (is_int($user_id) && $check > 0) {
+                if (is_int($user_id) && $check > 0) {                 
                     $data['user'] = Admin::find($user_id);
-                    return view('admin.editUser', $data);
+                   return view('admin.editUser', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
                 }
@@ -90,7 +94,8 @@ class DashboardController extends Controller
                 return view("admin.errors");
             }
         } else {
-            return view('admin.addUser');
+             $data['users'] = $this->dashboardObj->selectFlatType();
+            return view('admin.addUser', $data);
         }
     }
 
@@ -105,10 +110,9 @@ class DashboardController extends Controller
     public function postUser(Request $request, $user_id = null)
     {
         $rules = array(
-            'user_first_name' => 'required|max:50',
-            'user_last_name'  => 'required|max:50',
             'owner'           => 'required|max:50',
-            'flat_type'       => 'required|max:50',
+            'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
+            'flat_type'       => 'required|string|flat_type|max:255|unique:users',
             'flat_number'     => 'required|max:50',
             'carpet_area'     => 'required|max:50',
         );
@@ -122,9 +126,8 @@ class DashboardController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'user_first_name'   => $request->input('user_first_name'),
-                'user_last_name'    => $request->input('user_last_name'),
                 'owner'             => $request->input('owner'),
+                'owner_mobile_no'   => $request->input('owner_mobile_no'),
                 'flat_type'         => $request->input('flat_type'),
                 'flat_number'       => $request->input('flat_number'),
                 'carpet_area'       => $request->input('carpet_area'),
@@ -134,7 +137,7 @@ class DashboardController extends Controller
             if (empty($user_id)) {
                 $requestData['user_email']    = $request->input('user_email');
                 $requestData['password']      = bcrypt($request->input("password"));
-                $user = Admin::create($requestData);
+                $user = Admin::insert($requestData);
                 //insert data in users table
                 if ($user) {
                     return redirect('adminUser')->with('message', __('messages.Record_added'));
@@ -225,32 +228,21 @@ class DashboardController extends Controller
                 'month'          => $request->input('month'),
                 'pending_amount' => $request->input('pending_amount'),
                 'extra_amount'   => $request->input('extra_amount'),
-                'user_status'    => $request->input('status')
-            );
-            if (empty($id)) {
-
-                $user = Maintenance::where('month', $requestData['month'])->where('user_id', '=', $user_id)->get();
-                if (count($user)>0) {
-                    return redirect()->back()->withInput()->withErrors(__('messages.already_paid '));
-                } else {
-                    
-                    $requestData['user_id'] = Crypt::decrypt($user_id);
-                    $user = Maintenance::create($requestData);
-                    
-                }
-                if ($user) {
-                    return redirect()->route('showmaintenance', $user_id)->with('message', __('messages.Record_added'));
-                } else {
-                    return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
-                }
+                'user_status'    => $request->input('status'),
+                'created_at'     => date('Y-m-d'),
+                'updated_at'     => date('Y-m-d')
+            );           
+            $user_id = Crypt::decrypt($user_id);
+            $users = DB::table('user_maintenance')->select('user_id', 'month')
+                ->where('user_id', '=', $user_id)
+                ->where('month', '=', $requestData['month'])
+                ->get()->toArray();
+            if (count($users)>0) {
+                return redirect()->back()->withInput()->withErrors(__('messages.already_paid '));
             } else {
-                $id = Crypt::encrypt($id);
-                if (is_int($id)) {
-                    $user = Maintenance::where(array('user_id' => $user_id))->update($requestData);
-                    return redirect()->route('showmaintenance', $user_id)->with('message', __('messages.Record_updated'));
-                } else {
-                    return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
-                }
+                $requestData['user_id'] = $user_id;
+                $user = Maintenance::create($requestData);
+                return redirect()->route('showmaintenance', Crypt::encrypt($user_id))->with('message', __('messages.Record_added'));
             }
         }
     }
@@ -374,7 +366,8 @@ class DashboardController extends Controller
                 return view("admin.errors");
             }
         } else {
-            return view('admin.addMaintenanceMaster');
+            $data['users'] = $this->dashboardObj->selectFlatType();
+            return view('admin.addMaintenanceMaster', $data);
         }
     }
 
@@ -431,7 +424,7 @@ class DashboardController extends Controller
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
  
-     /**
+    /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load flat type view with list of all flats
     * @return                 View
@@ -465,7 +458,8 @@ class DashboardController extends Controller
                 return view("admin.errors");
             }
         } else {
-            return view('admin.addFlatType');
+            $data['users'] = $this->dashboardObj->selectFlatType();
+            return view('admin.addFlatType', $data);
         }
     }
 
@@ -523,4 +517,76 @@ class DashboardController extends Controller
         DB::table('flat_type')->where('id', '=', $user_id)->delete();
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
+
+    /**
+     * @DateOfCreation         27 August 2018
+     * @ShortDescription       Get the ID from the ajax and pass it to the function to delete it
+     * @return                 Response
+     */
+    public function deleteUser(Request $request)
+    {
+        try {
+            //decrypt the id
+            $id = Crypt::decrypt($request->input('id'));
+            //check id is integer or not
+            if (is_int($id)) {
+                // get the record corresponding to specified id or terminate
+                $user = $this->userobj->retrieveRecordOrTerminate($id);
+                if ($user->delete()) {
+                    return Config::get('constants.OPERATION_CONFIRM');
+                } else {
+                    return Config::get('constants.OPERATION_FAIED');
+                }
+            } else {
+                // if there is some issue with id give error message
+                return Config::get('constants.ID_NOT_CORRECT');
+            }
+        } catch (DecryptException $e) {
+            // if there is some issue with id give error message
+            return Config::get('constants.ID_NOT_CORRECT');
+        }
+    }
+
+    /**
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load the maintenance transaction form view
+    * @return                 View
+    */
+    public function maintenanceTransaction()
+    {
+        $data['users'] = $this->dashboardObj->queryData();
+        return view('admin.maintenanceTransaction', $data);      
+    }
+
+    /**
+     * @DateOfCreation         28 September 2018s
+     * @ShortDescription       Get the ID from the ajax and pass it to the function to delete it
+     * @return                 Response
+     */
+    public function paidmaintenanceTransaction(Request $request)
+    {
+        $test = new Transaction();
+        $input = $request->all();
+        $test->flat_number=$input['flatNumber'];
+        $test->tenant_name=$input['tenentName'];
+        $test->owner_name=$input['ownerName'];
+        $test->amount=$input['amount'];
+        $test->pending_amount=$input['pendingAmount'];
+        $test->reason_pending_amount=$input['reasonPendingAmount'];
+        $test->extra_amount=$input['extraAmount'];
+        $test->reason_extra_amount=$input['reasonExtraAmount'];
+        //$test->coloumnname=$request->input('tenentName');
+        $created_at = date('Y-m-d H-i-s');
+        $flat_number = $input['flatNumber'];
+        $month=(date('m'));
+         $data['user'] = $test->selectMonth($flat_number);
+       
+        //$comments = DB::table('maintenance_transaction')->select
+    
+              print_r( $data['user']);
+                die();
+        $test->save();
+        return response()->json($test, 201);
+    }
+    
 }

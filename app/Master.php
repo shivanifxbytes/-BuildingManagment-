@@ -34,22 +34,23 @@ class Master extends Model
     protected $hidden = [
         'user_password',
     ];
-    
-   /**
-    * @DateOfCreation         07 Sep 2018
-    * @ShortDescription       This function selects the specified data from table
-    *@return [object]         [StdClass result object]
+
+/**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
     */
     public function getFlatId($user_id)
     {
         return DB::table('flat_type')
-        ->where('id', '=', $user_id)->count();  
+        ->where('id', '=', $user_id)->count();
+       
     }  
 
     /**
-    * @DateOfCreation         07 Sep 2018
-    * @ShortDescription       This function selects the specified data from table
-    *@return [object]         [StdClass result object]
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
     */
     public function findFlatId($user_id)
     {
@@ -70,5 +71,17 @@ class Master extends Model
     {
         return DB::table($table_name)->insertGetId($insert_array);
     }
+
+    /**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
+    */
+public function selectFlatType()
+{
+    return DB::table('flat_type')->get();
+
+}
+
 
 }
