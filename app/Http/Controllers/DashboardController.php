@@ -558,7 +558,7 @@ class DashboardController extends Controller
         $data['flats'] = $this->transactionobj->selectAllTransaction();
         /*print_r($data['flats']);
         die();*/
-        return view('admin.showMaintenanceTransactionList', $data);      
+        return view('admin.monthviewlist');      
     }
 
     /**
@@ -579,15 +579,14 @@ class DashboardController extends Controller
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
         //$test->coloumnname=$request->input('tenentName');
-        $created_at = date('Y-m-d H-i-s');
+        /*$created_at = date('Y-m-d H-i-s');
         $flat_number = $input['flatNumber'];
         $month=(date('m'));
-         $data['user'] = $test->selectMonth($flat_number);
+         $data['user'] = $test->selectMonth($flat_number);*/
        
         //$comments = DB::table('maintenance_transaction')->select
     
-              print_r( $data['user']);
-                die();
+             
         $test->save();
         return response()->json($test, 201);
     }

@@ -18,17 +18,16 @@
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0"
     },
-    "autoload": {
+ "autoload": {
         "classmap": [
             "database/seeds",
             "database/factories"
         ],
         "psr-4": {
             "App\\": "app/"
-        }, "files": [
-                "app/myhelper.php", 
-                "app/Helpers/Helper.php"
-        ]
+        },
+        "files": [
+        "app/myhelper.php" ]
     },
     "autoload-dev": {
         "psr-4": {
