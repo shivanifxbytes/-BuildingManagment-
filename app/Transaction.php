@@ -35,16 +35,27 @@ class Transaction extends Model
     protected $hidden = [
         'user_password',
     ];
-    
 
-    /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Select data from maintenance transaction table 
-    * @return                 Response
+ /**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
     */
     public static function selectMonth($flat_number)
     {
-        return DB::table('maintenance_transaction')
+         return DB::table('maintenance_transaction')
         ->where('flat_number', '=', $flat_number)->first();
+        
     }
+
+    /**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
+    */
+public function selectAllTransaction()
+{
+    return DB::table('maintenance_transaction')->get();
+
+}
 }

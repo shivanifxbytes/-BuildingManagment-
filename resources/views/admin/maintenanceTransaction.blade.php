@@ -2,10 +2,10 @@
 @section('content')       
 <div class="row">
   <div class="col-lg-12">
-    <h3 class="page-header"><i class="fa fa-file-text-o"></i> {{ __('messages.add_user')}}</h3>
+    <h3 class="page-header"><i class="fa fa-file-text-o"></i> {{ __('messages.maintenance_transaction') }}</h3>
     <ol class="breadcrumb">
       <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard"> {{ __('messages.home')}}</a></li>
-      <li><i class="fa fa-file-text-o"></i> {{ __('messages.add_user')}}</li>
+      <li><i class="fa fa-file-text-o"></i> {{ __('messages.flats')}}</li>
     </ol>
   </div>
 </div>
@@ -50,6 +50,8 @@
   echo create_rows_column_table(12,101);
   echo create_rows_column_table(10,201);
   echo create_rows_column_table(6,301);
+  echo create_rows_column_table(8,401);
+  echo create_rows_column_table(4,501);
   ?> 
 </table>    
 </form>

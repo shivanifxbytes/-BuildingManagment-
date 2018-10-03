@@ -552,10 +552,13 @@ class DashboardController extends Controller
     * @ShortDescription       Load the maintenance transaction form view
     * @return                 View
     */
-    public function maintenanceTransaction()
+    public function showMaintenanceTransactionList()
     {
-        $data['users'] = $this->dashboardObj->queryData();
-        return view('admin.maintenanceTransaction', $data);      
+        $this->transactionobj = new Transaction();
+        $data['flats'] = $this->transactionobj->selectAllTransaction();
+        /*print_r($data['flats']);
+        die();*/
+        return view('admin.showMaintenanceTransactionList', $data);      
     }
 
     /**
@@ -589,4 +592,23 @@ class DashboardController extends Controller
         return response()->json($test, 201);
     }
     
+    public function monthlyExpences()
+    {
+         $data['users'] = $this->dashboardObj->queryData();
+        return view('admin.monthlyExpences');
+    }
+
+
+    /**
+    * @DateOfCreation         27 August 2018
+    * @ShortDescription       Function run according to the parameter if $user_id is NUll
+    *                         then it return add view
+    * @return                 View
+    */
+    public function addMaintenanceTransaction()
+    {
+        //$user_id = Crypt::decrypt($user_id);
+        return view('admin.maintenanceTransaction');
+    }
+
 }

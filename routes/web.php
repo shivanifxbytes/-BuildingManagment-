@@ -74,5 +74,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/delete/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteFlatType']);
 
  });
- Route::get('/maintenanceTransaction', ['as'=>'maintenanceTransaction','uses'=>'DashboardController@maintenanceTransaction']);
+ Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
+ Route::get('/showMaintenanceTransactionList', ['as'=>'showMaintenanceTransactionList','uses'=>'DashboardController@showMaintenanceTransactionList']);
+ Route::get('/monthlyExpences', ['as'=>'monthlyExpences','uses'=>'DashboardController@monthlyExpences']);
   Route::post('/paid','DashboardController@paidmaintenanceTransaction');

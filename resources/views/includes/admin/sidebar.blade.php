@@ -22,12 +22,12 @@
        </a>
      </li>
       <li>
-       <a class="" href="{{ url('/') }}/maintenanceTransaction">
+       <a class="" href="{{ url('/') }}/showMaintenanceTransactionList">
          <span>{{ __('messages.maintenance_transaction') }}</span>
        </a>
      </li>
       <li>
-       <a class="" href="{{ url('/') }}/maintenanceTransaction">
+       <a class="" href="{{ url('/') }}/monthlyExpences">
          <span>{{ __('messages.monthly_expenses') }}</span>
        </a>
      </li>
