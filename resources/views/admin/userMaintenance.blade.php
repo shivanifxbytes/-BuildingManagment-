@@ -2,10 +2,16 @@
   @section('content')
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.user') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenance/0/{{Crypt::encrypt($user_id)}}"> {{__('messages.add_maintenance')}} </a></h3>
+      <h3 class="page-header">
+        <i class="fa fa-table"></i>
+      @if(isset($user_maintenance[0]->user_first_name)) {{ ucfirst($user_maintenance[0]->user_first_name) }} @endif @if(isset($user_maintenance[0]->user_last_name)) {{ ucfirst($user_maintenance[0]->user_last_name) }} @endif
+        <a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenance/0/{{Crypt::encrypt($user_id)}}"> {{__('messages.add_maintenance')}} 
+        </a>
+      </h3>
       <ol class="breadcrumb">
         <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
-        <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>
+        <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>        
+      </li>
       </ol>
     </div>
   </div>
@@ -30,23 +36,24 @@
               <th>{{ __('messages.sno') }}</th>
               <th><i class="icon_profile"></i>{{ __('messages.amount') }}</th>
               <th><i class="icon_mail_alt"></i>{{ __('messages.month') }}</th>
-              <th><i class="icon_calendar"></i>{{ __('messages.pa
-              nding_amount') }}</th>
-              <th><i class="icon_pin_alt"></i>{{ __('messages.extra_amount') }}</th>
+              <th><i class="icon_calendar"></i>{{ __('messages.pending_amount') }}</th>
+              <th><i class="icon_pin_alt"></i>{{ __('messages.extra_amount') }}</th>             
+              <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody>                
             @foreach($user_maintenance as $key => $row)
             <tr>
-              <th>{{$key}}</th>
+               <th>{{ $no }}</th>
+              <?php $no++; ?>
               <td>{{$row->amount }}</td>
               <td>{!! showMonth($row->month) !!}</td>
               <td>{{$row->pending_amount }}</td>
-              <td> {{$row->extra_amount}}</td>
+              <td> {{$row->extra_amount}}</td>              
               <td>
                 <div class="btn-group">
-                 <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addMaintenance/{{ Crypt::encrypt($row->id) }}" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp;
-                 <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
+                 <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/editmaintenance/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a>
+                 <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                </div>
              </td>
            </tr>

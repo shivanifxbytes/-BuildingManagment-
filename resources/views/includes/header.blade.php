@@ -18,9 +18,6 @@
                         <li>
                                 <a href="{{ url('/') }}">{{ __('messages.home') }}</a>
                         </li>
-                        <li>
-                                <a href="{{ url('/blogs') }}">{{ __('messages.blogs') }}</a>
-                        </li>
                         @if(!empty(Auth::user()->user_id))
                         <li>
                                 <a>{{ __('messages.welcome') }} {{ Auth::user()->user_first_name }} {{ Auth::user()->user_last_name }}</a>

@@ -11,5 +11,6 @@ return [
     'DEACTIVE_STATUS' => 0,
     'OPERATION_CONFIRM' => 1,
     'OPERATION_FAIED' => 0,
-    'ID_NOT_CORRECT' => 2
+    'ID_NOT_CORRECT' => 2,
+    'S_NO'			=>1,
 ];

@@ -6,14 +6,29 @@
          <span>{{ __('messages.dashboard') }}</span>
        </a>
      </li>
-     <li>
+      <li>
        <a class="" href="{{ url('/') }}/users">
-         <span>{{ __('messages.users') }}</span>
+         <span>{{ __('messages.flats') }}</span>
        </a>
      </li>
      <li>
-       <a class="" href="{{ url('/') }}/adminBlogs">
-         <span>{{ __('messages.blogs') }}</span>
+       <a class="" href="{{ url('/') }}/maintenanceMaster">
+         <span>{{ __('messages.maintenance_master') }}</span>
+       </a>
+     </li>
+     <li>    
+       <a class="" href="{{ url('/') }}/flatType">
+         <span>{{ __('messages.flat_type') }}</span>
+       </a>
+     </li>
+      <li>
+       <a class="" href="{{ url('/') }}/showMaintenanceTransactionList">
+         <span>{{ __('messages.maintenance_transaction') }}</span>
+       </a>
+     </li>
+      <li>
+       <a class="" href="{{ url('/') }}/monthlyExpences">
+         <span>{{ __('messages.monthly_expenses') }}</span>
        </a>
      </li>
     </ul>

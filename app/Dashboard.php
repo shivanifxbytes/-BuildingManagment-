@@ -40,9 +40,31 @@ public function showUser($id)
 {
     return  DB::table('user_maintenance')
             ->join('users', 'user_maintenance.user_id', '=', 'users.id')
-            ->select('user_maintenance.amount', 'user_maintenance.month', 'user_maintenance.pending_amount', 'extra_amount','users.id')
+            ->select('user_maintenance.amount', 'user_maintenance.month','user_maintenance.user_id', 'user_maintenance.pending_amount', 'extra_amount','user_maintenance.id','users.user_first_name','users.user_last_name','users.flat_number')
             ->where('user_maintenance.user_id', $id)
             ->get();
+}
+ 
+  /**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
+    */
+public function selectMaintenance()
+{
+    return DB::table('maintenance_master')->get();
+
+}
+
+/**
+    * @DateOfCreation         27 Aug 2018
+    * @ShortDescription       Load user maintenance view with list of all maintenance 
+    * @return                 View
+    */
+public function selectFlatType()
+{
+    return DB::table('flat_type')->get();
+
 }
 
 }
