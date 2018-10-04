@@ -34,7 +34,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->dashboardObj = new Dashboard();
-                $this->userobj = new User();
+        $this->userobj = new User();
 
     }
 
@@ -158,7 +158,7 @@ class DashboardController extends Controller
 
     /**
     * @DateOfCreation         27 August 2018
-    * @ShortDescription       Load user maintanence view with list of user whoes user id is equal to maintenance id
+    * @ShortDescription       Load user maintanence view with list of user when user id is equal to maintenance id
     * @return                 View
     */
     public function showMaintenance($id, $user_id=null)
@@ -170,8 +170,7 @@ class DashboardController extends Controller
 
     /**
     * @DateOfCreation         27 August 2018
-    * @ShortDescription       Function run according to the parameter if $user_id is NUll
-    *                         then it return add view
+    * @ShortDescription       Load add maintenance view
     * @return                 View
     */
     public function addMaintenance($id, $user_id)
@@ -293,7 +292,10 @@ class DashboardController extends Controller
 
     /**
     * @DateOfCreation         05 September 2018
-    * @ShortDescription       Display a listing of the resource.
+    * @ShortDescription       This function handle the post request which get after submit
+    *                         and function run according to the parameter if $user_id is NUll
+    *                         then it will insert the value If we get ID it will update the value
+    *                         according to the ID
     * @return                 Response
     */
     public function importExcel(Request $request)
@@ -383,15 +385,15 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_type'  => 'required|max:50',
+            'flat_type'          => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'maintenance_amount'   => $request->input('maintenance_amount'),
-                'flat_type'    => $request->input('flat_type'),
+                'maintenance_amount' => $request->input('maintenance_amount'),
+                'flat_type'          => $request->input('flat_type'),
             );
             if (empty($user_id)) {
                 $user = Master::create($requestData);
@@ -526,11 +528,8 @@ class DashboardController extends Controller
     public function deleteUser(Request $request)
     {
         try {
-            //decrypt the id
             $id = Crypt::decrypt($request->input('id'));
-            //check id is integer or not
             if (is_int($id)) {
-                // get the record corresponding to specified id or terminate
                 $user = $this->userobj->retrieveRecordOrTerminate($id);
                 if ($user->delete()) {
                     return Config::get('constants.OPERATION_CONFIRM');
@@ -538,13 +537,21 @@ class DashboardController extends Controller
                     return Config::get('constants.OPERATION_FAIED');
                 }
             } else {
-                // if there is some issue with id give error message
                 return Config::get('constants.ID_NOT_CORRECT');
             }
         } catch (DecryptException $e) {
-            // if there is some issue with id give error message
             return Config::get('constants.ID_NOT_CORRECT');
         }
+    }
+
+     /**
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load the maintenance transaction form view
+    * @return                 View
+    */
+    public function monthViewList()
+    {      
+        return view('admin.monthViewList');      
     }
 
     /**
@@ -556,14 +563,12 @@ class DashboardController extends Controller
     {
         $this->transactionobj = new Transaction();
         $data['flats'] = $this->transactionobj->selectAllTransaction();
-        /*print_r($data['flats']);
-        die();*/
         return view('admin.showMaintenanceTransactionList', $data);      
     }
 
     /**
      * @DateOfCreation         28 September 2018s
-     * @ShortDescription       Get the ID from the ajax and pass it to the function to delete it
+     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
      * @return                 Response
      */
     public function paidmaintenanceTransaction(Request $request)
@@ -578,36 +583,33 @@ class DashboardController extends Controller
         $test->reason_pending_amount=$input['reasonPendingAmount'];
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
-        //$test->coloumnname=$request->input('tenentName');
-        $created_at = date('Y-m-d H-i-s');
-        $flat_number = $input['flatNumber'];
-        $month=(date('m'));
-         $data['user'] = $test->selectMonth($flat_number);
-       
-        //$comments = DB::table('maintenance_transaction')->select
-    
-              print_r( $data['user']);
-                die();
         $test->save();
         return response()->json($test, 201);
+        //$test->coloumnname=$request->input('tenentName');
+        // $created_at = date('Y-m-d H-i-s');
+        // $flat_number = $input['flatNumber'];
+        // $month=(date('m'));
+        // $data['user'] = $test->selectMonth($flat_number);
     }
     
+    /**
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load the monthly Expences form view
+    * @return                 View
+    */
     public function monthlyExpences()
     {
-         $data['users'] = $this->dashboardObj->queryData();
+        $data['users'] = $this->dashboardObj->queryData();
         return view('admin.monthlyExpences');
     }
 
-
     /**
     * @DateOfCreation         27 August 2018
-    * @ShortDescription       Function run according to the parameter if $user_id is NUll
-    *                         then it return add view
+    * @ShortDescription       Load the add Maintenance Transaction form view
     * @return                 View
     */
     public function addMaintenanceTransaction()
     {
-        //$user_id = Crypt::decrypt($user_id);
         return view('admin.maintenanceTransaction');
     }
 

@@ -22,7 +22,7 @@
        </a>
      </li>
       <li>
-       <a class="" href="{{ url('/') }}/showMaintenanceTransactionList">
+       <a class="" href="{{ url('/') }}/monthViewList">
          <span>{{ __('messages.maintenance_transaction') }}</span>
        </a>
      </li>

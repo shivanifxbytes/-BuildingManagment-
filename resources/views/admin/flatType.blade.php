@@ -2,7 +2,6 @@
 @section('content')
         <div class="row">
           <div class="col-lg-12">
-
             <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flat_type') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addFlatType"> {{__('messages.add_flat')}} </a>
           </h3>
             <ol class="breadcrumb">
@@ -53,8 +52,7 @@
                    </tr>
                   @endforeach                 
                 </tbody>
-              </table>
-             
+              </table>            
             </section>
           </div>
         </div>

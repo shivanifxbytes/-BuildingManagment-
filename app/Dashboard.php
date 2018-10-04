@@ -17,24 +17,25 @@ class Dashboard extends Model
  
      /**
     * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the dashboard view 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table
+    * @return                 result
     */
     public function queryData(){
    	return Admin::where('user_role_id', '!=' , Config::get('constants.ADMIN_ROLE'))->get();
    }
+
     /**
     * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load users view with list of all users 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table
+    * @return                 result
     */
     public function countUsers(){
    	return Admin::where('user_role_id', Config::get('constants.USER_ROLE'))->count();
    }
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function join two table and selects the specified data from table 
+    * @return                 result
     */
 public function showUser($id)
 {
@@ -47,8 +48,8 @@ public function showUser($id)
  
   /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table
+    * @return                 result
     */
 public function selectMaintenance()
 {
@@ -58,8 +59,8 @@ public function selectMaintenance()
 
 /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table
+    * @return                 result
     */
 public function selectFlatType()
 {

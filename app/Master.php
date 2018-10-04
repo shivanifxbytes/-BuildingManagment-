@@ -37,8 +37,8 @@ class Master extends Model
 
 /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table and count 
+    * @return                 result
     */
     public function getFlatId($user_id)
     {
@@ -49,8 +49,8 @@ class Master extends Model
 
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table 
+    * @return                 result
     */
     public function findFlatId($user_id)
     {
@@ -74,8 +74,8 @@ class Master extends Model
 
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table 
+    * @return                 result
     */
 public function selectFlatType()
 {
