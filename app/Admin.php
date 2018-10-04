@@ -41,11 +41,5 @@ class Admin extends Authenticatable
     protected $hidden = [
         'user_password','remember_token',
     ];
-    
-    /**
-     *@ShortDescription Override the primary key in the table.
-     *
-     * @var string
-     */
-    
+
 }

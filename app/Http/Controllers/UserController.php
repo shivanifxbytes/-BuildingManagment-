@@ -89,8 +89,7 @@ class UserController extends Controller
     public function userRegister(Request $request)
     {
         $rules = array(
-                    'user_first_name' => 'required|max:50',
-                    'user_last_name'  => 'required|max:50',
+                    'tenant_full_name' => 'required|max:50',
                     'flat_number'     => 'required|max:50',
                     'carpet_area'     => 'required|max:50',
                     'user_email'      => 'required|string|email|max:255|unique:users',
@@ -105,14 +104,13 @@ class UserController extends Controller
             if (empty($id)) {
                 //final array of the data from the request
                 $insertData = array(
-                                    'user_first_name' => $request->input('user_first_name'),
-                                    'user_last_name'  => $request->input('user_last_name'),
+                                    'tenant_full_name' => $request->input('tenant_full_name'),
                                     'flat_number'     => $request->input('flat_number'),
                                     'carpet_area'     => $request->input('carpet_area'),
                                     'user_email'      => $request->input('user_email'),
                                     'password'        => bcrypt($request->input("password")),
                                     'user_status'     => $request->input('status'),
-                                    'user_role_id'    => Config::get('constants.ADMIN_ROLE')
+                                    'user_role_id'    => Config::get('constants.USER_ROLE')
                                 );
                 $user = User::create($insertData);
                 //insert data in users table

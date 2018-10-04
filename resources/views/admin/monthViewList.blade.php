@@ -10,7 +10,9 @@
         </ol>
     </div>
 </div>
-<select class="form-control" id="sel1" name="sellist1">
+<div class="row">
+    <div class="col-lg-6 col-md-offset-3">
+<select class="form-control"  id="sel1" name="sellist1">
     <option>Select Year</option>
     <option>2018</option>
     <option>2019</option>
@@ -36,8 +38,7 @@
     <option>2039</option>
 </select>
 <hr />
-<div class="row">
-    <div class="col-lg-12">
+
         <ul class="list-group">
             <a href="{{ url('/') }}/showMaintenanceTransactionList"><li class="list-group-item">January</li></a>
             <a href=""><li class="list-group-item">February</li></a>
