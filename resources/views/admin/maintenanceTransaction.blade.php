@@ -23,7 +23,8 @@
      <th>Pending Amount</th>
      <th>Reason Panding Amount</th> 
      <th>Extra Amount</th>
-     <th>Reason Extra Amount</th>  
+     <th>Reason Extra Amount</th>
+     <th>Date</th>
      <th>Action</th>     
      </tr>';
      for ($row=0;$row<$rows;$row++)
@@ -38,6 +39,7 @@
       <td><input type="text" name="rPendingAmout" id="rPendingAmout_'.$flatno.'" placeholder="" required></td>
       <td><input type="text" name="extra_amount" id="extra_amount_'.$flatno.'" placeholder="" required></td>
       <td><input type="text" name="extra_rAmount" id="extra_rAmount_'.$flatno.'" placeholder="" required></td>
+      <td> <input class="date" type="text"> </td>
       <td><button type="button" onClick="payMaintence('.$flatno.')" class="btn btn-primary">Paid</button></td>
       </tr>';
     }
@@ -56,6 +58,10 @@
 </table>    
 </form>
 @endsection
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
 <script type="text/javascript"> 
 function payMaintence(flatNumber){
 var flatNumber=$("#flat_num_"+flatNumber).val();
@@ -98,3 +104,11 @@ var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
 }
 
 </script>
+ 
+    <script type="text/javascript"> 
+    $(document).ready(function(){
+      $('.date').datepicker({  
+           format: 'mm-dd-yyyy'  
+         });  
+    })        
+    </script> 

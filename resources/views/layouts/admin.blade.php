@@ -13,6 +13,15 @@
   <link href="{{ asset('public/backend/css/style.css') }}" rel="stylesheet">
  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
  <link href="{{ asset('public/backend/css/sweetalert.css') }}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
+  <style type="text/css">
+    ul.sidebar-menu li.active a{
+      background: #ccc;
+  }
+  ul.sidebar-menu li.active span{
+      color: white;
+  }
+</style>
 </head>
 <body>
   <!-- container section start -->
@@ -38,6 +47,7 @@
   <script src="{{ asset('public/backend/js/bootstrap.min.js') }}" type="text/javascript"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
   <script src="{{ asset('public/backend/js/sweetalert.min.js') }}" type="text/javascript"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
   <script type="text/javascript">
      var table = $('#data-table').DataTable( {
         rowReorder: true
