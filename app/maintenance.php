@@ -53,9 +53,9 @@ class Maintenance extends Model
     }
 
     /**
-    * @DateOfCreation       05 Sep 2018
+    * @DateOfCreation               05 Sep 2018
     * @DateOfDeprecated
-    * @ShortDescription     This function selects the specified data from table
+    * @ShortDescription             This function selects the specified data from table
     * @LongDescription
     * @param  string $table_name
     * @param  array  $select_array
@@ -71,8 +71,5 @@ class Maintenance extends Model
             ->get();
         
     }
-    /*public static function create()
-    {
-        return Db::table('')
-    }*/
+   
 }

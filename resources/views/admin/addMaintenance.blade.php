@@ -10,14 +10,12 @@
       <li><i class="fa fa-file-text-o"></i> </li>
     </ol>
   </div>
-</div>
-      
+</div>      
 <form role="form" name="Registration_Form" method="post" action="">
   <div class="row"><div class="col-lg-3"></div>
   <div class="col-lg-6">
     <section class="panel">
-      <header class="panel-heading">
-        
+      <header class="panel-heading">       
       </header>
       <div class="panel-body">
         @if ($errors->any())

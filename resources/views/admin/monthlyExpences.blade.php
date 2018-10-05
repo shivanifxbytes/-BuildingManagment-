@@ -15,8 +15,10 @@
     <div class="col-md-12">
       <table class="table table-bordered table-hover" id="tab_logic_total">
         <tbody>
-          <label >Date</label>
-          <input type="date" name="from_date" id="from_date" class="form-control"  />
+          <form>
+            <label>Date</label>
+            <input type="date" name="from_date" id="from_date" />
+          </form>       
         </tbody>
       </table>
     </div>
@@ -27,7 +29,7 @@
            <th>Title</th>    
            <th>Amount</th>       
            <th>Paid By</th>
-           <th>Card Number</th>
+           <th>Reference  Number</th>
            <th>Action</th>     
          </tr>
        </thead>

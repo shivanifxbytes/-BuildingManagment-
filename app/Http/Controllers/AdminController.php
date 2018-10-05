@@ -37,10 +37,10 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
-     /**
+    /**
     * @DateOfCreation         22 aug 2018
-    * @ShortDescription       login user 
-    * @return                 View
+    * @ShortDescription       login user
+    * @return                 result
     */
     public function postLogin(Request $request)
     {
@@ -57,7 +57,7 @@ class AdminController extends Controller
             $inputData = array(
                 'user_email' => $request->input('email'),
                 'password' => $request->input('password')
-            );            
+            );
             if (Auth::attempt($inputData)) {
                 $role_id =  Auth::user()->user_role_id;
                 if ($role_id == Config::get('constants.ADMIN_ROLE')) {
@@ -66,9 +66,11 @@ class AdminController extends Controller
                     return redirect("/welcome")->with(array("message"=>__('messages.login_success')))->with($role_id);
                 }
             } else {
-               //Check Email exist in the database or not
+                //Check Email exist in the database or not
                 if (Admin::where(
-                        'user_email', '=', $inputData['user_email']
+                        'user_email',
+                    '=',
+                    $inputData['user_email']
                 )->first()) {
                     $validator->getMessageBag()->add('password', __('messages.wrong_password'));
                 } else {

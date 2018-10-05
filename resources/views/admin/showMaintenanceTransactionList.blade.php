@@ -28,14 +28,14 @@
      </tr> 
       @foreach($flats as $key => $row) 
     <tr>
-      <td><input type="text" value="{{$row->flat_number}}" name="flat_type" placeholder=""/></td>
-      <td><input type="text" value="{{$row->tenant_name}}" name="tenent" placeholder="enter tenent name" required></td>
-      <td><input type="text" value="{{$row->owner_name}}" name="owner" placeholder="" required></td>
-      <td><input type="text" value="{{$row->amount}}" name="amount" placeholder="" required></td>
-      <td><input type="text" value="{{$row->pending_amount}}" name="pending_amount" placeholder="" required></td>
-      <td><input type="text" value="{{$row->reason_pending_amount}}" name="rPendingAmout" placeholder="" required></td>
-      <td><input type="text" value="{{$row->extra_amount}}" name="extra_amount" placeholder="" required></td>
-      <td><input type="text" value="{{$row->reason_extra_amount}}" name="extra_rAmount" placeholder="" required></td>
+      <td>{{$row->flat_number}}</td>
+      <td>{{$row->tenant_name}}</td>
+      <td>{{$row->owner_name}}</td>
+      <td>{{$row->amount}}</td>
+      <td>{{$row->pending_amount}}</td>
+      <td>{{$row->reason_pending_amount}}</td>
+      <td>{{$row->extra_amount}}</td>
+      <td>{{$row->reason_extra_amount}}</td>
       <td><button type="button" class="btn btn-primary">Edit</button>
       &nbsp;&nbsp;&nbsp;
       <button type="button" class="btn btn-primary">Delete</button>

@@ -3,14 +3,12 @@
         <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
       </div>
       <!--logo start-->
-      <a href="{{ url('/') }}" class="logo">{{ __('messages.project_name') }}</a>
-     
+      <a href="{{ url('/') }}" class="logo">{{ __('messages.project_name') }}</a>   
       <div class="top-nav">
         <ul class="nav pull-right top-menu">
           <li>
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-             <span class="profile-ava">
-                                
+             <span class="profile-ava">                             
                             </span>
                             <b class="caret"></b>
                         </a>

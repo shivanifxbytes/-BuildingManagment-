@@ -24,8 +24,7 @@
         @endforeach
         @endif
         <div class="col-lg-12">
-          <div class="form-group">
-            
+          <div class="form-group">           
             <label for="flat_type">Flat Type</label>
             <select name="flat_type" id="flat_type" class="form-control" >
               @switch($user[0]->flat_type)

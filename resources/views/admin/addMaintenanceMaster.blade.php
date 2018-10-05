@@ -30,8 +30,7 @@
             <label>{{ __('messages.amount')}}</label>
             <input type="text" class="form-control" name="maintenance_amount" placeholder="{{ __('messages.amount')}}" required>
           </div>
-          <div class="form-group">
-             
+          <div class="form-group">            
             <label for="flat_type">Flat Type</label>
             <select name="flat_type" id="flat_type" class="form-control" >
               <option value="" selected="selected">Select Flat Type</option>

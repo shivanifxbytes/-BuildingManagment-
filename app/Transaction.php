@@ -24,7 +24,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-       'amount','flat_number','tenant_name','pending_amount','extra_amount','reason_extra_amount','owner_name','reason_pending_amount','created_at','updated_at',
+     'amount','flat_number','tenant_name','pending_amount','extra_amount','reason_extra_amount','owner_name','reason_pending_amount','created_at','updated_at',
     ];
 
     /**
@@ -36,26 +36,24 @@ class Transaction extends Model
         'user_password',
     ];
 
- /**
-    * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
-    */
+    /**
+       * @DateOfCreation         27 Aug 2018
+       * @ShortDescription       This function selects the specified data from table
+       * @return                 Return
+       */
     public static function selectMonth($flat_number)
     {
-         return DB::table('maintenance_transaction')
-        ->where('flat_number', '=', $flat_number)->first();
-        
+        return DB::table('maintenance_transaction')
+   ->where('flat_number', '=', $flat_number)->first();
     }
 
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance 
-    * @return                 View
+    * @ShortDescription       This function selects the specified data from table
+    * @return                 Return
     */
-public function selectAllTransaction()
-{
-    return DB::table('maintenance_transaction')->get();
-
-}
+    public function selectAllTransaction()
+    {
+        return DB::table('maintenance_transaction')->get();
+    }
 }

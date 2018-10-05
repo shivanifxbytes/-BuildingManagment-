@@ -32,8 +32,7 @@
          <div class="form-group">
           <label for="month">month</label>
           <input type="text" class="form-control" name="month" placeholder="{{ __('messages.month')}}" value="{{ $user->month}}" required>
-            <span id="product_discount" class="text-danger">
-            
+            <span id="product_discount" class="text-danger">            
             </span>
         </div> 
         <div class="form-group">

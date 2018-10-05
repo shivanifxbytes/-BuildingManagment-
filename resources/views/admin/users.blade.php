@@ -2,7 +2,6 @@
 @section('content')
         <div class="row">
           <div class="col-lg-12">
-
             <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flats') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addUser"> {{__('messages.add_flat')}} </a>
           </h3>
             <ol class="breadcrumb">
@@ -97,7 +96,6 @@
                 <div class="pull-right" style="padding: 10px;">
                 <button class="btn btn-primary">Import File</button>
                 </div>
-
               </form>
             </section>
           </div>

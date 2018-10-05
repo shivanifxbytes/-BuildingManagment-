@@ -25,9 +25,7 @@ class User extends Authenticatable
      *
      * @var String
      */
-    protected $table = 'users';
-   
-   
+    protected $table = 'users';  
    
     /**
      *@ShortDescription  The attributes that are mass assignable.
@@ -45,12 +43,11 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'user_password','remember_token',
-    ];
-     
+    ];    
   
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintenance view with list of all maintenance
+    * @ShortDescription       This function join two table and selects the specified data from table
     * @return                 View
     */
     public function showUser($id)
@@ -63,14 +60,15 @@ class User extends Authenticatable
         die();
     }
 
-     /**
-     * @DateOfCreation         23-August-2018
-     * @ShortDescription       This function either get the record or terminate end
-     * @param  [id]            ID of the record to be retrieved
-     * @return [object]     [user record or error]
-     */
+    /**
+    * @DateOfCreation         23-August-2018
+    * @ShortDescription       This function either get the record or terminate end
+    * @param  [id]            ID of the record to be retrieved
+    * @return [object]     [user record or error]
+    */
     public function retrieveRecordOrTerminate($id)
     {
         return User::findOrFail($id);
     }
+
 }

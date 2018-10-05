@@ -72,5 +72,6 @@ return [
     'maintenance_master'=>'Maintenance',
     'owner_mobile_no'=>'Phone Number',
     'monthly_expenses' => 'Monthly Expenses',
-    'month_list'    => 'View Month List'
+    'month_list'    => 'View Month List',
+    'edit_flat'=>'Edit Flat'
 ];
