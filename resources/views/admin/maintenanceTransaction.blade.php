@@ -59,56 +59,56 @@
 </form>
 @endsection
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
 <script type="text/javascript"> 
-function payMaintence(flatNumber){
-var flatNumber=$("#flat_num_"+flatNumber).val();
-var tenentName=$("#tenent_"+flatNumber).val();
-var ownerName=$("#owner_"+flatNumber).val();
-var amount=$("#amount_"+flatNumber).val();
-var pendingAmount=$("#pending_amount_"+flatNumber).val();
-var reasonPendingAmount=$("#rPendingAmout_"+flatNumber).val();
-var extraAmount=$("#extra_amount_"+flatNumber).val();
-var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
-            $.ajax({
-                url: base_url + '/paid',
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': csrf_token
-                },
-                data: {
-                    flatNumber:flatNumber,
-                    tenentName: tenentName,
-                    ownerName: ownerName,
-                    amount: amount,
-                    pendingAmount: pendingAmount,
-                    reasonPendingAmount: reasonPendingAmount,
-                    extraAmount: extraAmount,
-                    reasonExtraAmount: reasonExtraAmount
-                },
-                success: function (response) {
-                  alert(response);
+  function payMaintence(flatNumber){
+    var flatNumber=$("#flat_num_"+flatNumber).val();
+    var tenentName=$("#tenent_"+flatNumber).val();
+    var ownerName=$("#owner_"+flatNumber).val();
+    var amount=$("#amount_"+flatNumber).val();
+    var pendingAmount=$("#pending_amount_"+flatNumber).val();
+    var reasonPendingAmount=$("#rPendingAmout_"+flatNumber).val();
+    var extraAmount=$("#extra_amount_"+flatNumber).val();
+    var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
+    $.ajax({
+      url: base_url + '/paid',
+      type: 'post',
+      headers: {
+        'X-CSRF-TOKEN': csrf_token
+      },
+      data: {
+        flatNumber:flatNumber,
+        tenentName: tenentName,
+        ownerName: ownerName,
+        amount: amount,
+        pendingAmount: pendingAmount,
+        reasonPendingAmount: reasonPendingAmount,
+        extraAmount: extraAmount,
+        reasonExtraAmount: reasonExtraAmount
+      },
+      success: function (response) {
+        alert(response);
                     // if (response == 1) {
                     //     swal("paid!", "Your entry has been paid.", "success");
                     // } else {
                     //     swal("error", "Something want wrong, Please try again later", "error");
                     // }
-                },
-                error:function(xhr)
-                {
+                  },
+                  error:function(xhr)
+                  {
                     console.log(xhr);
-                }
-            });
-}
+                  }
+                });
+  }
 
 </script>
- 
-    <script type="text/javascript"> 
-    $(document).ready(function(){
-      $('.date').datepicker({  
-           format: 'mm-dd-yyyy'  
-         });  
-    })        
-    </script> 
+
+<script type="text/javascript"> 
+  $(document).ready(function(){
+    $('.date').datepicker({  
+     format: 'mm-dd-yyyy'  
+   });  
+  })        
+</script> 

@@ -15,6 +15,7 @@ class CreateFlatTypeTable extends Migration
     {
         Schema::create('flat_type', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('flat_number')->unique();
             $table->string('flat_type');
             $table->timestamps();
         });

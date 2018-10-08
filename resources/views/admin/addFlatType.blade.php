@@ -27,6 +27,10 @@
         @endif
         <div class="col-lg-12">
           <div class="form-group">            
+            <label for="flat_type">Flat Number</label>
+           <input type="text" name="flat_number" id="flat_number" class="form-control" >       
+          </div> 
+          <div class="form-group">            
             <label for="flat_type">Flat Type</label>
            <input type="text" name="flat_type" id="flat_type" class="form-control" >       
           </div> 
