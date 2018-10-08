@@ -20,6 +20,9 @@
   ul.sidebar-menu li.active span{
       color: white;
   }
+  #sidebar{
+    z-index: 999;
+  }
 </style>
 </head>
 <body>

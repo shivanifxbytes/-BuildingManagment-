@@ -4,6 +4,10 @@
 body{
     background:#f1f9f9;
 }
+.active {
+     background-color: #ccc;
+}
+
 
 .form-signin {
     max-width: 500px;

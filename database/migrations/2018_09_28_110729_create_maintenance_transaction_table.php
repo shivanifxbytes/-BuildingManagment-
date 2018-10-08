@@ -24,6 +24,7 @@ class CreateMaintenanceTransactionTable extends Migration
             $table->decimal('extra_amount');
             $table->string('reason_extra_amount')->default('');
             $table->decimal('card_number')->nullable()->default(null);
+            $table->integer('month')->unsigned();
             $table->timestamps();
         });
     }

@@ -571,8 +571,8 @@ class DashboardController extends Controller
     */
     public function monthlyExpences()
     {
-        $data['users'] = $this->dashboardObj->queryData();
-        return view('admin.monthlyExpences');
+        //$data['users'] = $this->dashboardObj->queryData();
+        return view('admin.monthlyExpenses');
     }
     /**
     * @DateOfCreation         27 August 2018
@@ -582,6 +582,13 @@ class DashboardController extends Controller
     public function addMaintenanceTransaction()
     {
         return view('admin.maintenanceTransaction');
+    }
+    /**
+     * [addMonthlyExpense description]
+     */
+    public function addMonthlyExpense()
+    {
+        return view('admin.addMonthlyExpenses');
     }
 }
 

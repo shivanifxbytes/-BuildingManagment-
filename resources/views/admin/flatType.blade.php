@@ -28,20 +28,16 @@
               <table class="table table-striped table-advance table-hover" id="data-table">
                   <thead>
                   <tr>
-                    <th>{{ __('messages.sno') }}</th>
-                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                   
-                    <th><i class="icon_calendar"></i>{{ __('messages.joining') }}</th>                  
+                    <th>Flat Number</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                           
                     <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                   </tr>
                 </thead>
-                <tbody>
-                 <?php $no = 1; ?>
+                <tbody>                 
                   @foreach($users as $key => $row)
                   <tr>
-                    <th>{{ $no }}</th>
-                     <?php $no++; ?>
-                    <td>{{$row->flat_type}}</td>        
-                    <td>{{$row->created_at}}</td>                   
+                    <th>101</th>
+                    <td>{{$row->flat_type}}</td>                       
                    <td>
                       <div class="btn-group">
                         <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addFlatType/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;

@@ -77,3 +77,5 @@ Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','use
 Route::get('/monthViewList', ['as'=>'monthViewList','uses'=>'DashboardController@monthViewList']);
 Route::get('/monthlyExpences', ['as'=>'monthlyExpences','uses'=>'DashboardController@monthlyExpences']);
 Route::post('/paid','DashboardController@paidmaintenanceTransaction');
+
+Route::get('/addMonthlyExpense', ['as'=>'addMonthlyExpense','uses'=>'DashboardController@addMonthlyExpense']);
