@@ -24,6 +24,7 @@
     z-index: 999;
   }
 </style>
+@yield('styles')
 </head>
 <body>
   <!-- container section start -->
@@ -57,5 +58,6 @@
    var csrf_token = "<?php echo csrf_token();?>";
 </script>
 <script src="{{ asset('public/backend/js/mycustom.js') }}" type="text/javascript"></script>
+@yield('scripts')
 </body>
 </html>
