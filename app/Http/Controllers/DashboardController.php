@@ -453,7 +453,8 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'  => 'required|max:50',
+            'flat_type'   => 'required|max:50',
+            'flat_number' => 'required|string|flat_number|max:255|unique:flat_type',
         );
         // set validator
         $validator = Validator::make($request->all(), $rules);
@@ -463,6 +464,7 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'flat_type'    => $request->input('flat_type'),
+                'flat_number'    => $request->input('flat_number'),
                 'created_at'   => date('Y-m-d H-i-s')
             );
             if (empty($user_id)) {
@@ -518,14 +520,14 @@ class DashboardController extends Controller
             return Config::get('constants.ID_NOT_CORRECT');
         }
     }
-     /**
+    /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the maintenance transaction form view
     * @return                 View
     */
     public function monthViewList()
     {      
-        return view('admin.monthViewList');      
+        return view('admin.monthviewlist');      
     }
     /**
     * @DateOfCreation         23 Aug 2018
@@ -571,7 +573,6 @@ class DashboardController extends Controller
     */
     public function monthlyExpences()
     {
-        //$data['users'] = $this->dashboardObj->queryData();
         return view('admin.monthlyExpenses');
     }
     /**
@@ -581,7 +582,8 @@ class DashboardController extends Controller
     */
     public function addMaintenanceTransaction()
     {
-        return view('admin.maintenanceTransaction');
+        $data['flats'] = $this->dashboardObj->selectFlatType();
+        return view('admin.maintenanceTransaction', $data);
     }
     /**
      * [addMonthlyExpense description]
@@ -589,6 +591,24 @@ class DashboardController extends Controller
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
+    }
+
+    public function addMoreMonthlyExpense(Request $request)
+    {
+        echo "addMoreMonthlyExpense";
+        die();
+        /*$rules = [];
+        foreach($request->input('name') as $key => $value) {
+            $rules["name.{$key}"] = 'required';
+        }
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->passes()) {
+            foreach($request->input('name') as $key => $value) {
+                TagList::create(['name'=>$value]);
+            }
+            return response()->json(['success'=>'done']);
+        }
+        return response()->json(['error'=>$validator->errors()->all()]);*/
     }
 }
 
