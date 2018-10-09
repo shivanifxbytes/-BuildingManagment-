@@ -30,19 +30,19 @@
             <label>{{ __('messages.amount')}}</label>
             <input type="text" class="form-control" name="maintenance_amount" placeholder="{{ __('messages.amount')}}" required>
           </div>
-          <div class="form-group">            
-            <label for="flat_type">Flat Number</label>
-            <select name="flat_number" id="flat_number" class="form-control" >
-              <option value="" selected="selected">Select Flat Number</option>
-              @foreach($users as $key => $row)
-              <option value="{{$row->flat_number }}">{{$row->flat_number }}</option>
-               @endforeach
-            </select>
-          </div>
           <div class="form-group">
-            <label>{{ __('messages.flat_type')}}</label>
-            <input type="text" class="form-control" name="flat_type" placeholder="{{ __('messages.flat_type')}}" required>
-          </div>
+          <label for="flat_number">Flat Number</label>
+          <select name="flat_number" id="flat_number" class="form-control" >
+            <option value="" selected="selected">Select Flat Number</option>
+            @foreach($users as $key => $row)
+            <option value="{{$row->flat_number }}">{{$row->flat_number }}</option>
+            @endforeach
+          </select>           
+        </div>
+         <div class="form-group">
+          <label>{{ __('messages.flat_type')}}</label>
+          <input type="text" id="flat_type" class="form-control" name="flat_type" value="" placeholder="{{ __('messages.flat_type')}}" readonly required>
+        </div> 
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">           
           <div class="form-group">
             <label>&nbsp;</label>
@@ -53,4 +53,35 @@
     </div>
   </div>
 </form>
+@endsection
+@section('scripts')
+<script>
+  jQuery(document).ready(function() {
+    var value = attrid ='';
+    jQuery('select').change(function() {
+      value = $(this).val();
+      console.log(value);
+      jQuery.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      jQuery.ajax({
+        url: "{{ route('flats/getflattype') }}",
+        type: 'post',
+        data: {
+          id:value,
+        },
+        success: function(result) {
+          console.log(result[0]);
+                $('#flat_type').val(result[0]);
+        },
+        error: function(xhr) {
+          console.log(xhr);
+          console.log(xhr.message);
+        }
+      });
+    });
+  });
+</script>
 @endsection
