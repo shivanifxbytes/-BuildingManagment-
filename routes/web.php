@@ -79,3 +79,5 @@ Route::get('/monthlyExpences', ['as'=>'monthlyExpences','uses'=>'DashboardContro
 Route::post('/paid','DashboardController@paidmaintenanceTransaction');
 
 Route::get('/addMonthlyExpense', ['as'=>'addMonthlyExpense','uses'=>'DashboardController@addMonthlyExpense']);
+Route::post("addMoreMonthlyExpense","DashboardController@addMoreMonthlyExpense");
+Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);

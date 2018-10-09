@@ -1,4 +1,7 @@
 @extends ('layouts.admin')
+@section('styles')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
+@endsection
 @section('content')   
 <div class="row">
   <div class="col-lg-12">
@@ -26,6 +29,7 @@
     </div>
     @endif      
     <div class="container">
+      <form name="add_name" id="add_name"> 
       <div class="row clearfix">
         <div class="col-md-12">           
           <table class="table table-bordered table-hover" id="tab_logic_total">
@@ -36,7 +40,13 @@
          </table>
        </div>
        <div class="col-md-12">
-        <table class="table table-bordered table-hover" id="tab_logic">
+            <div class="alert alert-danger print-error-msg" style="display:none">
+            <ul></ul>
+            </div>
+            <div class="alert alert-success print-success-msg" style="display:none">
+            <ul></ul>
+            </div>
+        <table class="table table-bordered table-hover" id="dynamic_field">
           <thead>
             <tr>    
              <th>Title</th>    
@@ -48,23 +58,25 @@
          </thead>
          <tbody>
           <tr id='addr0'>
-            <td><input type="text"  value="" name="title" placeholder="" required/></td>
-            <td><input type="text" value="" name="amount" placeholder="" required></td>
-            <td><select name="flat_type" id="flat_type" >
+            <td><input type="text"  value="" name="title[]" placeholder="" required/></td>
+            <td><input type="text" value="" name="amount[]" placeholder="" required></td>
+            <td><select name="flat_type[]" id="flat_type" >
               <option value="" selected="selected">Paid BY</option>
               <option value="Cash">Cash</option>
               <option value="Cheque">Cheque</option>
             </select>
           </td>
-          <td><input type="text" value="" name="card_number" placeholder="" required></td>
-          <td><button type="button" class="btn btn-primary">Add</button>&nbsp;&nbsp;&nbsp;
-            <button type="button" class="btn btn-primary">Delete</button></td>
+          <td><input type="text" value="" name="card_number[]" placeholder="" required></td>
+          <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button>&nbsp;&nbsp;&nbsp;
+          </td>
           </tr>
           <tr id='addr1'></tr>
         </tbody>
       </table>
+     <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
     </div>
   </div>
+</form>
   <div class="row clearfix">
     <div class="col-md-12">     
     </div>
@@ -100,15 +112,26 @@
 </div>
 </div>
 @endsection
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
+@section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
 <script type="text/javascript"> 
   $(document).ready(function(){
     $('.date').datepicker({  
      format: 'mm-dd-yyyy'  
    });  
-  }) 
-  
+  })  
 </script> 
+<script type="text/javascript">
+    $(document).ready(function(){      
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text"  value="" name="title[]" placeholder="" required/></td><td><input type="text" value="" name="amount[]" placeholder="" required></td><td><select name="flat_type[]" id="flat_type" ><option value="" selected="selected">Paid BY</option><option value="Cash">Cash</option><option value="Cheque">Cheque</option></select></td><td><input type="text" value="" name="card_number[]" placeholder="" required></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+    });  
+</script>
+@endsection
