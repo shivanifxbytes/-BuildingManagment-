@@ -103,7 +103,8 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_type'       => 'required|string|flat_type|max:255|unique:users',
+            //'flat_type'       => 'required|string|flat_type|max:255|unique:users',
+            'flat_type'     => 'required|max:50',
             'flat_number'     => 'required|max:50',
             'carpet_area'     => 'required|max:50',
         );
@@ -438,8 +439,7 @@ class DashboardController extends Controller
                 return view("admin.errors");
             }
         } else {
-            $data['users'] = $this->dashboardObj->selectFlatType();
-            return view('admin.addFlatType', $data);
+            return view('admin.addFlatType');
         }
     }
     /**
@@ -454,7 +454,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'flat_type'   => 'required|max:50',
-            'flat_number' => 'required|string|flat_number|max:255|unique:flat_type',
+            'flat_number' => 'required|string',
         );
         // set validator
         $validator = Validator::make($request->all(), $rules);

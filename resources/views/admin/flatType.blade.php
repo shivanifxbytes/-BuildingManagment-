@@ -36,7 +36,7 @@
                 <tbody>                 
                   @foreach($users as $key => $row)
                   <tr>
-                    <th>101</th>
+                    <th>{{$row->flat_number}}</th>
                     <td>{{$row->flat_type}}</td>                       
                    <td>
                       <div class="btn-group">

@@ -28,11 +28,10 @@
               <table class="table table-striped table-advance table-hover" id="data-table">
                   <thead>
                   <tr>
-                    <th>Flat Number</th>                    
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>                    
                     <th><i class="icon_mail_alt"></i>{{ __('messages.owner') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.owner_mobile_no') }}</th>
-                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>
-                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>
+                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                   
                     <th><i class="icon_mail_alt"></i>{{ __('messages.carpet_area') }}</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.email') }}</th>
                     <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
@@ -43,12 +42,10 @@
                 
                   @foreach($users as $key => $row)
                   <tr>
-                    <th>101</th>
-                                                         
+                    <td>{{$row->flat_number}}</td>                                    
                     <td>{{$row->owner}}</td>
                     <td>{{$row->owner_mobile_no}}</td>
-                    <td>{{$row->flat_type}}</td>
-                    <td>{{$row->flat_number}}</td>
+                    <td>{{$row->flat_type}}</td>                    
                     <td>{{$row->carpet_area}} sq.ft</td>
                     <td>{{$row->user_email}}</td>
                     <td> {!! showStatus($row->user_status) !!}</td>
