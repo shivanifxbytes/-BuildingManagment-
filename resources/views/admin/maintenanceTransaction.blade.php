@@ -37,7 +37,7 @@
       <td><input type="text" name="rPendingAmout" id="" placeholder="" required></td>
       <td><input type="text" name="extra_amount" id="" placeholder="" required></td>
       <td><input type="text" name="extra_rAmount" id="" placeholder="" required></td>
-      <td><input class="date" type="text"></td>
+      <td><input type="text" class="date"></td>
       <td><button type="button" class="btn btn-primary">Paid</button></td>
       </tr>
        @endforeach 
