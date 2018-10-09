@@ -366,6 +366,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
+            'flat_number'          => 'required|max:50',
             'flat_type'          => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
@@ -374,6 +375,7 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
+                'flat_number'          => $request->input('flat_number'),
                 'flat_type'          => $request->input('flat_type'),
             );
             if (empty($user_id)) {
