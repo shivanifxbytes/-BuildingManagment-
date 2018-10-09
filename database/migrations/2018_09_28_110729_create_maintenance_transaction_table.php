@@ -15,15 +15,12 @@ class CreateMaintenanceTransactionTable extends Migration
     {
         Schema::create('maintenance_transaction', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('flat_number')->unique();
-            $table->string('tenant_name')->default('');
-            $table->string('owner_name')->default('');    
+            $table->string('flat_number')->unique(); 
             $table->decimal('amount')->nullable()->default(null); 
             $table->decimal('pending_amount');
             $table->string('reason_pending_amount')->default('');
             $table->decimal('extra_amount');
             $table->string('reason_extra_amount')->default('');
-            $table->decimal('card_number')->nullable()->default(null);
             $table->integer('month')->unsigned();
             $table->timestamps();
         });

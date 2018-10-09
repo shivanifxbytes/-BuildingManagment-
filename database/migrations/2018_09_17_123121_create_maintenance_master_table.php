@@ -16,7 +16,7 @@ class CreateMaintenanceMasterTable extends Migration
         Schema::create('maintenance_master', function (Blueprint $table) {
             $table->increments('id');
             $table->decimal('maintenance_amount')->nullable()->default(null);
-            $table->string('flat_type');
+            $table->integer('flat_number')->unique();
             $table->timestamps();
         });
     }
