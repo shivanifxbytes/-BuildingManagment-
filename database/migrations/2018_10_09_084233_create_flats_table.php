@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateFlatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,14 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up()
-    {  
-        Schema::create('users', function (Blueprint $table) {
+    {
+        Schema::create('flats', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tenant_full_name');
-            $table->integer('user_role_id')->unsigned();
-            $table->string('email');
-            $table->string('password');
-            $table->string('owner')->default('');
-            $table->string('owner_mobile_no')->unique();
-            $table->string('tenant_mobile_no')->unique();
-            $table->string('flat_type')->default('');
             $table->string('flat_number')->unique();
+            $table->string('tenant_id');
+            $table->string('owner_id');
             $table->decimal('carpet_area')->nullable();
             $table->decimal('super_built_up_area')->nullable();
-            $table->rememberToken();
             $table->tinyInteger('user_status');
             $table->timestamps();
         });
@@ -39,6 +32,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('flats');
     }
 }

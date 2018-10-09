@@ -15,7 +15,7 @@ class CreateUserMaintenanceTable extends Migration
     {
             Schema::create('user_maintenance', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('user_id')->unsigned();
+                $table->integer('flat_number')->unsigned();
                 $table->decimal('amount')->nullable()->default(null);   
                 $table->integer('month');
                 $table->decimal('pending_amount');
