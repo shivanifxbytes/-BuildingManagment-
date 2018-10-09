@@ -110,7 +110,7 @@ class DashboardController extends Controller
         );
         if (empty($user_id)) {
             $rules = array(
-                'user_email'      => 'required|string|email|max:255|unique:users',
+                'email'      => 'required|string|email|max:255|unique:users',
                 'password'        => 'required|string|min:6|confirmed',);
         }
         $validator = Validator::make($request->all(), $rules);
@@ -118,16 +118,15 @@ class DashboardController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'owner'             => $request->input('owner'),
-                'owner_mobile_no'   => $request->input('owner_mobile_no'),
+                'name'             => $request->input('owner'),
+                'mobile_number'   => $request->input('owner_mobile_no'),
                 'flat_type'         => $request->input('flat_type'),
                 'flat_number'       => $request->input('flat_number'),
                 'carpet_area'       => $request->input('carpet_area'),
-                'user_status'       => Config::get('constants.ADMIN_ROLE'),
-                'user_role_id'      => Config::get('constants.USER_ROLE')
+                'user_role_id'      => 2
             );
             if (empty($user_id)) {
-                $requestData['user_email']    = $request->input('user_email');
+                $requestData['email']    = $request->input('email');
                 $requestData['password']      = bcrypt($request->input("password"));
                 $user = Admin::insert($requestData);
                 //insert data in users table
@@ -611,6 +610,12 @@ class DashboardController extends Controller
             return response()->json(['success'=>'done']);
         }
         return response()->json(['error'=>$validator->errors()->all()]);*/
+    }
+    public function changeflattype(Request $request)
+    {
+        $id = $request->id;
+        $result = $this->dashboardObj->getFlatTypeById($id);
+        return $result;
     }
 }
 

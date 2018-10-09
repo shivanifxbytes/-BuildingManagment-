@@ -49,22 +49,30 @@ class Dashboard extends Model
     }
  
     /**
-      * @DateOfCreation         27 Aug 2018
-      * @ShortDescription       This function selects the specified data from table
-      * @return                 result
-      */
+     * @DateOfCreation         27 Aug 2018
+     * @ShortDescription       This function selects the specified data from table
+     * @return                 result
+     */
     public function selectMaintenance()
     {
-        return DB::table('maintenance_master')->get();
+        return DB::table('maintenance_master')
+        ->join('flat_type', 'maintenance_master.flat_number', '=', 'flat_type.flat_number')
+        ->select('maintenance_master.id', 'maintenance_master.flat_number', 'flat_type', 'maintenance_amount')
+        ->get();
     }
 
     /**
-        * @DateOfCreation         27 Aug 2018
-        * @ShortDescription       This function selects the specified data from table
-        * @return                 result
-        */
+     * @DateOfCreation         27 Aug 2018
+     * @ShortDescription       This function selects the specified data from table
+     * @return                 result
+     */
     public function selectFlatType()
     {
         return DB::table('flat_type')->get();
+    }
+
+    public function getFlatTypeById($id)
+    {
+        return DB::table('flat_type')->where('flat_number',$id)->get()->pluck('flat_type');
     }
 }
