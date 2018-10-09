@@ -26,9 +26,10 @@
      <th>Reason Extra Amount</th>
      <th>Date</th>
      <th>Action</th>     
-     </tr>    
+     </tr>
+     @foreach($flats as $key => $row)    
     <tr>
-      <td><input type="text" id="" value='' name="flat_type" placeholder=''/></td>
+      <td><input type="text" id="" value='{{$row->flat_number}}' name="flat_type" placeholder=''/></td>
       <td><input type="text" name="tenent" id="" placeholder="enter tenent name" required></td>
       <td><input type="text" name="owner" id="" placeholder="" required></td>
       <td><input type="text" name="amount" id="" placeholder="" required></td>
@@ -39,6 +40,7 @@
       <td><input class="date" type="text"></td>
       <td><button type="button" class="btn btn-primary">Paid</button></td>
       </tr>
+       @endforeach 
   </table>  
 </table>    
 </form>
