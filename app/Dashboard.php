@@ -22,11 +22,11 @@ class Dashboard extends Model
     */
     public function queryData()
     {
-         return  DB::table('flats')
+        return  DB::table('flats')
              ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
              ->rightJoin('users', 'flats.owner_id', '=', 'users.id')
-            ->select('flat_type', 'flat_type.flat_number', 'carpet_area','user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
-            ->where('users.user_role_id' ,'=',' 2')
+            ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
+            ->where('users.user_role_id', '=', ' 2')
             ->get();
     }
 
@@ -51,7 +51,7 @@ class Dashboard extends Model
         return  DB::table('flats')
              ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
             ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
-            ->where('users.user_role_id' ,'=',' 2')
+            ->where('users.user_role_id', '=', ' 2')
             ->get();
     }
  
@@ -85,7 +85,7 @@ class Dashboard extends Model
      */
     public function getFlatTypeById($id)
     {
-        return DB::table('flat_type')->where('flat_number',$id)->get()->pluck('flat_type');
+        return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
     /**
      * [getFlatDetail description]
@@ -93,7 +93,18 @@ class Dashboard extends Model
      */
     public function getFlatDetail()
     {
-                return DB::table('flat_type')->get();
-
+        $flat_detail =  DB::table('flats')
+        ->select('flat_number', 'owner_id', 'tenant_id')
+        ->get();
+        foreach ($flat_detail as $key => $value) {
+        $owner_id = $flat_detail[$key]->owner_id;
+        $tenant_id = $flat_detail[$key]->tenant_id;
+        $flat_details =  DB::table('flats')
+        ->join('users as o', 'flats.owner_id', '=', 'o.id')
+        ->join('users as t', 'flats.tenant_id', '=', 't.id')
+        ->select('flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+        ->get();
+        }
+        return $flat_details;
     }
 }

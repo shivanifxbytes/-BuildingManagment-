@@ -29,10 +29,10 @@
      </tr>
      @foreach($flats as $key => $row)    
     <tr>
-      <td><input type="text" id="" value='{{$row->flat_number}}' name="flat_type" placeholder=''/></td>
-      <td><input type="text" name="tenent" id="" placeholder="enter tenent name" required></td>
-      <td><input type="text" name="owner" id="" placeholder="" required></td>
-      <td><input type="text" name="amount" id="" placeholder="" required></td>
+      <td><input type="text" id="" value='{{$row->flat_number}}' name="flat_type" placeholder='' disabled/></td>
+      <td><input type="text" name="tenent" id="" placeholder="enter tenent name" value='{{$row->tenant_name}}' required disabled></td>
+      <td><input type="text" name="owner" id="" placeholder="" value='{{$row->owner_name}}' required disabled></td>
+      <td><input type="text" name="amount" id="" placeholder="" required ></td>
       <td><input type="text" name="pending_amount" id="" placeholder="" required></td>
       <td><input type="text" name="rPendingAmout" id="" placeholder="" required></td>
       <td><input type="text" name="extra_amount" id="" placeholder="" required></td>
