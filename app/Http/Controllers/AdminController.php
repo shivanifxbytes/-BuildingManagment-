@@ -14,8 +14,10 @@ use Config;
 class AdminController extends Controller
 {
     use AuthenticatesUsers;
+
     /**
-     * Create a new authentication controller instance.
+     * @DateOfCreation     10 Oct 2018
+     * @ShortDescription   Create a new authentication controller instance to check user is admin or not.
      *
      * @return void
      */
