@@ -74,7 +74,6 @@
 </div>
 </form>
 @endsection
-
 @section('scripts')
 <script>
   jQuery(document).ready(function() {
