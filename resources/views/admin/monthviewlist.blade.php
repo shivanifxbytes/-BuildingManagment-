@@ -2,7 +2,7 @@
 @section('content')       
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_transaction') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenanceTransaction"> {{__('messages.month_list')}} </a>
+        <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_transaction') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenanceTransaction"> {{__('messages.add')}} </a>
         </h3>
         <ol class="breadcrumb">
             <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
@@ -10,7 +10,9 @@
         </ol>
     </div>
 </div>
-<select class="form-control" id="sel1" name="sellist1">
+<div class="row">
+    <div class="col-lg-6 col-md-offset-3">
+<select class="form-control"  id="sel1" name="sellist1">
     <option>Select Year</option>
     <option>2018</option>
     <option>2019</option>
@@ -36,10 +38,9 @@
     <option>2039</option>
 </select>
 <hr />
-<div class="row">
-    <div class="col-lg-12">
+
         <ul class="list-group">
-            <a href=""><li class="list-group-item">January</li></a>
+            <a href="{{ url('/') }}/showMaintenanceTransactionList"><li class="list-group-item">January</li></a>
             <a href=""><li class="list-group-item">February</li></a>
             <a href=""><li class="list-group-item">March</li></a>
             <a href=""><li class="list-group-item">April</li></a>
@@ -55,4 +56,3 @@
     </div>
 </div>
 @endsection
-
