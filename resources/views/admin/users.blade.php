@@ -43,16 +43,16 @@
                   @foreach($users as $key => $row)
                   <tr>
                     <td>{{$row->flat_number}}</td>                                    
-                    <td>{{$row->owner}}</td>
-                    <td>{{$row->owner_mobile_no}}</td>
+                    <td>{{$row->name}}</td>
+                    <td>{{$row->mobile_number}}</td>
                     <td>{{$row->flat_type}}</td>                    
                     <td>{{$row->carpet_area}} sq.ft</td>
-                    <td>{{$row->user_email}}</td>
+                    <td>{{$row->email}}</td>
                     <td> {!! showStatus($row->user_status) !!}</td>
                    <td>
                       <div class="btn-group">
-                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
+                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                       </div>
                     </td>
                    </tr>

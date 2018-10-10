@@ -166,6 +166,8 @@ class DashboardController extends Controller
     {
         $data['user_id'] = Crypt::decrypt($id);
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
+        print_r($data['user_maintenance']);
+        die();
         return view('admin.userMaintenance', $data)->with('no', 1);
     }
     /**

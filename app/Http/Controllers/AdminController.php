@@ -57,7 +57,7 @@ class AdminController extends Controller
         } else {
             // Get our login input
             $inputData = array(
-                'user_email' => $request->input('email'),
+                'email' => $request->input('email'),
                 'password' => $request->input('password')
             );
             if (Auth::attempt($inputData)) {
@@ -70,9 +70,9 @@ class AdminController extends Controller
             } else {
                 //Check Email exist in the database or not
                 if (Admin::where(
-                        'user_email',
+                        'email',
                     '=',
-                    $inputData['user_email']
+                    $inputData['email']
                 )->first()) {
                     $validator->getMessageBag()->add('password', __('messages.wrong_password'));
                 } else {
