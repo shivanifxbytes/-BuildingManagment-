@@ -43,7 +43,7 @@
           <td>{{$row->maintenance_amount}}</td>     
           <td>
             <div class="btn-group">
-              <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addMaintenanceMaster/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+              <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addMaintenanceMaster/{{ Crypt::encrypt($row->flat_number) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;
               <a class="btn btn-danger" title="{{__('messages.delete')}}" style="margin:5px;" href="{{ url('/') }}/deleteMastere/{{ Crypt::encrypt($row->id) }}"   data-toggle="tooltip">{{__('messages.delete')}}</a>
             </div>

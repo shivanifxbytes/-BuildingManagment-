@@ -347,14 +347,15 @@ class DashboardController extends Controller
     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
     * @return                 View
     */
-    public function getMaintenanceMaster($user_id = null)
+    public function getMaintenanceMaster($id = null)
     {
-        if (!empty($user_id)) {
+        if (!empty($id)) {
             try {
-                $user_id = Crypt::decrypt($user_id);
-                $check = Master::where('id', '=', $user_id)->count();
-                if (is_int($user_id) && $check > 0) {
-                    $data['user'] = Master::find($user_id)->toArray();
+                $flat_number = Crypt::decrypt($id);
+                $check = Master::where('flat_number', '=', $flat_number)->count();
+                if (is_int($flat_number) && $check > 0) {
+                    $data['flats'] = Master::get()->where('flat_number',$flat_number);
+                    $data['users'] = $this->dashboardObj->selectFlatType();
                     return view('admin.editMaintenanceMaster', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -375,12 +376,11 @@ class DashboardController extends Controller
      *                         according to the ID
      * @return                 Response
      */
-    public function postMaintenanceMaster(Request $request, $user_id = null)
+    public function postMaintenanceMaster(Request $request, $id = null)
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
             'flat_number'          => 'required|max:50',
-            'flat_type'          => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -389,9 +389,8 @@ class DashboardController extends Controller
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
                 'flat_number'          => $request->input('flat_number'),
-                'flat_type'          => $request->input('flat_type'),
             );
-            if (empty($user_id)) {
+            if (empty($id)) {
                 $user = Master::create($requestData);
                 if ($user) {
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_added'));
@@ -399,9 +398,9 @@ class DashboardController extends Controller
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
             } else {
-                $user_id = Crypt::decrypt($user_id);
-                if (is_int($user_id)) {
-                    $user = Master::where(array('id' => $user_id))->update($requestData);
+                $flat_number = Crypt::decrypt($id);
+                if (is_int($flat_number)) {
+                    $user = Master::where(array('flat_number' => $flat_number))->update($requestData);
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
