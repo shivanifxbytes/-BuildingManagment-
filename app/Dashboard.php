@@ -70,9 +70,23 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->get();
     }
-
+    /**
+     * @DateOfCreation         10 oct 2018
+     * @ShortDescription       This function selects the flat_type for the specified id from table
+     * @param  [int] $id [flat number whose id is to be retrieved]
+     * @return result array
+     */
     public function getFlatTypeById($id)
     {
         return DB::table('flat_type')->where('flat_number',$id)->get()->pluck('flat_type');
+    }
+    /**
+     * [getFlatDetail description]
+     * @return [type] [description]
+     */
+    public function getFlatDetail()
+    {
+                return DB::table('flat_type')->get();
+
     }
 }

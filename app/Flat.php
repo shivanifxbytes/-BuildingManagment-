@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Flat extends Model
 {
-    use Notifiable;
     
     /**
      *@ShortDescription Table for the users.
      *
      * @var String
      */
-    protected $table = 'users';
+    protected $table = 'flats';
 
    // protected $table = 'user_maintenance';
     /**
@@ -22,7 +21,7 @@ class Flat extends Model
      * @var array
      */
     protected $fillable = [
-        'tenant_id','owner_id','flat_number','carpet_area','super_built_up_area','user_role_id','user_status','email', 'password','user_created_at',
+        'tenant_id','owner_id','flat_number','carpet_area','super_built_up_area',
     ];
 
     /**
@@ -31,6 +30,6 @@ class Flat extends Model
      * @var array
      */
     protected $hidden = [
-        'user_password','remember_token',
+
     ];
 }
