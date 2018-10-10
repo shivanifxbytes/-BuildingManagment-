@@ -17,13 +17,20 @@ class Dashboard extends Model
  
     /**
     * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       This function selects the specified data from table
+    * @ShortDescription       This function join three tables users, flat_type,and flats and selects the *                         specified data from tables
     * @return                 result
     */
     public function queryData()
     {
-        return Admin::where('user_role_id', '!=', Config::get('constants.ADMIN_ROLE'))->get();
+         return  DB::table('flats')
+             ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
+             ->rightJoin('users', 'flats.owner_id', '=', 'users.id')
+            ->select('flat_type', 'flat_type.flat_number', 'carpet_area','user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
+            ->where('users.user_role_id' ,'=',' 2')
+            ->get();
     }
+
+   
 
     /**
     * @DateOfCreation         23 Aug 2018
@@ -36,15 +43,15 @@ class Dashboard extends Model
     }
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       This function join two table and selects the specified data from table
+    * @ShortDescription       This function join two tables and selects the specified data from tables
     * @return                 result
     */
     public function showUser($id)
     {
-        return  DB::table('user_maintenance')
-            ->join('users', 'user_maintenance.user_id', '=', 'users.id')
-            ->select('user_maintenance.amount', 'user_maintenance.month', 'user_maintenance.user_id', 'user_maintenance.pending_amount', 'extra_amount', 'user_maintenance.id', 'users.user_first_name', 'users.user_last_name', 'users.flat_number')
-            ->where('user_maintenance.user_id', $id)
+        return  DB::table('flats')
+             ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
+            ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
+            ->where('users.user_role_id' ,'=',' 2')
             ->get();
     }
  
