@@ -29,10 +29,9 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'tenant_full_name','owner','flat_type','owner_mobile_no','tenant_mobile_no','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
+   protected $fillable = [
+        'name','user_role_id','user_status','moble_number','email', 'password','user_created_at',
     ];
-
     /**
      *@ShortDescription The attributes that should be hidden for arrays.
      *

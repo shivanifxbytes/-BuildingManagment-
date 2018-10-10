@@ -41,7 +41,7 @@
         </div> 
         <div class="form-group">
           <label>{{ __('messages.flat_type')}}</label>
-          <input type="text" id="flat_type" class="form-control" name="flat_type" value="" placeholder="{{ __('messages.flat_type')}}" required>
+          <input type="text" id="flat_type" class="form-control" name="flat_type" value="" placeholder="{{ __('messages.flat_type')}}" readonly required>
         </div> 
         <div  id="flat_type" class="form-group">
           <label>{{ __('messages.carpet_area')}}</label>

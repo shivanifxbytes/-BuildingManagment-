@@ -23,27 +23,14 @@
         </p>
         @endforeach
         @endif
-        <div class="col-lg-12">
-          <div class="form-group">           
+ <div class="col-lg-12">
+          <div class="form-group">            
+            <label for="flat_type">Flat Number</label>
+           <input type="text" value="{{$user[0]->flat_number}}" name="flat_number" id="flat_number" class="form-control" >       
+          </div> 
+          <div class="form-group">            
             <label for="flat_type">Flat Type</label>
-            <select name="flat_type" id="flat_type" class="form-control" >
-              @switch($user[0]->flat_type)
-              @case(1)
-              <option value="{{$user[0]->flat_type}}" selected="selected">1BHK</option>
-              @break
-
-              @case(2)
-              <option value="{{$user[0]->flat_type}}" selected="selected">2BHK</option>
-              @break
-              @case(3)
-              <option value="{{$user[0]->flat_type}}" selected="selected">3BHK</option>
-              @break
-              @default
-              <option value="" selected="selected">Not Assigned Yet Contact Your Owner</option>
-              @endswitch
-            </select>
-            <span id="product_discount" class="text-danger">              
-            </span>
+           <input type="text" value="{{$user[0]->flat_type}}" name="flat_type" id="flat_type" class="form-control" >       
           </div> 
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">           
           <div class="form-group">

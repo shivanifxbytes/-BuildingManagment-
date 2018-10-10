@@ -35,11 +35,10 @@
             <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
           </tr>
         </thead>
-        <tbody>
-        
+        <tbody>       
          @foreach($users as $key => $row)
          <tr>
-          <th>101</th>        
+          <th>{{$row->flat_number}}</th>        
           <td>{{$row->flat_type}}</td>
           <td>{{$row->maintenance_amount}}</td>     
           <td>

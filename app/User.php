@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'tenant_full_name','owner','flat_type','flat_number','carpet_area','user_role_id','user_status','user_email', 'password','user_created_at',
+        'name','user_role_id','user_status','moble_number','email', 'password','user_created_at',
     ];
 
     /**

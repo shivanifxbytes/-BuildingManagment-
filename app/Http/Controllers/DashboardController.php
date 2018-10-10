@@ -104,14 +104,13 @@ class DashboardController extends Controller
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
             //'flat_type'       => 'required|string|flat_type|max:255|unique:users',
-            'flat_type'     => 'required|max:50',
             'flat_number'     => 'required|max:50',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
             $rules = array(
                 'email'      => 'required|string|email|max:255|unique:users',
-                'password'        => 'required|string|min:6|confirmed',);
+                'password'   => 'required|string|min:6|confirmed',);
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -119,12 +118,14 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'name'             => $request->input('owner'),
-                'mobile_number'   => $request->input('owner_mobile_no'),
-                'flat_type'         => $request->input('flat_type'),
-                'flat_number'       => $request->input('flat_number'),
-                'carpet_area'       => $request->input('carpet_area'),
-                'user_role_id'      => 2
+                'mobile_number'    => $request->input('owner_mobile_no'),
+                'flat_type'        => $request->input('flat_type'),
+                'flat_number'      => $request->input('flat_number'),
+                'carpet_area'      => $request->input('carpet_area'),
+                'user_role_id'     => 2
             );
+        print_r($requestData);
+        die();
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
                 $requestData['password']      = bcrypt($request->input("password"));
