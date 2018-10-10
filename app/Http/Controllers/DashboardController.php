@@ -595,7 +595,10 @@ class DashboardController extends Controller
     */
     public function addMaintenanceTransaction()
     {
-        $data['flats'] = $this->dashboardObj->getFlatDetail();
+        $flats = $this->dashboardObj->getFlatDetail();
+        echo "<pre>";
+print_r($flats);
+ die;
         return view('admin.maintenanceTransaction', $data);
     }
     /**
