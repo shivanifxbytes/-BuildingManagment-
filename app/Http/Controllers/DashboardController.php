@@ -565,15 +565,16 @@ class DashboardController extends Controller
         $test = new Transaction();
         $input = $request->all();
         $test->flat_number=$input['flatNumber'];
-        $test->tenant_name=$input['tenentName'];
-        $test->owner_name=$input['ownerName'];
+       
         $test->amount=$input['amount'];
         $test->pending_amount=$input['pendingAmount'];
         $test->reason_pending_amount=$input['reasonPendingAmount'];
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
+        $test->month = date($input['date']);
         $test->save();
-        return response()->json($test, 201);
+ return response()->json(['success'=>'Paid']);
+
         //$test->coloumnname=$request->input('tenentName');
         // $created_at = date('Y-m-d H-i-s');
         // $flat_number = $input['flatNumber'];
@@ -598,7 +599,7 @@ class DashboardController extends Controller
     public function addMaintenanceTransaction()
     {
         $data['flats'] = $this->dashboardObj->getFlatDetail();
-        
+
         return view('admin.maintenanceTransaction', $data);
     }
     /**
@@ -626,6 +627,11 @@ class DashboardController extends Controller
         }
         return response()->json(['error'=>$validator->errors()->all()]);*/
     }
+    /**
+     * [changeflattype description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function changeflattype(Request $request)
     {
         $id = $request->id;
