@@ -10,8 +10,8 @@
         </ol>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-6 col-md-offset-3">
+<div class="row" >
+    <div class="col-lg-12">
         <?php $current_month = date("m"); 
               $current_year = date('Y')?>
         <select class="form-control"  id="sel1" name="sellist1">

@@ -111,8 +111,8 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'       => 'required|string|flat_type|max:255|unique:users',
-            'flat_type'     => 'required|max:50',
+            'flat_number'     => 'required|string|flat_type|max:255|unique:users',
+            'flat_type'       => 'required|max:50',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
@@ -611,12 +611,20 @@ class DashboardController extends Controller
 
     public function addMoreMonthlyExpense(Request $request)
     {
-        echo "addMoreMonthlyExpense";
-        die();
-        /*$rules = [];
-        foreach($request->input('name') as $key => $value) {
-            $rules["name.{$key}"] = 'required';
+        $data = json_decode($_POST['title']);
+print_r($data);
+        //$data = $request->all();
+       // unset($data['_token']);
+        // foreach ($data as $value) {
+           // print_r($data);
+        // }
+die;
+        $rules = [];
+        foreach($request->input('title') as $key => $value) 
+        {
+            $rules["title.{$key}"] = 'required';
         }
+        
         $validator = Validator::make($request->all(), $rules);
         if ($validator->passes()) {
             foreach($request->input('name') as $key => $value) {
@@ -624,7 +632,7 @@ class DashboardController extends Controller
             }
             return response()->json(['success'=>'done']);
         }
-        return response()->json(['error'=>$validator->errors()->all()]);*/
+        return response()->json(['error'=>$validator->errors()->all()]);
     }
     public function changeflattype(Request $request)
     {
@@ -632,4 +640,5 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+
 }

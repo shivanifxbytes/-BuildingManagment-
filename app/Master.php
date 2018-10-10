@@ -43,8 +43,7 @@ class Master extends Model
     public function getFlatId($user_id)
     {
         return DB::table('flat_type')
-        ->where('id', '=', $user_id)->count();
-       
+        ->where('id', '=', $user_id)->count();   
     }  
 
     /**
@@ -80,8 +79,6 @@ class Master extends Model
 public function selectFlatType()
 {
     return DB::table('flat_type')->get();
-
 }
-
 
 }
