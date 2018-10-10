@@ -23,6 +23,7 @@ use App\Master;
 use App\Transaction;
 use Carbon;
 use App\Flat;
+use Exception;
 
 class DashboardController extends Controller
 {
@@ -565,28 +566,25 @@ class DashboardController extends Controller
         $test = new Transaction();
         $input = $request->all();
         $test->flat_number=$input['flatNumber'];
-       
         $test->amount=$input['amount'];
         $test->pending_amount=$input['pendingAmount'];
         $test->reason_pending_amount=$input['reasonPendingAmount'];
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
         $test->month = date($input['date']);
-        $test->save();
- return response()->json(['success'=>'Paid']);
-
-        //$test->coloumnname=$request->input('tenentName');
-        // $created_at = date('Y-m-d H-i-s');
-        // $flat_number = $input['flatNumber'];
-        // $month=(date('m'));
-        // $data['user'] = $test->selectMonth($flat_number);
+        try {
+            $test->save();
+            return response()->json(['success'=>'Paid']);
+        } catch (Exception $e) {
+            return response()->json(['error'=>'Already Paid']);
+        }
     }
     
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the monthly Expences form view
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the monthly Expences form view
+     * @return                 View
+     */
     public function monthlyExpences()
     {
         return view('admin.monthlyExpenses');
