@@ -22,11 +22,11 @@ class Dashboard extends Model
     */
     public function queryData()
     {
-         return  DB::table('flats')
+        return  DB::table('flats')
              ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
              ->rightJoin('users', 'flats.owner_id', '=', 'users.id')
-            ->select('flat_type', 'flat_type.flat_number', 'carpet_area','user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
-            ->where('users.user_role_id' ,'=',' 2')
+            ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
+            ->where('users.user_role_id', '=', ' 2')
             ->get();
     }
 
@@ -51,7 +51,7 @@ class Dashboard extends Model
         return  DB::table('flats')
              ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
             ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
-            ->where('users.user_role_id' ,'=',' 2')
+            ->where('users.user_role_id', '=', ' 2')
             ->get();
     }
  
@@ -85,7 +85,7 @@ class Dashboard extends Model
      */
     public function getFlatTypeById($id)
     {
-        return DB::table('flat_type')->where('flat_number',$id)->get()->pluck('flat_type');
+        return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
     /**
      * [getFlatDetail description]
@@ -93,37 +93,18 @@ class Dashboard extends Model
      */
     public function getFlatDetail()
     {
-                //return DB::table('flat_type')->get();
-
-    $flat_detail =  DB::table('flats')
-        ->select('flat_number', 'owner_id','tenant_id')
+        $flat_detail =  DB::table('flats')
+        ->select('flat_number', 'owner_id', 'tenant_id')
         ->get();
-        $array = [];
-        $newarray = [];
         foreach ($flat_detail as $key => $value) {
         $owner_id = $flat_detail[$key]->owner_id;
-    /*    array_push($array,DB::table('flats')
-        ->join('users', 'flats.owner_id', '=', 'users.id')
-        ->select('flat_number', 'owner_id','tenant_id','name as owner_name')
-        ->where('owner_id',$owner_id)
-        ->where('user_role_id',2)
-        ->get());*/
-        array_push($array, DB::table('users')->select('name as owner_name')->where('id',$owner_id)->where('user_role_id',2)->get());
         $tenant_id = $flat_detail[$key]->tenant_id;
-    /*    array_push($newarray,DB::table('flats')
-        ->join('users', 'flats.tenant_id', '=', 'users.id')
-        ->select('flat_number', 'owner_id','tenant_id','name as tenant_name')
-        ->where('tenant_id',$tenant_id)
-        ->where('user_role_id',3)
-        ->get());*/
-                   array_push($newarray, DB::table('users')->select('name as tenant_name')->where('id',$tenant_id)->where('user_role_id',3)->get());
+        $flat_details =  DB::table('flats')
+        ->join('users as o', 'flats.owner_id', '=', 'o.id')
+        ->join('users as t', 'flats.tenant_id', '=', 't.id')
+        ->select('flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+        ->get();
         }
-        $flat_detail = $array;
-        $flat_detail_new = $newarray;
-        echo "<pre>";
-        print_r($flat_detail);
-        print_r($flat_detail_new);
-        die;
-        return $flat_detail;
-           }
+        return $flat_details;
+    }
 }
