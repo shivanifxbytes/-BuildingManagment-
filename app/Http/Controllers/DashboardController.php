@@ -354,8 +354,7 @@ class DashboardController extends Controller
                 $flat_number = Crypt::decrypt($id);
                 $check = Master::where('flat_number', '=', $flat_number)->count();
                 if (is_int($flat_number) && $check > 0) {
-                    $data['flats'] = Master::get()->where('flat_number',$flat_number);
-                    $data['users'] = $this->dashboardObj->selectFlatType();
+                    $data['flats'] = Master::get()->where('flat_number', $flat_number);
                     return view('admin.editMaintenanceMaster', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -380,7 +379,6 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_number'          => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -388,7 +386,6 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
-                'flat_number'          => $request->input('flat_number'),
             );
             if (empty($id)) {
                 $user = Master::create($requestData);
