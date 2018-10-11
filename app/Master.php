@@ -35,29 +35,34 @@ class Master extends Model
         'user_password',
     ];
 
-/**
-    * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       This function selects the specified data from table and count 
-    * @return                 result
-    */
+    /**
+        * @DateOfCreation         27 Aug 2018
+        * @ShortDescription       This function selects the specified data from table and count
+        * @return                 result
+        */
     public function getFlatId($user_id)
     {
         return DB::table('flat_type')
+<<<<<<< HEAD
         ->where('id', '=', $user_id)->count();   
     }  
+=======
+        ->where('id', '=', $user_id)->count();
+    }
+>>>>>>> d79a69d2e294fdde3793047c67748042dcb5d612
 
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       This function selects the specified data from table 
+    * @ShortDescription       This function selects the specified data from table
     * @return                 result
     */
     public function findFlatId($user_id)
     {
-         return DB::table('flat_type')
+        return DB::table('flat_type')
         ->where('id', '=', $user_id)->get()->toArray();
     }
 
-      /**
+    /**
      * @DateOfCreation       11 September 2018
      * @DateOfDeprecated
      * @ShortDescription     This function insert the specified data into table
@@ -73,12 +78,19 @@ class Master extends Model
 
     /**
     * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       This function selects the specified data from table 
+    * @ShortDescription       This function selects the specified data from table
     * @return                 result
     */
+<<<<<<< HEAD
 public function selectFlatType()
 {
     return DB::table('flat_type')->get();
 }
 
+=======
+    public function selectFlatType()
+    {
+        return DB::table('flat_type')->get();
+    }
+>>>>>>> d79a69d2e294fdde3793047c67748042dcb5d612
 }

@@ -23,7 +23,8 @@ use App\Master;
 use App\Transaction;
 use Carbon;
 use App\Flat;
-
+use Exception;
+use App\Monthlyexpenses;
 class DashboardController extends Controller
 {
     /**
@@ -346,14 +347,14 @@ class DashboardController extends Controller
     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
     * @return                 View
     */
-    public function getMaintenanceMaster($user_id = null)
+    public function getMaintenanceMaster($id = null)
     {
-        if (!empty($user_id)) {
+        if (!empty($id)) {
             try {
-                $user_id = Crypt::decrypt($user_id);
-                $check = Master::where('id', '=', $user_id)->count();
-                if (is_int($user_id) && $check > 0) {
-                    $data['user'] = Master::find($user_id)->toArray();
+                $flat_number = Crypt::decrypt($id);
+                $check = Master::where('flat_number', '=', $flat_number)->count();
+                if (is_int($flat_number) && $check > 0) {
+                    $data['flats'] = Master::get()->where('flat_number', $flat_number);
                     return view('admin.editMaintenanceMaster', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -374,12 +375,10 @@ class DashboardController extends Controller
      *                         according to the ID
      * @return                 Response
      */
-    public function postMaintenanceMaster(Request $request, $user_id = null)
+    public function postMaintenanceMaster(Request $request, $id = null)
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_number'          => 'required|max:50',
-            'flat_type'          => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -387,10 +386,8 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
-                'flat_number'          => $request->input('flat_number'),
-                'flat_type'          => $request->input('flat_type'),
             );
-            if (empty($user_id)) {
+            if (empty($id)) {
                 $user = Master::create($requestData);
                 if ($user) {
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_added'));
@@ -398,9 +395,9 @@ class DashboardController extends Controller
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
             } else {
-                $user_id = Crypt::decrypt($user_id);
-                if (is_int($user_id)) {
-                    $user = Master::where(array('id' => $user_id))->update($requestData);
+                $flat_number = Crypt::decrypt($id);
+                if (is_int($flat_number)) {
+                    $user = Master::where(array('flat_number' => $flat_number))->update($requestData);
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
@@ -565,27 +562,25 @@ class DashboardController extends Controller
         $test = new Transaction();
         $input = $request->all();
         $test->flat_number=$input['flatNumber'];
-        $test->tenant_name=$input['tenentName'];
-        $test->owner_name=$input['ownerName'];
         $test->amount=$input['amount'];
         $test->pending_amount=$input['pendingAmount'];
         $test->reason_pending_amount=$input['reasonPendingAmount'];
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
-        $test->save();
-        return response()->json($test, 201);
-        //$test->coloumnname=$request->input('tenentName');
-        // $created_at = date('Y-m-d H-i-s');
-        // $flat_number = $input['flatNumber'];
-        // $month=(date('m'));
-        // $data['user'] = $test->selectMonth($flat_number);
+        $test->month = date($input['date']);
+        try {
+            $test->save();
+            return response()->json(['success'=>'Paid']);
+        } catch (Exception $e) {
+            return response()->json(['error'=>'Already Paid']);
+        }
     }
     
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the monthly Expences form view
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the monthly Expences form view
+     * @return                 View
+     */
     public function monthlyExpences()
     {
         return view('admin.monthlyExpenses');
@@ -598,7 +593,7 @@ class DashboardController extends Controller
     public function addMaintenanceTransaction()
     {
         $data['flats'] = $this->dashboardObj->getFlatDetail();
-        
+
         return view('admin.maintenanceTransaction', $data);
     }
     /**
@@ -611,40 +606,34 @@ class DashboardController extends Controller
     }
 
     public function addMoreMonthlyExpense(Request $request)
-    {    
+    {
+        $datainsert = [];
         $data = $request->all();
         $title = $data['title'];
         $amount = $data['amount'];
-        foreach($title as $key => $value) 
-        {
-            echo "Title".$value;
-            echo "Amount".$amount[$key];
-        }die;
-       /*// unset($data['_token']);
-        // foreach ($data as $value) {
-           // print_r($data);
-        // }
-
-        $rules = [];
-        foreach($request->input('title') as $key => $value) 
-        {
-            $rules["title.{$key}"] = 'required';
+        $cardNumber = $data['card_number'];
+        $paidBy = $data['paid_by'];
+        foreach ($title as $key => $value) {
+            # code...
+            array_push($datainsert,array(
+                    'title'=>$value,
+                    'amount'=>$amount[$key],
+                    'reference_number'=>$cardNumber[$key],
+                    'paid_by'=>$paidBy[$key],
+            ));
         }
+    Monthlyexpenses::insert($datainsert); 
         
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->passes()) {
-            foreach($request->input('name') as $key => $value) {
-                TagList::create(['name'=>$value]);
-            }
-            return response()->json(['success'=>'done']);
-        }
-        return response()->json(['error'=>$validator->errors()->all()]);*/
     }
+    /**
+     * [changeflattype description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function changeflattype(Request $request)
     {
         $id = $request->id;
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
-
 }

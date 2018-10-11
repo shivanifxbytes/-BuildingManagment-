@@ -61,8 +61,8 @@
           <tr id='addr0'>
             <td><input type="text"  value="" name="title[]" placeholder="" required/></td>
             <td><input type="text" value="" name="amount[]" placeholder="" required></td>
-            <td><select name="flat_type[]" id="flat_type" >
-              <option value="" selected="selected">Paid BY</option>
+            <td><select name="paid_by[]" required>
+              <option value="" >Paid BY</option>
               <option value="Cash">Cash</option>
               <option value="Cheque">Cheque</option>
             </select>
@@ -128,7 +128,7 @@
       var i=1;  
       $('#add').click(function(){  
            i++;  
-          $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text"  value="" name="title[]" placeholder="" required/></td><td><input type="text" value="" name="amount[]" placeholder="" required></td><td><select name="flat_type[]" id="flat_type" ><option value="" selected="selected">Paid BY</option><option value="Cash">Cash</option><option value="Cheque">Cheque</option></select></td><td><input type="text" value="" name="card_number[]" placeholder="" required></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
+          $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text"  value="" name="title[]" placeholder="" required/></td><td><input type="text" value="" name="amount[]" placeholder="" required></td><td><select name="paid_by[]" id="paid_by" ><option value="" selected="selected">Paid BY</option><option value="Cash">Cash</option><option value="Cheque">Cheque</option></select></td><td><input type="text" value="" name="card_number[]" placeholder="" required></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
       });  
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
@@ -137,14 +137,31 @@
       $('#submit').click(function(){            
           var formData = $('#add_name').serialize();
           console.log('formData -------', formData); 
-          var amount = [];
-          $('input[name="amount[]"]').each( function() {
-            amount.push(this.value);
-          });
+          
           var title = [];
           $('input[name="title[]"]').each( function() {
             title.push(this.value);
           });
+
+          var amount = [];
+          $('input[name="amount[]"]').each( function() {
+            amount.push(this.value);
+          });
+           console.log('formData -------', amount);
+
+          var paid_by = [];
+
+          $('select[name="paid_by[]"]').each( function() {
+
+            paid_by.push(this.value);
+
+          });
+
+          var card_number = [];
+          $('input[name="card_number[]"]').each( function() {
+            card_number.push(this.value);
+          });
+
           $.ajaxSetup({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -154,7 +171,7 @@
           $.ajax({  
                 url: "{{ route('addMoreMonthlyExpense') }}", 
                 type:"POST",  
-                data:{title:title,amount:amount},
+                data:{title:title,amount:amount,paid_by:paid_by,card_number:card_number},
                 dataType: 'json',
                 success:function(response)  
                 {
