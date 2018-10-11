@@ -22,7 +22,7 @@ class MonthlyExpensesTable extends Migration
             $table->decimal('total_by_cash')->default(null);
             $table->decimal('total_by_cheque')->default(null);
             $table->decimal('total_amount')->default(null);          
-            $table->integer('month');
+            $table->string('month')->default(null);
             $table->timestamps();
         });
     }

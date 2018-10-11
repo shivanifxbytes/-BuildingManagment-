@@ -632,6 +632,8 @@ class DashboardController extends Controller
             ));
         }
     Monthlyexpenses::insert($datainsert);
+    $select = DB::table('monthly_expenses')->select('amount','paid_by')->where('month',$date)->get();
+ print_r($select);
  //$newAmount = $cartResult[0]["quantity"] + $_POST["quantity"];
  //$grand_total += ($data["amount"]);
     return response()->json(['success'=>'done' ]);
