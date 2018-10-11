@@ -112,8 +112,8 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'       => 'required|string|flat_type|max:255|unique:users',
-            'flat_type'     => 'required|max:50',
+            'flat_number'     => 'required|string|flat_type|max:255|unique:users',
+            'flat_type'       => 'required|max:50',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
@@ -597,7 +597,8 @@ class DashboardController extends Controller
         return view('admin.maintenanceTransaction', $data);
     }
     /**
-     * [addMonthlyExpense description]
+     * [addMonthlyExpense description]    {
+
      */
     public function addMonthlyExpense()
     {
@@ -605,13 +606,26 @@ class DashboardController extends Controller
     }
 
     public function addMoreMonthlyExpense(Request $request)
-    {
-        echo "addMoreMonthlyExpense";
-        die();
-        /*$rules = [];
-        foreach($request->input('name') as $key => $value) {
-            $rules["name.{$key}"] = 'required';
+    {    
+        $data = $request->all();
+        $title = $data['title'];
+        $amount = $data['amount'];
+        foreach($title as $key => $value) 
+        {
+            echo "Title".$value;
+            echo "Amount".$amount[$key];
+        }die;
+       /*// unset($data['_token']);
+        // foreach ($data as $value) {
+           // print_r($data);
+        // }
+
+        $rules = [];
+        foreach($request->input('title') as $key => $value) 
+        {
+            $rules["title.{$key}"] = 'required';
         }
+        
         $validator = Validator::make($request->all(), $rules);
         if ($validator->passes()) {
             foreach($request->input('name') as $key => $value) {
@@ -632,4 +646,5 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+
 }

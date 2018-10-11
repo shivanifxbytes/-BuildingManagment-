@@ -2,7 +2,7 @@
 @section('content')       
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_transaction') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenanceTransaction"> {{__('messages.add')}} </a>
+        <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_transaction') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMonthlyExpense"> {{__('messages.add')}} </a>
         </h3>
         <ol class="breadcrumb">
             <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6 col-md-offset-3">
+    <div class="col-lg-12">
         <?php $current_month = date("m"); 
               $current_year = date('Y')?>
         <select class="form-control"  id="sel1" name="sellist1">

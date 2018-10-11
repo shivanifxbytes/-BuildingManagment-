@@ -1,12 +1,8 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-
 use DB;
-
 class Master extends Model
 {
     use Notifiable;
@@ -25,7 +21,6 @@ class Master extends Model
     protected $fillable = [
        'maintenance_amount','flat_number','id','created_at',
     ];
-
     /**
      *@ShortDescription The attributes that should be hidden for arrays.
      *
@@ -34,7 +29,6 @@ class Master extends Model
     protected $hidden = [
         'user_password',
     ];
-
     /**
         * @DateOfCreation         27 Aug 2018
         * @ShortDescription       This function selects the specified data from table and count
@@ -45,7 +39,6 @@ class Master extends Model
         return DB::table('flat_type')
         ->where('id', '=', $user_id)->count();
     }
-
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       This function selects the specified data from table
@@ -56,7 +49,6 @@ class Master extends Model
         return DB::table('flat_type')
         ->where('id', '=', $user_id)->get()->toArray();
     }
-
     /**
      * @DateOfCreation       11 September 2018
      * @DateOfDeprecated
@@ -70,7 +62,6 @@ class Master extends Model
     {
         return DB::table($table_name)->insertGetId($insert_array);
     }
-
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       This function selects the specified data from table
