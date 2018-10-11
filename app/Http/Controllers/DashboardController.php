@@ -602,7 +602,8 @@ class DashboardController extends Controller
         return view('admin.maintenanceTransaction', $data);
     }
     /**
-     * [addMonthlyExpense description]
+     * [addMonthlyExpense description]    {
+
      */
     public function addMonthlyExpense()
     {
@@ -610,15 +611,20 @@ class DashboardController extends Controller
     }
 
     public function addMoreMonthlyExpense(Request $request)
-    {
-        $data = json_decode($_POST['title']);
-print_r($data);
-        //$data = $request->all();
-       // unset($data['_token']);
+    {    
+        $data = $request->all();
+        $title = $data['title'];
+        $amount = $data['amount'];
+        foreach($title as $key => $value) 
+        {
+            echo "Title".$value;
+            echo "Amount".$amount[$key];
+        }die;
+       /*// unset($data['_token']);
         // foreach ($data as $value) {
            // print_r($data);
         // }
-die;
+
         $rules = [];
         foreach($request->input('title') as $key => $value) 
         {
@@ -632,7 +638,7 @@ die;
             }
             return response()->json(['success'=>'done']);
         }
-        return response()->json(['error'=>$validator->errors()->all()]);
+        return response()->json(['error'=>$validator->errors()->all()]);*/
     }
     public function changeflattype(Request $request)
     {

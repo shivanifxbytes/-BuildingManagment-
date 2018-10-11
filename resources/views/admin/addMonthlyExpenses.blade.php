@@ -137,6 +137,14 @@
       $('#submit').click(function(){            
           var formData = $('#add_name').serialize();
           console.log('formData -------', formData); 
+          var amount = [];
+          $('input[name="amount[]"]').each( function() {
+            amount.push(this.value);
+          });
+          var title = [];
+          $('input[name="title[]"]').each( function() {
+            title.push(this.value);
+          });
           $.ajaxSetup({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -146,7 +154,7 @@
           $.ajax({  
                 url: "{{ route('addMoreMonthlyExpense') }}", 
                 type:"POST",  
-                data:{formData:formData},
+                data:{title:title,amount:amount},
                 dataType: 'json',
                 success:function(response)  
                 {
