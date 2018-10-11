@@ -2,12 +2,10 @@
 @section('content')       
 <div class="row">
   <div class="col-lg-12">
-    <h3 class="page-header"><i class="fa fa-file-text-o"></i>
-    @if(isset($user_maintenance[0]->user_first_name)) {{ ucfirst($user_maintenance[0]->user_first_name) }} @endif @if(isset($user_maintenance[0]->user_last_name)) {{ ucfirst($user_maintenance[0]->user_last_name) }} @endif
-   </h3>
+    <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flat_type') }}</h3>
     <ol class="breadcrumb">
       <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard"> {{ __('messages.home')}}</a></li>
-      <li><i class="fa fa-file-text-o"></i> </li>
+      <li><i class="fa fa-file-text-o"></i>{{ __('messages.flat_type') }}</li>
     </ol>
   </div>
 </div>      
@@ -15,8 +13,7 @@
   <div class="row"><div class="col-lg-3"></div>
   <div class="col-lg-6">
     <section class="panel">
-      <header class="panel-heading">        
-      </header>
+      <header class="panel-heading">{{ __('messages.flat_type') }}</header>
       <div class="panel-body">
         @if ($errors->any())
         @foreach ($errors->all() as $error)

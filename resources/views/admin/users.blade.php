@@ -6,7 +6,7 @@
           </h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
-              <li><i class="fa fa-th-list"></i>{{ __('messages.users') }}</li>
+              <li><i class="fa fa-th-list"></i>{{ __('messages.flats') }}</li>
             </ol>
           </div>
         </div>
@@ -51,8 +51,8 @@
                     <td> {!! showStatus($row->user_status) !!}</td>
                    <td>
                       <div class="btn-group">
-                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
+                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                       </div>
                     </td>
                    </tr>
@@ -98,5 +98,4 @@
       </section>
     </section>
     <!--main content end-->
-
 @endsection

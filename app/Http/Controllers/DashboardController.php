@@ -85,7 +85,9 @@ class DashboardController extends Controller
                 $user_id = Crypt::decrypt($user_id);
                 $check = Admin::where('id', '=', $user_id)->count();
                 if (is_int($user_id) && $check > 0) {
-                    $data['user'] = Admin::find($user_id);
+                    $data['users'] = $this->dashboardObj->selectFlatType();
+                    $data['user'] = $this->dashboardObj->queryData()->where('id', $user_id);
+                    
                     return view('admin.editUser', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -112,8 +114,7 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'     => 'required|string|flat_type|max:255|unique:users',
-            'flat_type'       => 'required|max:50',
+            'flat_number'     => 'required|string|max:255',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
@@ -150,7 +151,12 @@ class DashboardController extends Controller
             } else {
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
+                    $flatData = array(
+                'flat_number'      => $request->input('flat_number'),
+                'carpet_area'      => $request->input('carpet_area'),
+                );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
+                    $flat =  Flat::where('owner_id', $user_id)->update($flatData);
                     return redirect('adminUser')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
@@ -167,8 +173,6 @@ class DashboardController extends Controller
     {
         $data['user_id'] = Crypt::decrypt($id);
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
-        print_r($data['user_maintenance']);
-        die();
         return view('admin.userMaintenance', $data)->with('no', 1);
     }
     /**
@@ -379,6 +383,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
+            'flat_number'   => 'max:10'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -387,8 +392,12 @@ class DashboardController extends Controller
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
             );
+            $insertData = array(
+                'maintenance_amount' => $request->input('maintenance_amount'),
+                'flat_number'=> $request->input('flat_number')
+            );
             if (empty($id)) {
-                $user = Master::create($requestData);
+                $user = Master::create($insertData);
                 if ($user) {
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_added'));
                 } else {
@@ -598,13 +607,15 @@ class DashboardController extends Controller
     }
     /**
      * [addMonthlyExpense description]    {
-
      */
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
     }
-
+    /**
+     * [addMoreMonthlyExpense description]
+     * @param Request $request [description]
+     */
     public function addMoreMonthlyExpense(Request $request)
     {
         $datainsert = [];
@@ -622,8 +633,7 @@ class DashboardController extends Controller
                     'paid_by'=>$paidBy[$key],
             ));
         }
-    Monthlyexpenses::insert($datainsert); 
-        
+    Monthlyexpenses::insert($datainsert);
     }
     /**
      * [changeflattype description]
