@@ -167,8 +167,6 @@ class DashboardController extends Controller
     {
         $data['user_id'] = Crypt::decrypt($id);
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
-        print_r($data['user_maintenance']);
-        die();
         return view('admin.userMaintenance', $data)->with('no', 1);
     }
     /**
@@ -379,6 +377,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
+            'flat_number'   => 'max:10'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -387,8 +386,12 @@ class DashboardController extends Controller
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
             );
+            $insertData = array(
+                'maintenance_amount' => $request->input('maintenance_amount'),
+                'flat_number'=> $request->input('flat_number')
+            );
             if (empty($id)) {
-                $user = Master::create($requestData);
+                $user = Master::create($insertData);
                 if ($user) {
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_added'));
                 } else {
@@ -598,13 +601,15 @@ class DashboardController extends Controller
     }
     /**
      * [addMonthlyExpense description]    {
-
      */
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
     }
-
+    /**
+     * [addMoreMonthlyExpense description]
+     * @param Request $request [description]
+     */
     public function addMoreMonthlyExpense(Request $request)
     {    
         $data = $request->all();
