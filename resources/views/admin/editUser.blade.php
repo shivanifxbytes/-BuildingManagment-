@@ -24,29 +24,23 @@
         </p>
         @endforeach
         @endif
+
         <div class="col-lg-12">
           <div class="form-group">
             <label>{{ __('messages.owner')}}</label>
-            <input type="text" class="form-control" value="{{ $user['owner']}}"  name="owner" placeholder="{{ __('messages.owner')}}" required>
-          </div>  
-          <div class="form-group">
-            <label for="flat_type">Flat Type</label>
-            <select name="flat_type" id="flat_type" class="form-control" >
-              <option value="{{ $user['flat_type']}}"  selected="selected">{{ $user['flat_type']}}</option>
-              <option value="">{{$user->flat_type }}</option>                               
-            </select>           
-          </div> 
+            <input type="text" class="form-control" value="{{$user[0]->name}}"  name="owner" placeholder="{{ __('messages.owner')}}" required>
+          </div>   
           <div class="form-group">
             <label>{{ __('messages.flat_number')}}</label>
-            <input type="text" class="form-control" value="{{ $user->flat_number }}"  name="flat_number" placeholder="{{ __('messages.flat_number')}}" required>
+            <input type="text" class="form-control" value="{{ $user[0]->flat_number }}"  name="flat_number" placeholder="{{ __('messages.flat_number')}}" required>
           </div> 
           <div class="form-group">
             <label>Enter Mobile No.</label>            
-            <input id="owner_mobile_no" type="text" class="form-control" name="owner_mobile_no" value="{{ $user->owner_mobile_no }}" required>              
+            <input id="owner_mobile_no" type="text" class="form-control" name="owner_mobile_no" value="{{ $user[0]->mobile_number }}" required>              
           </div> 
           <div class="form-group">
             <label>{{ __('messages.carpet_area')}}</label>
-            <input type="text" class="form-control" value="{{ $user->carpet_area }}"  name="carpet_area" placeholder="{{ __('messages.carpet_area')}}" required>
+            <input type="text" class="form-control" value="{{ $user[0]->carpet_area }}"  name="carpet_area" placeholder="{{ __('messages.carpet_area')}}" required>
           </div>  
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
           <div class="form-group">

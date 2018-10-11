@@ -25,7 +25,7 @@ class Dashboard extends Model
         return  DB::table('flats')
              ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
              ->rightJoin('users', 'flats.owner_id', '=', 'users.id')
-            ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
+            ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
             ->where('users.user_role_id', '=', ' 2')
             ->get();
     }

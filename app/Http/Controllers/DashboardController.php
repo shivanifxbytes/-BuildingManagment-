@@ -85,7 +85,7 @@ class DashboardController extends Controller
                 $user_id = Crypt::decrypt($user_id);
                 $check = Admin::where('id', '=', $user_id)->count();
                 if (is_int($user_id) && $check > 0) {
-                    $data['user'] = Admin::find($user_id);
+                    $data['user'] = $this->dashboardObj->queryData()->where('id', $user_id);
                     return view('admin.editUser', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -112,8 +112,7 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'     => 'required|string|flat_type|max:255|unique:users',
-            'flat_type'       => 'required|max:50',
+            'flat_number'     => 'required|string|max:255',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
@@ -150,7 +149,12 @@ class DashboardController extends Controller
             } else {
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
+                    $flatData = array(
+                'flat_number'      => $request->input('flat_number'),
+                'carpet_area'      => $request->input('carpet_area'),
+                );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
+                    $flat =  Flat::where('owner_id', $user_id)->update($flatData);
                     return redirect('adminUser')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
@@ -611,34 +615,34 @@ class DashboardController extends Controller
      * @param Request $request [description]
      */
     public function addMoreMonthlyExpense(Request $request)
-    {    
+    {
         $data = $request->all();
         $title = $data['title'];
         $amount = $data['amount'];
-        foreach($title as $key => $value) 
-        {
+        foreach ($title as $key => $value) {
             echo "Title".$value;
             echo "Amount".$amount[$key];
-        }die;
-       /*// unset($data['_token']);
-        // foreach ($data as $value) {
-           // print_r($data);
-        // }
+        }
+        die;
+        /*// unset($data['_token']);
+         // foreach ($data as $value) {
+            // print_r($data);
+         // }
 
-        $rules = [];
-        foreach($request->input('title') as $key => $value) 
-        {
-            $rules["title.{$key}"] = 'required';
-        }
-        
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->passes()) {
-            foreach($request->input('name') as $key => $value) {
-                TagList::create(['name'=>$value]);
-            }
-            return response()->json(['success'=>'done']);
-        }
-        return response()->json(['error'=>$validator->errors()->all()]);*/
+         $rules = [];
+         foreach($request->input('title') as $key => $value)
+         {
+             $rules["title.{$key}"] = 'required';
+         }
+
+         $validator = Validator::make($request->all(), $rules);
+         if ($validator->passes()) {
+             foreach($request->input('name') as $key => $value) {
+                 TagList::create(['name'=>$value]);
+             }
+             return response()->json(['success'=>'done']);
+         }
+         return response()->json(['error'=>$validator->errors()->all()]);*/
     }
     /**
      * [changeflattype description]
@@ -651,5 +655,4 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
-
 }
