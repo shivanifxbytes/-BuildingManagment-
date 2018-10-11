@@ -24,16 +24,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-     'amount','flat_number','tenant_name','pending_amount','extra_amount','reason_extra_amount','owner_name','reason_pending_amount','created_at','updated_at',
-    ];
-
-    /**
-     *@ShortDescription The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'user_password',
+     'amount','flat_number','tenant_name','pending_amount','extra_amount','reason_extra_amount','owner_name','reason_pending_amount','created_at','updated_at','month'
     ];
 
     /**
