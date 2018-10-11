@@ -36,7 +36,7 @@
           <table class="table table-bordered table-hover" id="tab_logic_total">
             <tbody>
              <strong>Date : </strong>  
-             <input class="date form-control" style="width: 300px;" type="text">      
+             <input type="text" class="date form-control" name="date[]" style="width: 300px;" >      
            </tbody>
          </table>
        </div>
@@ -77,7 +77,7 @@
      <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
     </div>
   </div>
-</form>
+
   <div class="row clearfix">
     <div class="col-md-12">     
     </div>
@@ -108,6 +108,7 @@
     </table>
   </div>
 </div>
+</form>
 </div>  
 </section>
 </div>
@@ -136,8 +137,13 @@
       });     
       $('#submit').click(function(){            
           var formData = $('#add_name').serialize();
-          console.log('formData -------', formData); 
+          console.log('formData -------', formData);
           
+          var date = [];
+          $('input[name="date[]"]').each( function() {
+            date.push(this.value);
+          }); 
+           console.log('formData -------', date);
           var title = [];
           $('input[name="title[]"]').each( function() {
             title.push(this.value);
@@ -171,7 +177,7 @@
           $.ajax({  
                 url: "{{ route('addMoreMonthlyExpense') }}", 
                 type:"POST",  
-                data:{title:title,amount:amount,paid_by:paid_by,card_number:card_number},
+                data:{date:date,title:title,amount:amount,paid_by:paid_by,card_number:card_number},
                 dataType: 'json',
                 success:function(response)  
                 {

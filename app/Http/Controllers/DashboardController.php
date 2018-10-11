@@ -612,6 +612,7 @@ class DashboardController extends Controller
     {
         return view('admin.addMonthlyExpenses');
     }
+
     /**
      * [addMoreMonthlyExpense description]
      * @param Request $request [description]
@@ -620,13 +621,14 @@ class DashboardController extends Controller
     {
         $datainsert = [];
         $data = $request->all();
+        $date = $data['date'];
         $title = $data['title'];
         $amount = $data['amount'];
         $cardNumber = $data['card_number'];
         $paidBy = $data['paid_by'];
         foreach ($title as $key => $value) {
-            # code...
             array_push($datainsert,array(
+                    'month'=> isset($date[$key])?$date[$key]:$date['0'],
                     'title'=>$value,
                     'amount'=>$amount[$key],
                     'reference_number'=>$cardNumber[$key],
@@ -634,7 +636,11 @@ class DashboardController extends Controller
             ));
         }
     Monthlyexpenses::insert($datainsert);
+ //$newAmount = $cartResult[0]["quantity"] + $_POST["quantity"];
+ //$grand_total += ($data["amount"]);
+    return response()->json(['success'=>'done' ]);
     }
+
     /**
      * [changeflattype description]
      * @param  Request $request [description]
