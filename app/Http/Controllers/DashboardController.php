@@ -620,6 +620,7 @@ class DashboardController extends Controller
     public function addMoreMonthlyExpense(Request $request)
     {
         $datainsert = [];
+
         $data = $request->all();
         $date = $data['date'];
         $title = $data['title'];
