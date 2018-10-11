@@ -14,7 +14,7 @@
     <div class="col-lg-6">
         <section class="panel">
             <header class="panel-heading">
-                {{ __('messages.edit_user')}}
+                {{ __('messages.edit_flat')}}
             </header>
             <div class="panel-body">
                 @if ($errors->any())
