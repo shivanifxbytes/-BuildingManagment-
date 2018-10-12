@@ -107,13 +107,20 @@ class Dashboard extends Model
         }
         return $flat_details;
     }
-
+    /**
+     * [getTransactionByMonthAndYear description]
+     * @param  string $year  [description]
+     * @param  string $month [description]
+     * @return [type]        [description]
+     */
     public function getTransactionByMonthAndYear($year='',$month='')
     {
         $transaction_details = DB::table('flats as f')
         ->join('users as u', 'f.owner_id', '=', 'u.id')
         ->join('maintenance_transaction as t', 'f.flat_number', '=', 't.flat_number')
-        ->select('t.flat_number', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name')
+        ->select('t.flat_number', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
+        ->where(DB::raw('YEAR(month)'),$year)
+        ->where(DB::raw('MONTH(month)'),$month)
         ->get();
         return $transaction_details;
     }
