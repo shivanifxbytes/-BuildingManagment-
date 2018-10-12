@@ -12,6 +12,11 @@
     #data-table_filter {
         display: none;
     }
+    .dataTables_empty
+    {
+        display: none;
+
+    }
 </style>
 @endsection
 @section('content')       
@@ -60,7 +65,7 @@
                 {{ session()->get('message') }}
             </div>
             @endif
-            <table class="table table-striped table-advance table-hover" id="data-table">
+            <table class="table table-striped table-advance table-hover dynamic_field" id="data-table" >
                 <thead>
                     <tr>
                         <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>                    
@@ -69,29 +74,9 @@
                         <th><i class="icon_mail_alt"></i>{{ __('messages.pending_amount') }}</th>
                         <th><i class="icon_mail_alt"></i>{{ __('messages.extra_amount') }}</th>
                         <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
-                        <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if(isset($users))
-                    @foreach($users as $key => $row)
-                    <tr>
-                        <td>{{$row->flat_number}}</td>                                    
-                        <td>{{$row->name}}</td>
-                        <td>{{$row->mobile_number}}</td>
-                        <td>{{$row->flat_type}}</td>                    
-                        <td>{{$row->carpet_area}} sq.ft</td>
-                        <td>{{$row->email}}</td>
-                        <td> {!! showStatus($row->user_status) !!}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                                <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach    
-                    @endif             
                 </tbody>
             </table>
         </section>
@@ -128,8 +113,13 @@
                         success:function(response)  
                         {
                             console.log(response);
-                                                        // console.log(response);
+    
+   
+    $.each(response, function (index, value) {
 
+          $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.flat_number+'</td><td>'+value.owner_name+'</td><td>'+value.amount+'</td><td>'+value.pending_amount+'</td><td>'+value.extra_amount+'</td><td></td></tr>');  
+   
+});
                         }  
                     });     
                 });
