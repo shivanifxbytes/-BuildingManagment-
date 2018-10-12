@@ -577,7 +577,7 @@ class DashboardController extends Controller
         $test->reason_pending_amount=$input['reasonPendingAmount'];
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
-        $test->month =$input['date'];
+        $test->month =date("Y-m-d", strtotime($input['date']));
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
@@ -625,7 +625,7 @@ class DashboardController extends Controller
         $paidBy = $data['paid_by'];
         foreach ($title as $key => $value) {
             array_push($datainsert, array(
-                    'month'      => isset($date[$key])?$date[$key]:$date['0'],
+                    'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
                     'title'      =>$value,
                     'amount'     =>$amount[$key],
                     'paid_by'    =>$paidBy[$key],
@@ -659,6 +659,7 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+
     /**
      * [showMonthlyTransaction description]
      * @param  Request $request [description]
@@ -666,9 +667,25 @@ class DashboardController extends Controller
      */
     public function showMonthlyTransaction(Request $request)
     {
-        $year =  $request->year;
-        $month =  $request->month;
+        $year   =  $request->year;
+        $month  =  $request->month;
         $result = $this->dashboardObj->getTransactionByMonthAndYear($year,$month);
+        return $result;
+    }
+
+
+    /**
+     * [showMonthlyTransaction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function showMonthlyExpenses()
+    {
+        echo "hello";
+        die();
+        $year   =  $request->year;
+        $month  =  $request->month;
+        $result = $this->dashboardObj->getExpensesByMonthAndYear($year,$month);
         return $result;
     }
 }

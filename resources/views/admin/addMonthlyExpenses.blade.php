@@ -120,12 +120,12 @@
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>  
 <script type="text/javascript"> 
-  $(document).ready(function(){
-    $('.date').datepicker({  
-     format: 'mm-dd-yyyy'  
-   });  
-  })  
-</script> 
+    $(document).ready(function(){
+        $('.date').datepicker({  
+    format: 'mm/dd/yyyy',
+        });  
+    })        
+</script>  
 <script type="text/javascript">
   $(document).ready(function(){      
     var postURL = "<?php echo url('addmore'); ?>";

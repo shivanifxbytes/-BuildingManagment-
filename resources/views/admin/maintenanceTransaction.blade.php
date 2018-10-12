@@ -47,13 +47,14 @@
 </div>  
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script><script type="text/javascript"> 
-$(document).ready(function(){
-    $('.date').datepicker({  
-        format: 'mm-dd-yyyy'  
-    });  
-})  
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript"> 
+    $(document).ready(function(){
+        $('.date').datepicker({  
+    format: 'mm/dd/yyyy',
+        });  
+    })        
+</script>  
 <script type="text/javascript"> 
     function payMaintence(flatNumber){
         var flatNumber=$("#flat_num_"+flatNumber).val();
@@ -93,11 +94,5 @@ $(document).ready(function(){
         });
     }
 </script>
-<script type="text/javascript"> 
-    $(document).ready(function(){
-        $('.date').datepicker({  
-            format: 'yyyy-mm-dd'  
-        });  
-    })        
-</script>  
+
 @endsection

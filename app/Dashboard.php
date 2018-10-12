@@ -107,6 +107,7 @@ class Dashboard extends Model
         }
         return $flat_details;
     }
+
     /**
      * [getTransactionByMonthAndYear description]
      * @param  string $year  [description]
@@ -123,5 +124,16 @@ class Dashboard extends Model
         ->where(DB::raw('MONTH(month)'),$month)
         ->get();
         return $transaction_details;
+    }
+
+   /**
+     * [getTransactionByMonthAndYear description]
+     * @param  string $year  [description]
+     * @param  string $month [description]
+     * @return [type]        [description]
+     */
+    public function getExpensesByMonthAndYear()
+    {
+        return $data;
     }
 }
