@@ -617,19 +617,19 @@ class DashboardController extends Controller
     public function addMoreMonthlyExpense(Request $request)
     {
         $datainsert = [];
-        $data = $request->all();
-        $date = $data['date'];
-        $title = $data['title'];
-        $amount = $data['amount'];
+        $data       = $request->all();
+        $date       = $data['date'];
+        $title      = $data['title'];
+        $amount     = $data['amount'];
         $cardNumber = $data['card_number'];
         $paidBy = $data['paid_by'];
         foreach ($title as $key => $value) {
             array_push($datainsert, array(
-                    'month'=> isset($date[$key])?$date[$key]:$date['0'],
-                    'title'=>$value,
-                    'amount'=>$amount[$key],
-                    'reference_number'=>$cardNumber[$key],
-                    'paid_by'=>$paidBy[$key],
+                    'month'      => isset($date[$key])?$date[$key]:$date['0'],
+                    'title'      =>$value,
+                    'amount'     =>$amount[$key],
+                    'paid_by'    =>$paidBy[$key],
+                    'reference_number'=>$cardNumber[$key],                  
             ));
         }
         Monthlyexpenses::insert($datainsert);
@@ -637,9 +637,7 @@ class DashboardController extends Controller
         $cash_amount =0;
         $cheque_amount =0;
         foreach ($amount as $key => $value) {
-            # code...
             $paid_by = $amount[$key]->paid_by;
-
             if ($paid_by == 'Cash') {
                 $cash_amount += $amount[$key]->amount;
             } else {

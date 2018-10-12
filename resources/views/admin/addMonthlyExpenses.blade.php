@@ -183,7 +183,6 @@
             $('#cash_total').val(response.cash);
             $('#cheque_total').val(response.cheque);
             $('#total_amount').val(response.total);
-
           }
         }  
       });  
@@ -193,7 +192,7 @@
      $(".print-error-msg").css('display','block');
      $(".print-success-msg").css('display','none');
      $.each( msg, function( key, value ) {
-      $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+     $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
     });
    }
  });  
