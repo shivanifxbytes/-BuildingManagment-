@@ -1,6 +1,5 @@
 @extends ('layouts.admin')
 @section('styles')
-
 <style type="text/css">
     #data-table_length {
         display: none;
@@ -15,7 +14,6 @@
     .dataTables_empty
     {
         display: none;
-
     }
 </style>
 @endsection
@@ -112,14 +110,15 @@
                         dataType: 'json',
                         success:function(response)  
                         {
-                            console.log(response);
-    
-   
-    $.each(response, function (index, value) {
+                            $('.dynamic_field').html('');   
+                            $.each(response, function (index, value) {
 
-          $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.flat_number+'</td><td>'+value.owner_name+'</td><td>'+value.amount+'</td><td>'+value.pending_amount+'</td><td>'+value.extra_amount+'</td><td></td></tr>');  
-   
-});
+                                $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.flat_number+'</td><td>'+value.owner_name+'</td><td>'+value.amount+'</td><td>'+value.pending_amount+'</td><td>'+value.extra_amount+'</td><td></td></tr>');  
+                            });
+                        },
+                        error:function(xhr)
+                        {
+                            console.log(xhr.responseText);
                         }  
                     });     
                 });
@@ -130,6 +129,5 @@
             }
         });
     });
-
 </script>
 @endsection
