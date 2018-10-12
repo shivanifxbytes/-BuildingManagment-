@@ -24,13 +24,14 @@ select
             <li><i class="fa fa-th-list"></i>{{ __('messages.month_list') }}</li>
         </ol>
     </div>
+
 </div>
 <div class="row">
 <div class="col-lg-12">
         <section class="panel">
-        <p>Retrieve Record By Specifying The Year And Month </p>
+                <p>Retrieve Record By Specifying The Year And Month </p>
         <?php $current_month = date("m"); 
-        $current_year        = date('Y')?>
+        $current_year = date('Y')?>
         <select id="yearlist" name="yearlist">
             <option value=''>Select Year</option>
             @for($i=$current_year; $i>=$current_year-20; $i--)
@@ -116,30 +117,6 @@ select
       }
       
     });
-  });
-</script>
-<script type="text/javascript">
-  $('select').on('change', function (e) {
-var optionSelected = $("option:selected", this);
-var valueSelected = this.value;
-  alert(valueSelected);
-    $.ajax({
-            url: 'obView/' + valueSelected,
-            type: 'GET',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success: function (data) {
-                if (data['success']) {
-                    alert(data['success']);
-                } else if (data['error']) {
-                    alert(data['error']);
-                } else {
-                    alert('Whoops Something went wrong!!');
-                }
-            },
-            error: function (data) {
-                alert(data.responseText);
-            }
-        });
   });
 </script>
 @endsection
