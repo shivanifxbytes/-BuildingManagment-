@@ -72,5 +72,6 @@ return [
     'owner_mobile_no'=>'Phone Number',
     'monthly_expenses' => 'Monthly Expenses',
     'month_list'    => 'View Month List',
-    'edit_flat'=>'Edit Flat'
+    'edit_flat'=>'Edit Flat',
+    'amount'=>'Amount',
 ];
