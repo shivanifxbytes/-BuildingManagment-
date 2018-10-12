@@ -9928,3 +9928,9 @@ span.customSelect.changed {
 .top-menu li{
     margin-right: 30px;
 }
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    background: white;
+}
