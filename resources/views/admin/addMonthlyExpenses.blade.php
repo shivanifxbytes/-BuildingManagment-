@@ -174,7 +174,6 @@
         {
           if(response.error){
             printErrorMsg(response.error);
-
           }else{
             $(".print-success-msg").find("ul").html('');
             $(".print-success-msg").css('display','block');
