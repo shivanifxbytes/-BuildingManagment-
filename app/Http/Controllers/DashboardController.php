@@ -661,4 +661,16 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+    /**
+     * [showMonthlyTransaction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function showMonthlyTransaction(Request $request)
+    {
+        $year =  $request->year;
+        $month =  $request->month;
+        $result = $this->dashboardObj->getTransactionByMonthAndYear($year,$month);
+        return $result;
+    }
 }

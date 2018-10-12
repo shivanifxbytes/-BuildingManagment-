@@ -3,15 +3,15 @@
 
 <style type="text/css">
     #data-table_length {
-    display: none;
-}
-select
-{
-    padding: 5px 8px;
-}
-#data-table_filter {
-    display: none;
-}
+        display: none;
+    }
+    select
+    {
+        padding: 5px 8px;
+    }
+    #data-table_filter {
+        display: none;
+    }
 </style>
 @endsection
 @section('content')       
@@ -27,27 +27,27 @@ select
 
 </div>
 <div class="row">
-<div class="col-lg-12">
+    <div class="col-lg-12">
         <section class="panel">
-                <p>Retrieve Record By Specifying The Year And Month </p>
-        <?php $current_month = date("m"); 
-        $current_year = date('Y')?>
-        <select id="yearlist" name="yearlist">
-            <option value=''>Select Year</option>
-            @for($i=$current_year; $i>=$current_year-20; $i--)
-            <option value="{{$i}}">{{ $i }}</option>
-            @endfor
-        </select>
-        <select id="monthlist" style="display: none">
-            <option value=''>Select Month</option>
-            @for($i=1; $i<=$current_month; $i++)
-            <?php  
-            $dateObj   = DateTime::createFromFormat('!m', $i);
-            $monthName = $dateObj->format('F'); 
-            $monthCode = $dateObj->format('m');// March ?>
-            <option value="{{$monthCode}}">{{ $monthName }}</option>
-            @endfor
-        </select>
+            <p>Retrieve Record By Specifying The Year And Month </p>
+            <?php $current_month = date("m"); 
+            $current_year = date('Y')?>
+            <select id="yearlist" name="yearlist">
+                <option value=''>Select Year</option>
+                @for($i=$current_year; $i>=$current_year-20; $i--)
+                <option value="{{$i}}">{{ $i }}</option>
+                @endfor
+            </select>
+            <select id="monthlist" style="display: none">
+                <option value=''>Select Month</option>
+                @for($i=1; $i<=$current_month; $i++)
+                <?php  
+                $dateObj   = DateTime::createFromFormat('!m', $i);
+                $monthName = $dateObj->format('F'); 
+                $monthCode = $dateObj->format('m');// March ?>
+                <option value="{{$monthCode}}">{{ $monthName }}</option>
+                @endfor
+            </select>
             @if ($errors->any())
             @foreach ($errors->all() as $error)
             <p class="error alert alert-block alert-danger fade in">
@@ -65,10 +65,9 @@ select
                     <tr>
                         <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>                    
                         <th><i class="icon_mail_alt"></i>{{ __('messages.owner') }}</th>
-                        <th><i class="icon_mail_alt"></i>{{ __('messages.owner_mobile_no') }}</th>
-                        <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                   
-                        <th><i class="icon_mail_alt"></i>{{ __('messages.carpet_area') }}</th>
-                        <th><i class="icon_mail_alt"></i>{{ __('messages.email') }}</th>
+                        <th><i class="icon_mail_alt"></i>{{ __('messages.amount') }}</th>
+                        <th><i class="icon_mail_alt"></i>{{ __('messages.pending_amount') }}</th>
+                        <th><i class="icon_mail_alt"></i>{{ __('messages.extra_amount') }}</th>
                         <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
                         <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                     </tr>
@@ -104,19 +103,43 @@ select
 @endsection
 @section('scripts')
 <script type="text/javascript">
-  jQuery(document).ready(function() {
-    jQuery('#yearlist').change(function() {
-      value = $(this).val();
-      if(value!='')
-      {
-        jQuery('#monthlist').css({'display':'inline'});
-      }
-      else
-      {
-        jQuery('#monthlist').css({'display':'none'});
-      }
-      
+    jQuery(document).ready(function() {
+        jQuery('#yearlist').change(function() {
+            year = $(this).val();
+            if(year!='')
+            {
+                jQuery('#monthlist').css({'display':'inline'});
+                jQuery('#monthlist').change(function()
+                {
+                    month = $(this).val();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({  
+                        url: "{{ route('showmonthlytransaction') }}", 
+                        type:"POST",  
+                        data:{
+                            year:year,
+                            month:month
+                        },
+                        dataType: 'json',
+                        success:function(response)  
+                        {
+                            console.log(response);
+                                                        // console.log(response);
+
+                        }  
+                    });     
+                });
+            }
+            else
+            {
+                jQuery('#monthlist').css({'display':'none'});
+            }
+        });
     });
-  });
+
 </script>
 @endsection
