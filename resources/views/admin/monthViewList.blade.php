@@ -1,4 +1,10 @@
 @extends ('layouts.admin')
+@section('styles')
+<style>
+select{width: 65px;
+padding: 5px 8px;
+}</style>
+@endsection
 @section('content')       
 <div class="row">
     <div class="col-lg-12">
@@ -14,7 +20,7 @@
     <div class="col-lg-12">
         <?php $current_month = date("m"); 
               $current_year = date('Y')?>
-        <select class="form-control"  id="sel1" name="sellist1">
+        <select id="sel1" name="sellist1">
             <option>Select Year</option>
             @for($i=$current_year; $i>=$current_year-20; $i--)
             <option>{{ $i }}</option>

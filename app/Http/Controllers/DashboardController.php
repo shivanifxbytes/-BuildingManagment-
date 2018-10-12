@@ -25,6 +25,7 @@ use Carbon;
 use App\Flat;
 use Exception;
 use App\Monthlyexpenses;
+
 class DashboardController extends Controller
 {
     /**
@@ -576,13 +577,9 @@ class DashboardController extends Controller
         $test->reason_pending_amount=$input['reasonPendingAmount'];
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
-        $test->month = date($input['date']);
-        try {
-            $test->save();
-            return response()->json(['success'=>'Paid']);
-        } catch (Exception $e) {
-            return response()->json(['error'=>'Already Paid']);
-        }
+        $test->month =$input['date'];
+        $test->save();
+        return response()->json(['success'=>'Paid']);
     }
     
     /**
@@ -620,7 +617,6 @@ class DashboardController extends Controller
     public function addMoreMonthlyExpense(Request $request)
     {
         $datainsert = [];
-
         $data = $request->all();
         $date = $data['date'];
         $title = $data['title'];
@@ -628,7 +624,7 @@ class DashboardController extends Controller
         $cardNumber = $data['card_number'];
         $paidBy = $data['paid_by'];
         foreach ($title as $key => $value) {
-            array_push($datainsert,array(
+            array_push($datainsert, array(
                     'month'=> isset($date[$key])?$date[$key]:$date['0'],
                     'title'=>$value,
                     'amount'=>$amount[$key],
@@ -636,10 +632,22 @@ class DashboardController extends Controller
                     'paid_by'=>$paidBy[$key],
             ));
         }
-    Monthlyexpenses::insert($datainsert);
- //$newAmount = $cartResult[0]["quantity"] + $_POST["quantity"];
- //$grand_total += ($data["amount"]);
-    return response()->json(['success'=>'done' ]);
+        Monthlyexpenses::insert($datainsert);
+        $amount = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date)->get();
+        $cash_amount =0;
+        $cheque_amount =0;
+        foreach ($amount as $key => $value) {
+            # code...
+            $paid_by = $amount[$key]->paid_by;
+
+            if ($paid_by == 'Cash') {
+                $cash_amount += $amount[$key]->amount;
+            } else {
+                $cheque_amount += $amount[$key]->amount;
+            }
+        }
+        $total = $cheque_amount+$cash_amount;
+        return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
 
     /**

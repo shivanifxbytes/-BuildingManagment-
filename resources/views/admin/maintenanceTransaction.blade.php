@@ -83,8 +83,9 @@ $(document).ready(function(){
       success: function (response) {
         if (response.success == "Paid") {
           swal("paid!", "Your entry has been paid.", "success");
-        } else if(response.error == "Already Paid")
+        } else if(response.error)
         {
+          console.log(response.error);
           swal("already paid!", "flat maintenance already been paid for the month.", "error");
         }
         else {
@@ -97,7 +98,7 @@ $(document).ready(function(){
 <script type="text/javascript"> 
   $(document).ready(function(){
     $('.date').datepicker({  
-      format: 'mm-dd-yyyy'  
+      format: 'yyyy-mm-dd'  
     });  
   })        
 </script>  
