@@ -112,7 +112,7 @@ select
                         {
                             $('.dynamic_field').html('');   
                             $.each(response, function (index, value) {
-                                $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.flat_number+'</td><td>'+value.owner_name+'</td><td>'+value.amount+'</td><td>'+value.pending_amount+'</td><td>'+value.extra_amount+'</td><td></td><td></td><td></td></tr>');  
+                                $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.title+'</td><td>'+value.amount+'</td><td>'+value.paid_by+'</td><td>'+value.reference_number+'</td><td>'+value.amount+'</td><td></td><td></td><td></td></tr>');  
                             });
                         },
                         error:function(xhr)

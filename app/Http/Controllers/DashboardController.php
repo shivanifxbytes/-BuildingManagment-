@@ -135,7 +135,7 @@ class DashboardController extends Controller
 
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
-                $requestData['password']      = bcrypt($request->input("password"));
+                $requestData['password'] = bcrypt($request->input("password"));
                 $user = Admin::insertGetId($requestData);
                 if ($user) {
                     $flatData = array(
@@ -666,11 +666,6 @@ class DashboardController extends Controller
     * @param  Request $request [description]
     * @return [type]           [description]
     */
-    /**
-    * [showMonthlyTransaction description]
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
     public function showMonthlyTransaction(Request $request)
     {
         $year   =  $request->year;
@@ -704,13 +699,14 @@ class DashboardController extends Controller
         "data"            => $data
         );
         echo json_encode($json_data);
-    }
+    } 
+
     /**
-    * [showMonthlyTransaction description]
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
-    public function showMonthlyExpenses()
+     * [showMonthlyTransaction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function showMonthlyExpenses(Request $request)
     {
         $year   =  $request->year;
         $month  =  $request->month;
