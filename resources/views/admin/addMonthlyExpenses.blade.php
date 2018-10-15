@@ -77,7 +77,6 @@
             <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
           </div>
         </div>
-
         <div class="row clearfix">
           <div class="col-md-12">     
           </div>
@@ -88,14 +87,11 @@
               <tbody>
                 <tr class="pull-left">
                   <th class="text-center">Total By Cash</th>
-
                   <td class="text-center"><input type="number" name='cash_total' placeholder='0.00' class="form-control" id="cash_total" readonly/></td>
-
                   <tr class="pull-right">
                     <th class="text-center">Total By Cheque</th>
-
                     <td class="text-center"><input type="number" name='cheque_total' id="cheque_total" placeholder='0.00' class="form-control" readonly/></td>
-                 </tr>
+                  </tr>
                 </tbody>
               </table>
             </div>

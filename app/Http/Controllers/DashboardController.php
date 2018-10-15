@@ -135,7 +135,7 @@ class DashboardController extends Controller
 
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
-                $requestData['password'] = bcrypt($request->input("password"));
+                $requestData['password']      = bcrypt($request->input("password"));
                 $user = Admin::insertGetId($requestData);
                 if ($user) {
                     $flatData = array(
@@ -673,8 +673,11 @@ class DashboardController extends Controller
     {
         $year   =  $request->year;
         $month  =  $request->month;
-        $result = $this->dashboardObj->getTransactionByMonthAndYear($year, $month);
-        $totalData = count($result);
+        $result1 = $this->dashboardObj->getTransactionByMonthAndYear($year, $month, 100);
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $result = $this->dashboardObj->getTransactionByMonthAndYear($year, $month, $limit, $start);
+        $totalData = count($result1);
         $totalFiltered = $totalData;
         $columns = array(
         0 =>'flat_number',
@@ -696,20 +699,20 @@ class DashboardController extends Controller
                 $data[] = $nestedData;
             }
         }
-        $json_data = array(
-        "recordsTotal"    => intval($totalData),
-        "recordsFiltered" => intval($totalFiltered),
-        "data"            => $data
-        );
-        echo json_encode($json_data);
-    } 
 
+        $json_data = array(
+    "recordsTotal"    => intval($totalData),
+    "recordsFiltered" => intval($totalFiltered),
+    "data"            => $data
+    );
+        echo json_encode($json_data);
+    }
     /**
-     * [showMonthlyTransaction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public function showMonthlyExpenses(Request $request)
+    * [showMonthlyTransaction description]
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
+    public function showMonthlyExpenses()
     {
         $year   =  $request->year;
         $month  =  $request->month;

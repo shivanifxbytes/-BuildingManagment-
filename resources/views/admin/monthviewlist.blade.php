@@ -93,6 +93,8 @@
                 {
                     month = $(this).val();
                     $('#flat_types').DataTable({
+                        "destroy": true,
+                        "pageLength": 10,
                         "processing": true,
                         "serverSide": true,
                         "ajax":{
