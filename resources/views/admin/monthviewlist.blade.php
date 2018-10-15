@@ -1,21 +1,18 @@
 @extends ('layouts.admin')
 @section('styles')
 <style type="text/css">
-    #data-table_length {
+    #flat_types_length {
         display: none;
     }
     select
     {
         padding: 5px 8px;
     }
-    #data-table_filter {
-        display: none;
-    }
-    .dataTables_empty
-    {
+    #flat_types_filter {
         display: none;
     }
 </style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
 @endsection
 @section('content')       
 <div class="row">
@@ -63,7 +60,7 @@
                 {{ session()->get('message') }}
             </div>
             @endif
-            <table class="table table-striped table-advance table-hover" id="data-table" >
+            <table class="table table-striped table-advance table-hover" id="flat_types" >
                 <thead>
                     <tr>
                         <th><i class="icon_mail_alt"></i>{{ __('messages.flat_number') }}</th>                    
@@ -78,13 +75,13 @@
                 </tbody>
             </table>
         </section>
+
     </div>
-    <!-- page end-->
 </div>
 </div>
-<!--main content end-->
 @endsection
 @section('scripts')
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery('#yearlist').change(function() {
@@ -95,32 +92,25 @@
                 jQuery('#monthlist').change(function()
                 {
                     month = $(this).val();
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({  
-                        url: "{{ route('showmonthlytransaction') }}", 
-                        type:"POST",  
-                        data:{
-                            year:year,
-                            month:month
+                    $('#flat_types').DataTable({
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax":{
+                            "url": "{{ route('showmonthlytransaction') }}",
+                            "dataType": "json",
+                            "type": "POST",
+                            "data":{ _token: "{{csrf_token()}}", year:year,
+                            month:month},
                         },
-                        dataType: 'json',
-                        success:function(response)  
-                        {
-                            $('.dynamic_field').html('');   
-                            $.each(response, function (index, value) {
-
-                                $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.flat_number+'</td><td>'+value.owner_name+'</td><td>'+value.amount+'</td><td>'+value.pending_amount+'</td><td>'+value.extra_amount+'</td><td></td></tr>');  
-                            });
-                        },
-                        error:function(xhr)
-                        {
-                            console.log(xhr.responseText);
-                        }  
-                    });     
+                        "columns": [
+                        { "data": "flat_number" },
+                        { "data": "owner" },
+                        { "data": "amount" },
+                        { "data": "pending_amount" },
+                        { "data": "extra_amount" },
+                        { "data": "status" }
+                        ]    
+                    });   
                 });
             }
             else
@@ -128,6 +118,11 @@
                 jQuery('#monthlist').css({'display':'none'});
             }
         });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
     });
 </script>
 @endsection

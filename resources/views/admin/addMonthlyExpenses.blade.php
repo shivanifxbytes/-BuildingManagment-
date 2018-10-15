@@ -60,8 +60,8 @@
            <tbody>
             <tr id='addr0'>
               <td><input type="text"  value="" name="title[]" placeholder="" required/></td>
-              <td><input type="text" value="" name="amount[]" placeholder="" required></td>
-              <td><select name="paid_by[]" required>
+              <td><input type="text" value="" id="amount" name="amount[]" placeholder="" required></td>
+              <td><select id="paid_by" name="paid_by[]" required>
                 <option value="" >Paid BY</option>
                 <option value="Cash">Cash</option>
                 <option value="Cheque">Cheque</option>
@@ -89,12 +89,12 @@
         <tr class="pull-left">
           <th class="text-center">Total By Cash</th>
 
-          <td class="text-center"><input type="number" name='cash_total' placeholder='0.00' class="form-control" id="cash_total" readonly/></td>
+          <td class="text-center"><input type="number" id="cash_total" name='cash_total' placeholder='0.00' class="form-control" id="cash_total" readonly/></td>
 
           <tr class="pull-right">
             <th class="text-center">Total By Cheque</th>
 
-            <td class="text-center"><input type="number" name='cheque_total' id="cheque_total" placeholder='0.00' class="form-control" readonly/></td>
+            <td class="text-center"><input type="number" id="cheque_total" name='cheque_total' id="cheque_total" placeholder='0.00' class="form-control" readonly/></td>
 
           </tr>
         </tbody>
@@ -105,7 +105,7 @@
         <tbody>
           <tr>
             <th class="text-center " >Grand Total</th>
-            <td class="text-center"><input type="number" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
+            <td class="text-center"><input type="number" id="total_amount" name='total_amount' id="total_amount" placeholder='0.00' class="form-control" readonly/></td>
           </tr>
         </tbody>
       </table>
@@ -165,6 +165,7 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
+
       $.ajax({  
         url: "{{ route('addMoreMonthlyExpense') }}", 
         type:"POST",  
