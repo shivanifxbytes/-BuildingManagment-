@@ -130,6 +130,8 @@
   $(document).ready(function(){      
     var postURL = "<?php echo url('addmore'); ?>";
     var i=1;  
+     $('.dynamic-added').remove();
+                        $('#add_name')[0].reset();
     $('#add').click(function(){  
       i++;  
       $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text"  value="" name="title[]" placeholder="" required/></td><td><input type="text" value="" name="amount[]" class="amount" placeholder="" required></td><td><select name="paid_by[]" class="paid_by" id="paid_by" ><option value="" selected="selected">Paid BY</option><option value="Cash">Cash</option><option value="Cheque">Cheque</option></select></td><td><input type="text" value="" name="card_number[]" placeholder="" required></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
