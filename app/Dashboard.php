@@ -114,7 +114,7 @@ class Dashboard extends Model
      * @param  string $month [description]
      * @return [type]        [description]
      */
-    public function getTransactionByMonthAndYear($year='',$month='')
+    public function getTransactionByMonthAndYear($year='',$month='',$limit='',$start='')
     {
         $transaction_details = DB::table('flats as f')
         ->join('users as u', 'f.owner_id', '=', 'u.id')
@@ -122,6 +122,8 @@ class Dashboard extends Model
         ->select('t.flat_number', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
         ->where(DB::raw('YEAR(month)'),$year)
         ->where(DB::raw('MONTH(month)'),$month)
+        ->limit($limit)
+        ->offset($start)
         ->get();
         return $transaction_details;
     }
