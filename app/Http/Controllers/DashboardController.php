@@ -562,6 +562,7 @@ class DashboardController extends Controller
         $data['flats'] = $this->transactionobj->selectAllTransaction();
         return view('admin.showMaintenanceTransactionList', $data);
     }
+
     /**
     * @DateOfCreation         28 September 2018s
     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
@@ -591,6 +592,7 @@ class DashboardController extends Controller
     {
         return view('admin.monthlyExpenses');
     }
+
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Load the add Maintenance Transaction form view
@@ -602,6 +604,7 @@ class DashboardController extends Controller
 
         return view('admin.maintenanceTransaction', $data);
     }
+
     /**
     * [addMonthlyExpense description]    {
     */
@@ -627,10 +630,10 @@ class DashboardController extends Controller
             $date1 = isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0']));
             array_push($datainsert, array(
             'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
-            'title'      =>$value,
-            'amount'     =>$amount[$key],
-            'paid_by'    =>$paidBy[$key],
-            'reference_number'=>$cardNumber[$key],
+            'title'      => $value,
+            'amount'     => $amount[$key],
+            'paid_by'    => $paidBy[$key],
+            'reference_number'=> $cardNumber[$key],
             ));
         }
         Monthlyexpenses::insert($datainsert);
@@ -710,6 +713,7 @@ class DashboardController extends Controller
     {
         $year   =  $request->year;
         $month  =  $request->month;
+        
         $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month);
         return $result;
     }

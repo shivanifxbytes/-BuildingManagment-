@@ -18,10 +18,7 @@ class MonthlyExpensesTable extends Migration
             $table->string('title'); 
             $table->decimal('amount')->default(null); 
             $table->string('paid_by')->default('');
-            $table->decimal('reference_number')->default(null);
-            $table->decimal('total_by_cash')->default(null);
-            $table->decimal('total_by_cheque')->default(null);
-            $table->decimal('total_amount')->default(null);          
+            $table->number('reference_number')->default(null);         
             $table->string('month')->default(null);
             $table->timestamps();
         });
