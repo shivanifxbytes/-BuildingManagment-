@@ -12,7 +12,6 @@
         display: none;
     }
 </style>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
 @endsection
 @section('content')       
 <div class="row">
@@ -81,7 +80,6 @@
 </div>
 @endsection
 @section('scripts')
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery('#yearlist').change(function() {
@@ -120,11 +118,6 @@
                 jQuery('#monthlist').css({'display':'none'});
             }
         });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-
     });
 </script>
 @endsection

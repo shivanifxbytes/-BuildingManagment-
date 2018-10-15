@@ -62,16 +62,14 @@ select
                 {{ session()->get('message') }}
             </div>
             @endif
-            <table class="table table-striped table-advance table-hover" id="data-table" >
+            <table class="table table-striped table-advance table-hover" id="showMonthlyExpenses" >
+
                 <thead>
                     <tr>
                        <th>Title</th>    
                        <th>Amount</th>       
                        <th>Paid By</th>
-                       <th>Reference  Number</th>
-                       <th class="text-center">Total By Cash</th>
-                       <th class="text-center">Total By Cheque</th>
-                       <th class="text-center " >Grand Total</th>
+                       <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
                    </tr>
                </thead>
                <tbody class="dynamic_field">
@@ -95,56 +93,31 @@ select
                 jQuery('#monthlist').change(function()
                 {
                     month = $(this).val();
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({  
-                        url: "{{ route('showMonthlyExpenses') }}", 
-                        type:"POST",  
-                        data:{
-                            year:year,
-                            month:month
+                   $('#showMonthlyExpenses').DataTable({
+                        "destroy": true,
+                        "pageLength": 10,
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax":{
+                            "url": "{{ route('showMonthlyExpenses') }}",
+                            "dataType": "json",
+                            "type": "POST",
+                            "data":{ _token: "{{csrf_token()}}", year:year,
+                            month:month},
                         },
-                        dataType: 'json',
-                        success:function(response)  
-                        {
-                            $('.dynamic_field').html('');   
-                            $.each(response, function (index, value) {
-                                $('.dynamic_field').append('<tr id="row'+response[index]+'"><td>'+value.title+'</td><td>'+value.amount+'</td><td>'+value.paid_by+'</td><td>'+value.reference_number+'</td><td>'+value.amount+'</td><td></td><td></td><td></td></tr>');  
-                            });
-                        },
-                        error:function(xhr)
-                        {
-                            console.log(xhr.responseText);
-                        }  
-                    });     
+                        "columns": [
+                        { "data": "title" },
+                        { "data": "amount" },
+                        { "data": "paid_by" },
+                        { "data": "status" }
+                        ]    
+                    });   
                 });
             }
             else
             {
                 jQuery('#monthlist').css({'display':'none'});
             }
-        });
-
-        $('#posts').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax":{
-                     "url": "{{ url('allposts') }}",
-                     "dataType": "json",
-                     "type": "POST",
-                     "data":{ _token: "{{csrf_token()}}"}
-                   },
-            "columns": [
-                { "data": "id" },
-                { "data": "title" },
-                { "data": "body" },
-                { "data": "created_at" },
-                { "data": "options" }
-            ]    
-
         });
     });
 </script>

@@ -715,8 +715,33 @@ class DashboardController extends Controller
     {
         $year   =  $request->year;
         $month  =  $request->month;
-        
-        $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month);
-        return $result;
+        $result1 = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, 100);
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, $limit, $start);
+        $totalData = count($result1);
+        $totalFiltered = $totalData;
+        $columns = array(
+            0 =>'title',
+            1 =>'amount',
+            2=> 'paid_by',
+            3=>'status'
+            );
+        $data = array();
+        if (!empty($result)) {
+            foreach ($result as $key => $value) {
+                $nestedData['title'] = $value->title;
+                $nestedData['amount'] = $value->amount;
+                $nestedData['paid_by'] = $value->paid_by;
+                $nestedData['status'] = 1;
+                $data[] = $nestedData;
+            }
+        }
+        $json_data = array(
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+            );
+        echo json_encode($json_data);
     }
 }

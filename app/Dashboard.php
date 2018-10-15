@@ -134,11 +134,13 @@ class Dashboard extends Model
      * @param  string $month [description]
      * @return [type]        [description]
      */
-    public function getExpensesByMonthAndYear($year='',$month='')
+    public function getExpensesByMonthAndYear($year='',$month='',$limit='',$start='')
     {
         $expenses_details= DB::table('monthly_expenses')->select('amount', 'paid_by','title','paid_by','reference_number','month',DB::raw('YEAR(month) as year'))
         ->where(DB::raw('YEAR(month)'),$year)
         ->where(DB::raw('MONTH(month)'),$month)
+        ->limit($limit)
+        ->offset($start)
         ->get();
         return $expenses_details;
     }
