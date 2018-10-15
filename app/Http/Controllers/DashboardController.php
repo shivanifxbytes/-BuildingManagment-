@@ -29,11 +29,11 @@ use App\Monthlyexpenses;
 class DashboardController extends Controller
 {
     /**
-     * @DateOfCreation      10-Oct-2018
-     * @ShortDescription    Create a new controller instance.
-     *
-     * @return void
-     */
+    * @DateOfCreation      10-Oct-2018
+    * @ShortDescription    Create a new controller instance.
+    *
+    * @return void
+    */
     public function __construct()
     {
         $this->dashboardObj = new Dashboard();
@@ -41,44 +41,44 @@ class DashboardController extends Controller
     }
 
     /**
-     * @DateOfCreation         23 Aug 2018
-     * @ShortDescription       Load the dashboard view
-     * @return                 View
-     */
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load the dashboard view
+    * @return                 View
+    */
     public function index()
     {
         /**
-         * @ShortDescription Blank array for the count for sending the array to the view.
-         *
-         * @var Array
-         */
+        * @ShortDescription Blank array for the count for sending the array to the view.
+        *
+        * @var Array
+        */
         $count = [];
         $count['users']  = $this->dashboardObj->countUsers();
         return view('admin.dashboard', compact('count'));
     }
 
     /**
-     * @DateOfCreation         23 Aug 2018
-     * @ShortDescription       Load users view with list of all users
-     * @return                 View
-     */
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load users view with list of all users
+    * @return                 View
+    */
     public function users()
     {
         /**
-         *@ShortDescription Blank array for the data for sending the array to the view.
-         *
-         * @var Array
-         */
+        *@ShortDescription Blank array for the data for sending the array to the view.
+        *
+        * @var Array
+        */
         $data['users'] = $this->dashboardObj->queryData();
         return view('admin.users', $data);
     }
 
     /**
-     * @DateOfCreation         24 Aug 2018
-     * @ShortDescription       Function run according to the parameter if $user_id is NUll
-     *                         then it return add view If we get ID it will return edit view
-     * @return                 View
-     */
+    * @DateOfCreation         24 Aug 2018
+    * @ShortDescription       Function run according to the parameter if $user_id is NUll
+    *                         then it return add view If we get ID it will return edit view
+    * @return                 View
+    */
     public function getUser($user_id = null)
     {
         if (!empty($user_id)) {
@@ -88,7 +88,7 @@ class DashboardController extends Controller
                 if (is_int($user_id) && $check > 0) {
                     $data['users'] = $this->dashboardObj->selectFlatType();
                     $data['user'] = $this->dashboardObj->queryData()->where('id', $user_id);
-                    
+
                     return view('admin.editUser', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -103,34 +103,34 @@ class DashboardController extends Controller
     }
 
     /**
-     * @DateOfCreation         24 Aug 2018
-     * @ShortDescription       This function handle the post request which get after submit the
-     *                         and function run according to the parameter if $user_id is NUll
-     *                         then it will insert the value If we get ID it will update the value
-     *                         according to the ID
-     * @return                 Response
-     */
+    * @DateOfCreation         24 Aug 2018
+    * @ShortDescription       This function handle the post request which get after submit the
+    *                         and function run according to the parameter if $user_id is NUll
+    *                         then it will insert the value If we get ID it will update the value
+    *                         according to the ID
+    * @return                 Response
+    */
     public function postUser(Request $request, $user_id = null)
     {
         $rules = array(
-            'owner'           => 'required|max:50',
-            'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'     => 'required|string|max:255',
-            'carpet_area'     => 'required|max:50',
+        'owner'           => 'required|max:50',
+        'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
+        'flat_number'     => 'required|string|max:255',
+        'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
             $rules = array(
-                'email'      => 'required|string|email|max:255|unique:users',
-                'password'   => 'required|string|min:6|confirmed',);
+            'email'      => 'required|string|email|max:255|unique:users',
+            'password'   => 'required|string|min:6|confirmed',);
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'name'             => $request->input('owner'),
-                'mobile_number'    => $request->input('owner_mobile_no'),
-                'user_role_id'     => 2
+            'name'             => $request->input('owner'),
+            'mobile_number'    => $request->input('owner_mobile_no'),
+            'user_role_id'     => 2
             );
 
             if (empty($user_id)) {
@@ -139,9 +139,9 @@ class DashboardController extends Controller
                 $user = Admin::insertGetId($requestData);
                 if ($user) {
                     $flatData = array(
-                'flat_number'      => $request->input('flat_number'),
-                'carpet_area'      => $request->input('carpet_area'),
-                'owner_id'         => $user);
+                    'flat_number'      => $request->input('flat_number'),
+                    'carpet_area'      => $request->input('carpet_area'),
+                    'owner_id'         => $user);
                 }
                 $flat =  Flat::insertGetId($flatData);
                 if ($flat) {
@@ -153,9 +153,9 @@ class DashboardController extends Controller
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
                     $flatData = array(
-                'flat_number'      => $request->input('flat_number'),
-                'carpet_area'      => $request->input('carpet_area'),
-                );
+                    'flat_number'      => $request->input('flat_number'),
+                    'carpet_area'      => $request->input('carpet_area'),
+                    );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
                     $flat =  Flat::where('owner_id', $user_id)->update($flatData);
                     return redirect('adminUser')->with('message', __('messages.Record_updated'));
@@ -219,29 +219,29 @@ class DashboardController extends Controller
     public function postMaintenence(Request $request, $id, $user_id = null)
     {
         $rules = array(
-            'amount'         => 'required|max:50',
-            'month'          => 'required|max:50',
-            'pending_amount' => 'required|max:50',
-            'extra_amount'   => 'required|max:50',
+        'amount'         => 'required|max:50',
+        'month'          => 'required|max:50',
+        'pending_amount' => 'required|max:50',
+        'extra_amount'   => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'amount'         => $request->input('amount'),
-                'month'          => $request->input('month'),
-                'pending_amount' => $request->input('pending_amount'),
-                'extra_amount'   => $request->input('extra_amount'),
-                'user_status'    => $request->input('status'),
-                'created_at'     => date('Y-m-d'),
-                'updated_at'     => date('Y-m-d')
+            'amount'         => $request->input('amount'),
+            'month'          => $request->input('month'),
+            'pending_amount' => $request->input('pending_amount'),
+            'extra_amount'   => $request->input('extra_amount'),
+            'user_status'    => $request->input('status'),
+            'created_at'     => date('Y-m-d'),
+            'updated_at'     => date('Y-m-d')
             );
             $user_id = Crypt::decrypt($user_id);
             $users = DB::table('user_maintenance')->select('user_id', 'month')
-                ->where('user_id', '=', $user_id)
-                ->where('month', '=', $requestData['month'])
-                ->get()->toArray();
+        ->where('user_id', '=', $user_id)
+        ->where('month', '=', $requestData['month'])
+        ->get()->toArray();
             if (count($users)>0) {
                 return redirect()->back()->withInput()->withErrors(__('messages.already_paid '));
             } else {
@@ -303,7 +303,7 @@ class DashboardController extends Controller
     public function importExcel(Request $request)
     {
         $request->validate([
-            'import_file' => 'required'
+        'import_file' => 'required'
         ]);
         $path = $request->file('import_file')->getRealPath();
         $data = Excel::load($path)->get();
@@ -312,15 +312,15 @@ class DashboardController extends Controller
         if ($data->count()) {
             foreach ($data as $key => $value) {
                 $arr = [
-                    'user_id'        => $value->user_id,
-                    'user_status'    => $value->user_status,
-                    'amount'         => $value->amount,
-                    'month'          => $value->month,
-                    'user_status'    => Config::get('constants.ADMIN_ROLE'),
-                    'pending_amount' => $value->pending_amount,
-                    'extra_amount'   => $value->extra_amount,
-                    'flat_number'    => $value->flat_number
-                ];
+            'user_id'        => $value->user_id,
+            'user_status'    => $value->user_status,
+            'amount'         => $value->amount,
+            'month'          => $value->month,
+            'user_status'    => Config::get('constants.ADMIN_ROLE'),
+            'pending_amount' => $value->pending_amount,
+            'extra_amount'   => $value->extra_amount,
+            'flat_number'    => $value->flat_number
+            ];
                 if (!empty($arr)) {
                     $maintenance_records = Maintenance::selectMaintenance($value->user_id);
                     if (count($maintenance_records) == 0) {
@@ -373,29 +373,29 @@ class DashboardController extends Controller
         }
     }
     /**
-     * @DateOfCreation         19 September 2018
-     * @ShortDescription       This function handle the post request which get after submit
-     *                         and function run according to the parameter if $user_id is NUll
-     *                         then it will insert the value If we get ID it will update the value
-     *                         according to the ID
-     * @return                 Response
-     */
+    * @DateOfCreation         19 September 2018
+    * @ShortDescription       This function handle the post request which get after submit
+    *                         and function run according to the parameter if $user_id is NUll
+    *                         then it will insert the value If we get ID it will update the value
+    *                         according to the ID
+    * @return                 Response
+    */
     public function postMaintenanceMaster(Request $request, $id = null)
     {
         $rules = array(
-            'maintenance_amount' => 'required|max:50',
-            'flat_number'   => 'max:10'
+        'maintenance_amount' => 'required|max:50',
+        'flat_number'   => 'max:10'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'maintenance_amount' => $request->input('maintenance_amount'),
+            'maintenance_amount' => $request->input('maintenance_amount'),
             );
             $insertData = array(
-                'maintenance_amount' => $request->input('maintenance_amount'),
-                'flat_number'=> $request->input('flat_number')
+            'maintenance_amount' => $request->input('maintenance_amount'),
+            'flat_number'=> $request->input('flat_number')
             );
             if (empty($id)) {
                 $user = Master::create($insertData);
@@ -426,7 +426,7 @@ class DashboardController extends Controller
         DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
- 
+
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load flat type view with list of all flats
@@ -464,18 +464,18 @@ class DashboardController extends Controller
         }
     }
     /**
-     * @DateOfCreation         19 September 2018
-     * @ShortDescription       This function handle the post request which get after submit
-     *                         and function run according to the parameter if $user_id is NUll
-     *                         then it will insert the value If we get ID it will update the value
-     *                         according to the ID
-     * @return                 Response
-     */
+    * @DateOfCreation         19 September 2018
+    * @ShortDescription       This function handle the post request which get after submit
+    *                         and function run according to the parameter if $user_id is NUll
+    *                         then it will insert the value If we get ID it will update the value
+    *                         according to the ID
+    * @return                 Response
+    */
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'   => 'required|max:50',
-            'flat_number' => 'required|string',
+        'flat_type'   => 'required|max:50',
+        'flat_number' => 'required|string',
         );
         // set validator
         $validator = Validator::make($request->all(), $rules);
@@ -484,9 +484,9 @@ class DashboardController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'flat_type'    => $request->input('flat_type'),
-                'flat_number'    => $request->input('flat_number'),
-                'created_at'   => date('Y-m-d H-i-s')
+            'flat_type'    => $request->input('flat_type'),
+            'flat_number'    => $request->input('flat_number'),
+            'created_at'   => date('Y-m-d H-i-s')
             );
             if (empty($user_id)) {
                 $user = Master::insert('flat_type', $requestData);
@@ -519,11 +519,11 @@ class DashboardController extends Controller
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
     /**
-     * @DateOfCreation         27 August 2018
-     * @ShortDescription       Get the ID from the ajax and pass
-     *  it to the function to delete it
-     * @return                 Response
-     */
+    * @DateOfCreation         27 August 2018
+    * @ShortDescription       Get the ID from the ajax and pass
+    *  it to the function to delete it
+    * @return                 Response
+    */
     public function deleteUser(Request $request)
     {
         try {
@@ -563,10 +563,10 @@ class DashboardController extends Controller
         return view('admin.showMaintenanceTransactionList', $data);
     }
     /**
-     * @DateOfCreation         28 September 2018s
-     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
-     * @return                 Response
-     */
+    * @DateOfCreation         28 September 2018s
+    * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
+    * @return                 Response
+    */
     public function paidmaintenanceTransaction(Request $request)
     {
         $test = new Transaction();
@@ -581,12 +581,12 @@ class DashboardController extends Controller
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
-    
+
     /**
-     * @DateOfCreation         23 Aug 2018
-     * @ShortDescription       Load the monthly Expences form view
-     * @return                 View
-     */
+    * @DateOfCreation         23 Aug 2018
+    * @ShortDescription       Load the monthly Expences form view
+    * @return                 View
+    */
     public function monthlyExpences()
     {
         return view('admin.monthlyExpenses');
@@ -603,17 +603,17 @@ class DashboardController extends Controller
         return view('admin.maintenanceTransaction', $data);
     }
     /**
-     * [addMonthlyExpense description]    {
-     */
+    * [addMonthlyExpense description]    {
+    */
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
     }
 
     /**
-     * [addMoreMonthlyExpense description]
-     * @param Request $request [description]
-     */
+    * [addMoreMonthlyExpense description]
+    * @param Request $request [description]
+    */
     public function addMoreMonthlyExpense(Request $request)
     {
         $datainsert = [];
@@ -626,11 +626,11 @@ class DashboardController extends Controller
         foreach ($title as $key => $value) {
             $date1 = isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0']));
             array_push($datainsert, array(
-                    'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
-                    'title'      =>$value,
-                    'amount'     =>$amount[$key],
-                    'paid_by'    =>$paidBy[$key],
-                    'reference_number'=>$cardNumber[$key],                  
+            'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
+            'title'      =>$value,
+            'amount'     =>$amount[$key],
+            'paid_by'    =>$paidBy[$key],
+            'reference_number'=>$cardNumber[$key],
             ));
         }
         Monthlyexpenses::insert($datainsert);
@@ -650,10 +650,10 @@ class DashboardController extends Controller
     }
 
     /**
-     * [changeflattype description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
+    * [changeflattype description]
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function changeflattype(Request $request)
     {
         $id = $request->id;
@@ -662,29 +662,60 @@ class DashboardController extends Controller
     }
 
     /**
-     * [showMonthlyTransaction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
+    * [showMonthlyTransaction description]
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
+    /**
+    * [showMonthlyTransaction description]
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function showMonthlyTransaction(Request $request)
     {
         $year   =  $request->year;
         $month  =  $request->month;
-        $result = $this->dashboardObj->getTransactionByMonthAndYear($year,$month);
-        return $result;
+        $result = $this->dashboardObj->getTransactionByMonthAndYear($year, $month);
+        $totalData = count($result);
+        $totalFiltered = $totalData;
+        $columns = array(
+        0 =>'flat_number',
+        1 =>'owner',
+        2=> 'amount',
+        3=> 'pending_amount',
+        4=> 'extra_amount',
+        5=>'status'
+        );
+        $data = array();
+        if (!empty($result)) {
+            foreach ($result as $key => $value) {
+                $nestedData['flat_number'] = $value->flat_number;
+                $nestedData['owner'] = $value->owner_name;
+                $nestedData['amount'] = $value->amount;
+                $nestedData['pending_amount'] = $value->pending_amount;
+                $nestedData['extra_amount'] = $value->extra_amount;
+                $nestedData['status'] = 1;
+                $data[] = $nestedData;
+            }
+        }
+        $json_data = array(
+        "recordsTotal"    => intval($totalData),
+        "recordsFiltered" => intval($totalFiltered),
+        "data"            => $data
+        );
+
+        echo json_encode($json_data);
     }
     /**
-     * [showMonthlyTransaction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
+    * [showMonthlyTransaction description]
+    * @param  Request $request [description]
+    * @return [type]           [description]
+    */
     public function showMonthlyExpenses()
     {
-        echo "hello";
-        die();
         $year   =  $request->year;
         $month  =  $request->month;
-        $result = $this->dashboardObj->getExpensesByMonthAndYear($year,$month);
+        $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month);
         return $result;
     }
 }
