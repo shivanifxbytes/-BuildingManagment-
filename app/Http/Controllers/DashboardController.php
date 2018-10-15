@@ -135,7 +135,7 @@ class DashboardController extends Controller
 
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
-                $requestData['password']      = bcrypt($request->input("password"));
+                $requestData['password'] = bcrypt($request->input("password"));
                 $user = Admin::insertGetId($requestData);
                 if ($user) {
                     $flatData = array(
@@ -634,6 +634,7 @@ class DashboardController extends Controller
         }
         Monthlyexpenses::insert($datainsert);
         $amount = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date)->get();
+        print_r($amount);
         $cash_amount =0;
         $cheque_amount =0;
         foreach ($amount as $key => $value) {
@@ -642,9 +643,14 @@ class DashboardController extends Controller
                 $cash_amount += $amount[$key]->amount;
             } else {
                 $cheque_amount += $amount[$key]->amount;
+                echo "cheque Amount Inside ".$cheque_amount;
+                die();
             }
         }
         $total = $cheque_amount+$cash_amount;
+        echo "cheque Amount Outside ".$cheque_amount;
+        echo "Cash Amount Outside ".$cash_amount;
+        echo $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
 

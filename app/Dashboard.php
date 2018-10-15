@@ -134,6 +134,6 @@ class Dashboard extends Model
      */
     public function getExpensesByMonthAndYear()
     {
-        return $data;
+        return DB::table('monthly_expenses')->select('amount', 'paid_by','title','paid_by','reference_number')->where('month', $date)->get();
     }
 }
