@@ -624,6 +624,7 @@ class DashboardController extends Controller
         $cardNumber = $data['card_number'];
         $paidBy = $data['paid_by'];
         foreach ($title as $key => $value) {
+            $date1 = isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0']));
             array_push($datainsert, array(
                     'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
                     'title'      =>$value,
@@ -633,8 +634,7 @@ class DashboardController extends Controller
             ));
         }
         Monthlyexpenses::insert($datainsert);
-        $amount = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date)->get();
-        print_r($amount);
+        $amount = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date1)->get();
         $cash_amount =0;
         $cheque_amount =0;
         foreach ($amount as $key => $value) {
@@ -643,14 +643,9 @@ class DashboardController extends Controller
                 $cash_amount += $amount[$key]->amount;
             } else {
                 $cheque_amount += $amount[$key]->amount;
-                echo "cheque Amount Inside ".$cheque_amount;
-                die();
             }
         }
         $total = $cheque_amount+$cash_amount;
-        echo "cheque Amount Outside ".$cheque_amount;
-        echo "Cash Amount Outside ".$cash_amount;
-        echo $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
 
@@ -678,17 +673,13 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getTransactionByMonthAndYear($year,$month);
         return $result;
     }
-
-
     /**
      * [showMonthlyTransaction description]
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function showMonthlyExpenses()
+    public function showMonthlyExpenses(Request $request)
     {
-        echo "hello";
-        die();
         $year   =  $request->year;
         $month  =  $request->month;
         $result = $this->dashboardObj->getExpensesByMonthAndYear($year,$month);
