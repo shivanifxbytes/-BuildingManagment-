@@ -113,25 +113,25 @@ class DashboardController extends Controller
     public function postUser(Request $request, $user_id = null)
     {
         $rules = array(
-        'owner'           => 'required|max:50',
-        'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-        'flat_number'     => 'required|string|max:255',
-        'carpet_area'     => 'required|max:50',
-        );
+            'owner'           => 'required|max:50',
+            'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
+            'flat_number'     => 'required|string|max:255',
+            'carpet_area'     => 'required|max:50',
+            );
         if (empty($user_id)) {
             $rules = array(
-            'email'      => 'required|string|email|max:255|unique:users',
-            'password'   => 'required|string|min:6|confirmed',);
+                'email'      => 'required|string|email|max:255|unique:users',
+                'password'   => 'required|string|min:6|confirmed',);
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-            'name'             => $request->input('owner'),
-            'mobile_number'    => $request->input('owner_mobile_no'),
-            'user_role_id'     => 2
-            );
+                'name'             => $request->input('owner'),
+                'mobile_number'    => $request->input('owner_mobile_no'),
+                'user_role_id'     => 2
+                );
 
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
@@ -139,9 +139,9 @@ class DashboardController extends Controller
                 $user = Admin::insertGetId($requestData);
                 if ($user) {
                     $flatData = array(
-                    'flat_number'      => $request->input('flat_number'),
-                    'carpet_area'      => $request->input('carpet_area'),
-                    'owner_id'         => $user);
+                        'flat_number'      => $request->input('flat_number'),
+                        'carpet_area'      => $request->input('carpet_area'),
+                        'owner_id'         => $user);
                 }
                 $flat =  Flat::insertGetId($flatData);
                 if ($flat) {
@@ -153,9 +153,9 @@ class DashboardController extends Controller
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
                     $flatData = array(
-                    'flat_number'      => $request->input('flat_number'),
-                    'carpet_area'      => $request->input('carpet_area'),
-                    );
+                        'flat_number'      => $request->input('flat_number'),
+                        'carpet_area'      => $request->input('carpet_area'),
+                        );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
                     $flat =  Flat::where('owner_id', $user_id)->update($flatData);
                     return redirect('adminUser')->with('message', __('messages.Record_updated'));
@@ -219,29 +219,29 @@ class DashboardController extends Controller
     public function postMaintenence(Request $request, $id, $user_id = null)
     {
         $rules = array(
-        'amount'         => 'required|max:50',
-        'month'          => 'required|max:50',
-        'pending_amount' => 'required|max:50',
-        'extra_amount'   => 'required|max:50',
-        );
+            'amount'         => 'required|max:50',
+            'month'          => 'required|max:50',
+            'pending_amount' => 'required|max:50',
+            'extra_amount'   => 'required|max:50',
+            );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-            'amount'         => $request->input('amount'),
-            'month'          => $request->input('month'),
-            'pending_amount' => $request->input('pending_amount'),
-            'extra_amount'   => $request->input('extra_amount'),
-            'user_status'    => $request->input('status'),
-            'created_at'     => date('Y-m-d'),
-            'updated_at'     => date('Y-m-d')
-            );
+                'amount'         => $request->input('amount'),
+                'month'          => $request->input('month'),
+                'pending_amount' => $request->input('pending_amount'),
+                'extra_amount'   => $request->input('extra_amount'),
+                'user_status'    => $request->input('status'),
+                'created_at'     => date('Y-m-d'),
+                'updated_at'     => date('Y-m-d')
+                );
             $user_id = Crypt::decrypt($user_id);
             $users = DB::table('user_maintenance')->select('user_id', 'month')
-        ->where('user_id', '=', $user_id)
-        ->where('month', '=', $requestData['month'])
-        ->get()->toArray();
+            ->where('user_id', '=', $user_id)
+            ->where('month', '=', $requestData['month'])
+            ->get()->toArray();
             if (count($users)>0) {
                 return redirect()->back()->withInput()->withErrors(__('messages.already_paid '));
             } else {
@@ -303,8 +303,8 @@ class DashboardController extends Controller
     public function importExcel(Request $request)
     {
         $request->validate([
-        'import_file' => 'required'
-        ]);
+            'import_file' => 'required'
+            ]);
         $path = $request->file('import_file')->getRealPath();
         $data = Excel::load($path)->get();
         $i = 0;
@@ -312,15 +312,15 @@ class DashboardController extends Controller
         if ($data->count()) {
             foreach ($data as $key => $value) {
                 $arr = [
-            'user_id'        => $value->user_id,
-            'user_status'    => $value->user_status,
-            'amount'         => $value->amount,
-            'month'          => $value->month,
-            'user_status'    => Config::get('constants.ADMIN_ROLE'),
-            'pending_amount' => $value->pending_amount,
-            'extra_amount'   => $value->extra_amount,
-            'flat_number'    => $value->flat_number
-            ];
+                'user_id'        => $value->user_id,
+                'user_status'    => $value->user_status,
+                'amount'         => $value->amount,
+                'month'          => $value->month,
+                'user_status'    => Config::get('constants.ADMIN_ROLE'),
+                'pending_amount' => $value->pending_amount,
+                'extra_amount'   => $value->extra_amount,
+                'flat_number'    => $value->flat_number
+                ];
                 if (!empty($arr)) {
                     $maintenance_records = Maintenance::selectMaintenance($value->user_id);
                     if (count($maintenance_records) == 0) {
@@ -383,20 +383,20 @@ class DashboardController extends Controller
     public function postMaintenanceMaster(Request $request, $id = null)
     {
         $rules = array(
-        'maintenance_amount' => 'required|max:50',
-        'flat_number'   => 'max:10'
-        );
+            'maintenance_amount' => 'required|max:50',
+            'flat_number'   => 'max:10'
+            );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-            'maintenance_amount' => $request->input('maintenance_amount'),
-            );
+                'maintenance_amount' => $request->input('maintenance_amount'),
+                );
             $insertData = array(
-            'maintenance_amount' => $request->input('maintenance_amount'),
-            'flat_number'=> $request->input('flat_number')
-            );
+                'maintenance_amount' => $request->input('maintenance_amount'),
+                'flat_number'=> $request->input('flat_number')
+                );
             if (empty($id)) {
                 $user = Master::create($insertData);
                 if ($user) {
@@ -474,9 +474,9 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-        'flat_type'   => 'required|max:50',
-        'flat_number' => 'required|string',
-        );
+            'flat_type'   => 'required|max:50',
+            'flat_number' => 'required|string',
+            );
         // set validator
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -484,10 +484,10 @@ class DashboardController extends Controller
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-            'flat_type'    => $request->input('flat_type'),
-            'flat_number'    => $request->input('flat_number'),
-            'created_at'   => date('Y-m-d H-i-s')
-            );
+                'flat_type'    => $request->input('flat_type'),
+                'flat_number'    => $request->input('flat_number'),
+                'created_at'   => date('Y-m-d H-i-s')
+                );
             if (empty($user_id)) {
                 $user = Master::insert('flat_type', $requestData);
                 //insert data in users table
@@ -629,12 +629,12 @@ class DashboardController extends Controller
         foreach ($title as $key => $value) {
             $date1 = isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0']));
             array_push($datainsert, array(
-            'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
-            'title'      => $value,
-            'amount'     => $amount[$key],
-            'paid_by'    => $paidBy[$key],
-            'reference_number'=> $cardNumber[$key],
-            ));
+                'month'      => isset($date[$key])?date("Y-m-d", strtotime($date[$key])):date("Y-m-d", strtotime($date['0'])),
+                'title'      => $value,
+                'amount'     => $amount[$key],
+                'paid_by'    => $paidBy[$key],
+                'reference_number'=> $cardNumber[$key],
+                ));
         }
         Monthlyexpenses::insert($datainsert);
         $amount = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date1)->get();
@@ -680,13 +680,13 @@ class DashboardController extends Controller
         $totalData = count($result1);
         $totalFiltered = $totalData;
         $columns = array(
-        0 =>'flat_number',
-        1 =>'owner',
-        2=> 'amount',
-        3=> 'pending_amount',
-        4=> 'extra_amount',
-        5=>'status'
-        );
+            0 =>'flat_number',
+            1 =>'owner',
+            2=> 'amount',
+            3=> 'pending_amount',
+            4=> 'extra_amount',
+            5=>'status'
+            );
         $data = array();
         if (!empty($result)) {
             foreach ($result as $key => $value) {
@@ -699,12 +699,11 @@ class DashboardController extends Controller
                 $data[] = $nestedData;
             }
         }
-
         $json_data = array(
-    "recordsTotal"    => intval($totalData),
-    "recordsFiltered" => intval($totalFiltered),
-    "data"            => $data
-    );
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data"            => $data
+            );
         echo json_encode($json_data);
     }
     /**
