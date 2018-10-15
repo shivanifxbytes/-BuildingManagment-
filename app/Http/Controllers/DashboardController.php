@@ -709,7 +709,7 @@ class DashboardController extends Controller
     * @param  Request $request [description]
     * @return [type]           [description]
     */
-    public function showMonthlyExpenses()
+    public function showMonthlyExpenses(Request $request)
     {
         $year   =  $request->year;
         $month  =  $request->month;
