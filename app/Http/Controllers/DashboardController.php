@@ -88,7 +88,6 @@ class DashboardController extends Controller
                 if (is_int($user_id) && $check > 0) {
                     $data['users'] = $this->dashboardObj->selectFlatType();
                     $data['user'] = $this->dashboardObj->queryData()->where('id', $user_id);
-
                     return view('admin.editUser', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
