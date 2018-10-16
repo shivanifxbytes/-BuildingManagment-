@@ -718,8 +718,6 @@ class DashboardController extends Controller
         $limit = $request->input('length');
         $start = $request->input('start');
         $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, $limit, $start);
-        print_r($result);
-        die;
         $totalData = count($result1);
         $totalFiltered = $totalData;
         $columns = array(
