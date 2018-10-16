@@ -27,7 +27,7 @@
 <div class="row">
     <div class="col-lg-12">
         <section class="panel">
-            <p>Retrieve Record By Specifying The Year And Month </p>
+           <div style="padding: 8px 8px">
             <?php $current_month = date("m"); 
             $current_year = date('Y')?>
             <select id="yearlist" name="yearlist">
@@ -46,6 +46,7 @@
                 <option value="{{$monthCode}}">{{ $monthName }}</option>
                 @endfor
             </select>
+        </div>
             @if ($errors->any())
             @foreach ($errors->all() as $error)
             <p class="error alert alert-block alert-danger fade in">
