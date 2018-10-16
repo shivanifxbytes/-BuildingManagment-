@@ -135,19 +135,22 @@
 
       $('select[name="paid_by[]"]').each( function() {
         if(this.value == "Cash"){
-          var amount = $(this).closest('tr').find('input[name="amount[]"]').val();
-          cash = cash + parseFloat(amount);
-          cheque =  (cheque - parseFloat(amount) <= 0 ) ? 0 : cheque - parseFloat(amount);
+           $(this).closest('tr').find('input[name="amount[]"]').each(function(){
+            var amount = this.value;
+             
+             cash = cash + parseFloat(amount);
+          });
+         
         }
         else
         {
-          var amount = $(this).closest('tr').find('input[name="amount[]"]').val();
-          cheque = cheque + parseFloat(amount);
-          cash = (cash - parseFloat(amount) <= 0 ) ? 0 : cash - parseFloat(amount);
+      $(this).closest('tr').find('input[name="amount[]"]').each(function(){
+            var amount = this.value;
+                       cheque = cheque + parseFloat(amount);
+        });
         }
       });
       $('#cheque_total').val(cheque);
-
       $('#cash_total').val(cash);
       var total = cash+cheque;
       $('#total_amount').val(total);
