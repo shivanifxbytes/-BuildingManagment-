@@ -23,7 +23,6 @@
             <li><i class="fa fa-th-list"></i>{{ __('messages.month_list') }}</li>
         </ol>
     </div>
-
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -74,7 +73,6 @@
                 </tbody>
             </table>
         </section>
-
     </div>
 </div>
 </div>
