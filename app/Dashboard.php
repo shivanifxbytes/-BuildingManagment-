@@ -141,8 +141,7 @@ class Dashboard extends Model
         ->where(DB::raw('MONTH(month)'),$month)
         ->limit($limit)
         ->offset($start)
-        ->get();
-   
+        ->get();  
         return $expenses_details;
     }
 }

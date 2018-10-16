@@ -71,7 +71,6 @@ select
                        <th>Title</th>    
                        <th>Amount</th>       
                        <th>Paid By</th>
-                       <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
                    </tr>
                </thead>
                <tbody class="dynamic_field">
@@ -112,7 +111,7 @@ select
                         { "data": "title" },
                         { "data": "amount" },
                         { "data": "paid_by" },
-                        { "data": "status" }
+                       
                         ]    
                     });   
                 });

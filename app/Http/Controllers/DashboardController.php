@@ -383,7 +383,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_number'   => 'max:10'
+            'flat_number'        => 'max:10'
             );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -394,7 +394,7 @@ class DashboardController extends Controller
                 );
             $insertData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
-                'flat_number'=> $request->input('flat_number')
+                'flat_number'        => $request->input('flat_number')
                 );
             if (empty($id)) {
                 $user = Master::create($insertData);
@@ -484,7 +484,7 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'flat_type'    => $request->input('flat_type'),
-                'flat_number'    => $request->input('flat_number'),
+                'flat_number'  => $request->input('flat_number'),
                 'created_at'   => date('Y-m-d H-i-s')
                 );
             if (empty($user_id)) {
@@ -636,9 +636,9 @@ class DashboardController extends Controller
                 ));
         }
         Monthlyexpenses::insert($datainsert);
-        $amount = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date1)->get();
-        $cash_amount =0;
-        $cheque_amount =0;
+        $amount         = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date1)->get();
+        $cash_amount    = 0;
+        $cheque_amount  = 0;
         foreach ($amount as $key => $value) {
             $paid_by = $amount[$key]->paid_by;
             if ($paid_by == 'Cash') {
@@ -670,31 +670,31 @@ class DashboardController extends Controller
     */
     public function showMonthlyTransaction(Request $request)
     {
-        $year   =  $request->year;
-        $month  =  $request->month;
+        $year    =  $request->year;
+        $month   =  $request->month;
         $result1 = $this->dashboardObj->getTransactionByMonthAndYear($year, $month, 100);
-        $limit = $request->input('length');
-        $start = $request->input('start');
-        $result = $this->dashboardObj->getTransactionByMonthAndYear($year, $month, $limit, $start);
-        $totalData = count($result1);
+        $limit   = $request->input('length');
+        $start   = $request->input('start');
+        $result  = $this->dashboardObj->getTransactionByMonthAndYear($year, $month, $limit, $start);
+        $totalData     = count($result1);
         $totalFiltered = $totalData;
         $columns = array(
-            0 =>'flat_number',
-            1 =>'owner',
-            2=> 'amount',
-            3=> 'pending_amount',
-            4=> 'extra_amount',
-            5=>'status'
+            0 => 'flat_number',
+            1 => 'owner',
+            2 => 'amount',
+            3 => 'pending_amount',
+            4 => 'extra_amount',
+            5 => 'status'
             );
         $data = array();
         if (!empty($result)) {
             foreach ($result as $key => $value) {
-                $nestedData['flat_number'] = $value->flat_number;
-                $nestedData['owner'] = $value->owner_name;
-                $nestedData['amount'] = $value->amount;
+                $nestedData['flat_number']    = $value->flat_number;
+                $nestedData['owner']          = $value->owner_name;
+                $nestedData['amount']         = $value->amount;
                 $nestedData['pending_amount'] = $value->pending_amount;
-                $nestedData['extra_amount'] = $value->extra_amount;
-                $nestedData['status'] = 1;
+                $nestedData['extra_amount']   = $value->extra_amount;
+                $nestedData['status']         = 1;
                 $data[] = $nestedData;
             }
         }
@@ -705,6 +705,7 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
+    
     /**
     * [showMonthlyTransaction description]
     * @param  Request $request [description]
@@ -712,29 +713,27 @@ class DashboardController extends Controller
     */
     public function showMonthlyExpenses(Request $request)
     {
-        $year   =  $request->year;
-        $month  =  $request->month;
-        $result1 = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, 100);
-        $limit = $request->input('length');
-        $start = $request->input('start');
-        $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, $limit, $start);
-        $totalData = count($result1);
+        $year     =  $request->year;
+        $month    =  $request->month;
+        $result1  = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, 100);
+        $limit    = $request->input('length');
+        $start    = $request->input('start');
+        $result   = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, $limit, $start);
+        $totalData     = count($result1);
         $totalFiltered = $totalData;
         $columns = array(
-            0 =>'month',
-            1 =>'title',
-            2 =>'amount',
-            3 => 'paid_by',
-            4 =>'status'
+            0 => 'month',
+            1 => 'title',
+            2 => 'amount',
+            3 => 'paid_by'
             );
         $data = array();
         if (!empty($result)) {
             foreach ($result as $key => $value) {
-                $nestedData['month'] = $value->month;
-                $nestedData['title'] = $value->title;
-                $nestedData['amount'] = $value->amount;
+                $nestedData['month']   = $value->month;
+                $nestedData['title']   = $value->title;
+                $nestedData['amount']  = $value->amount;
                 $nestedData['paid_by'] = $value->paid_by;
-                $nestedData['status'] = 1;
                 $data[] = $nestedData;
             }
         }

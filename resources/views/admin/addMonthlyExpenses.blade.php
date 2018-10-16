@@ -143,7 +143,7 @@
         {
       $(this).closest('tr').find('input[name="amount[]"]').each(function(){
             var amount = this.value;
-                       cheque = cheque + parseFloat(amount);
+            cheque = cheque + parseFloat(amount);
         });
         }
       });
@@ -151,7 +151,6 @@
       $('#cash_total').val(cash);
       var total = cash+cheque;
       $('#total_amount').val(total);
-
     });
 
     $('#submit').click(function(){            
