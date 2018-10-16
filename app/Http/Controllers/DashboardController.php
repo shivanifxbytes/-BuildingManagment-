@@ -718,17 +718,21 @@ class DashboardController extends Controller
         $limit = $request->input('length');
         $start = $request->input('start');
         $result = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, $limit, $start);
+        print_r($result);
+        die;
         $totalData = count($result1);
         $totalFiltered = $totalData;
         $columns = array(
-            0 =>'title',
-            1 =>'amount',
-            2=> 'paid_by',
-            3=>'status'
+            0 =>'month',
+            1 =>'title',
+            2 =>'amount',
+            3 => 'paid_by',
+            4 =>'status'
             );
         $data = array();
         if (!empty($result)) {
             foreach ($result as $key => $value) {
+                $nestedData['month'] = $value->month;
                 $nestedData['title'] = $value->title;
                 $nestedData['amount'] = $value->amount;
                 $nestedData['paid_by'] = $value->paid_by;

@@ -132,15 +132,12 @@
     });     
     $(document).on('change', 'select[name="paid_by[]"]', function(){
       var cash = 0,cheque = 0;
-
       $('select[name="paid_by[]"]').each( function() {
         if(this.value == "Cash"){
            $(this).closest('tr').find('input[name="amount[]"]').each(function(){
-            var amount = this.value;
-             
+            var amount = this.value;            
              cash = cash + parseFloat(amount);
-          });
-         
+          });         
         }
         else
         {

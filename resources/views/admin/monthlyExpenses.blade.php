@@ -67,6 +67,7 @@ select
 
                 <thead>
                     <tr>
+                       <th>Date</th>
                        <th>Title</th>    
                        <th>Amount</th>       
                        <th>Paid By</th>
@@ -107,6 +108,7 @@ select
                             month:month},
                         },
                         "columns": [
+                        { "data": "month" },
                         { "data": "title" },
                         { "data": "amount" },
                         { "data": "paid_by" },
