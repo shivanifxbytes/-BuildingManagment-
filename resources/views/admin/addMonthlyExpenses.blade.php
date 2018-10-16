@@ -115,7 +115,7 @@
 @section('scripts')
 <script type="text/javascript">
   $(document).ready(function(){
-  $('.date').datepicker({  
+    $('.date').datepicker({  
       format: 'mm/dd/yyyy',
     });        
     var postURL = "<?php echo url('addmore'); ?>";
@@ -130,25 +130,30 @@
       var button_id = $(this).attr("id");   
       $('#row'+button_id+'').remove();  
     });     
-    var cash = 0,cheque = 0;
     $(document).on('change', 'select[name="paid_by[]"]', function(){
-      if(this.value=="Cash")
-      {
-        $(this).closest('tr').find('input[name="amount[]"]').each(function() {
-          cash = cash + parseFloat(this.value);
-          $('#cash_total').val(cash);
-        });
-      }
-      else
-      {
-        $(this).closest('tr').find('input[name="amount[]"]').each(function() {
-          cheque = cheque + parseFloat(this.value);
-          $('#cheque_total').val(cheque);
-        });
-      }
+      var cash = 0,cheque = 0;
+
+      $('select[name="paid_by[]"]').each( function() {
+        if(this.value == "Cash"){
+          var amount = $(this).closest('tr').find('input[name="amount[]"]').val();
+          cash = cash + parseFloat(amount);
+          cheque =  (cheque - parseFloat(amount) <= 0 ) ? 0 : cheque - parseFloat(amount);
+        }
+        else
+        {
+          var amount = $(this).closest('tr').find('input[name="amount[]"]').val();
+          cheque = cheque + parseFloat(amount);
+          cash = (cash - parseFloat(amount) <= 0 ) ? 0 : cash - parseFloat(amount);
+        }
+      });
+      $('#cheque_total').val(cheque);
+
+      $('#cash_total').val(cash);
       var total = cash+cheque;
       $('#total_amount').val(total);
+
     });
+
     $('#submit').click(function(){            
       var formData = $('#add_name').serialize();         
       var date = [];
