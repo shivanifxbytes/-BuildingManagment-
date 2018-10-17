@@ -128,6 +128,7 @@
             { "data": "action" }
             ]    
         });   
+        
     }
 </script>
 @endsection
