@@ -87,9 +87,7 @@
             if(year!='')
             {
                 var d = new Date();
-                console.log(d);
-                var month = d.getMonth();
-                console.log(month);
+                var month = d.getMonth()+1;
                 dataTables(year,month);
                 jQuery('#monthlist').css({'display':'inline'});
                 jQuery('#monthlist').change(function()
@@ -127,8 +125,7 @@
             { "data": "status" },
             { "data": "action" }
             ]    
-        });   
-        
+        });      
     }
 </script>
 @endsection
