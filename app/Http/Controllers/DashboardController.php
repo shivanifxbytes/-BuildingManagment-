@@ -698,7 +698,8 @@ class DashboardController extends Controller
                 $nestedData['extra_amount']   = $value->extra_amount;
                 $nestedData['status']         = 1;
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
-                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a>";
+                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
+                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
                 $data[] = $nestedData;
             }
         }
