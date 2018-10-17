@@ -1,18 +1,6 @@
 @extends ('layouts.admin')
-@section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
-@endsection
 @section('content')   
-<div class="row">
-  <div class="col-lg-12">
-    <h3 class="page-header">{{ __('messages.monthly_expenses') }}
-    </h3>
-    <ol class="breadcrumb">
-      <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
-      <li><i class="fa fa-th-list"></i>{{ __('messages.flats') }}</li>
-    </ol>
-  </div>
-</div> 
+
 <div class="row">
   <div class="col-lg-12">
     <section class="panel">
@@ -44,7 +32,7 @@
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                     <p>
-                      <strong><em>Receipt #: 34522677W</em></strong>
+                      <em>Receipt #: 34522677W</em>
                     </p>
                   </div>
                 </div>
@@ -56,6 +44,7 @@
                   <tr>
                     <td class="col-md-9"><em>Month Of Payment</em></td>
                     <td class="col-md-1" style="text-align: center"> 10/28/2018 </td>
+                  </tr>
                     <tr>
                       <td class="col-md-9"><em>Paid By</em></td>
                       <td class="col-md-1" style="text-align: center"> Cash </td>
@@ -82,6 +71,7 @@
                     </tr>
                     <tr>
                       <td class="text-right"><h4><strong>Authorised Signature: </strong></h4></td>
+                      <td></td>
                     </tr>
                   </tbody>
                 </table>
