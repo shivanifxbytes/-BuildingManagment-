@@ -5,13 +5,13 @@
 <head>
 
 	<title>Hi</title>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
 
 
-	<h1>{{ $title }}</h1>
+	<h1 class="text-danger">{{ $title }}</h1>
 
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 

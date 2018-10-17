@@ -766,7 +766,7 @@ class DashboardController extends Controller
         $pdf = PDF::loadView('admin.paymentReceipt');
 
 
-        return $pdf->download('receipt.pdf');
+        return $pdf->download('recipt.pdf');
 
     }
 }
