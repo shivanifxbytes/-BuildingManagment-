@@ -118,5 +118,6 @@
             }
         });
     });
+    
 </script>
 @endsection
