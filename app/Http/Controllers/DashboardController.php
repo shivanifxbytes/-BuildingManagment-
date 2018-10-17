@@ -25,6 +25,7 @@ use Carbon;
 use App\Flat;
 use Exception;
 use App\Monthlyexpenses;
+use PDF;
 
 class DashboardController extends Controller
 {
@@ -697,7 +698,7 @@ class DashboardController extends Controller
                 $nestedData['extra_amount']   = $value->extra_amount;
                 $nestedData['status']         = 1;
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
-                href='downloadExcel/pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a>";
+                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a>";
                 $data[] = $nestedData;
             }
         }
@@ -746,5 +747,26 @@ class DashboardController extends Controller
             "data"            => $data
             );
         echo json_encode($json_data);
+    }
+        /**
+
+     * Display a listing of the resource.
+
+     *
+
+     * @return \Illuminate\Http\Response
+
+     */
+
+    public function generatePDF()
+
+    {
+
+
+        $pdf = PDF::loadView('admin.paymentReceipt');
+
+
+        return $pdf->download('receipt.pdf');
+
     }
 }
