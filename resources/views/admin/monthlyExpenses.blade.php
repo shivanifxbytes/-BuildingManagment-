@@ -1,20 +1,20 @@
 @extends ('layouts.admin')
 @section('styles')
 <style type="text/css">
-#showMonthlyExpenses_length {
-    display: none;
-}
-select
-{
-    padding: 5px 8px;
-}
-#showMonthlyExpenses_filter {
-    display: none;
-}
-.dataTables_empty
-{
-    display: none;
-}
+    #showMonthlyExpenses_length {
+        display: none;
+    }
+    select
+    {
+        padding: 5px 8px;
+    }
+    #showMonthlyExpenses_filter {
+        display: none;
+    }
+    .dataTables_empty
+    {
+        display: none;
+    }
 </style>
 @endsection
 @section('content')       
@@ -32,25 +32,25 @@ select
     <div class="col-lg-12">
         <section class="panel">
             <div style="padding: 8px 8px">
-            <?php $current_month = date("m"); 
-            $current_year = date('Y')?>
-            <select id="yearlist" name="yearlist">
-                <option value=''>Select Year</option>
-                @for($i=$current_year; $i>=$current_year-20; $i--)
-                <option value="{{$i}}">{{ $i }}</option>
-                @endfor
-            </select>
-            <select id="monthlist" style="display: none">
-                <option value=''>Select Month</option>
-                @for($i=1; $i<=$current_month; $i++)
-                <?php  
-                $dateObj   = DateTime::createFromFormat('!m', $i);
-                $monthName = $dateObj->format('F'); 
-                $monthCode = $dateObj->format('m');// March ?>
-                <option value="{{$monthCode}}">{{ $monthName }}</option>
-                @endfor
-            </select>
-        </div>
+                <?php $current_month = date("m"); 
+                $current_year = date('Y')?>
+                <select id="yearlist" name="yearlist">
+                    <option value=''>Select Year</option>
+                    @for($i=$current_year; $i>=$current_year-20; $i--)
+                    <option value="{{$i}}">{{ $i }}</option>
+                    @endfor
+                </select>
+                <select id="monthlist" style="display: none">
+                    <option value=''>Select Month</option>
+                    @for($i=1; $i<=$current_month; $i++)
+                    <?php  
+                    $dateObj   = DateTime::createFromFormat('!m', $i);
+                    $monthName = $dateObj->format('F'); 
+                    $monthCode = $dateObj->format('m');// March ?>
+                    <option value="{{$monthCode}}">{{ $monthName }}</option>
+                    @endfor
+                </select>
+            </div>
             @if ($errors->any())
             @foreach ($errors->all() as $error)
             <p class="error alert alert-block alert-danger fade in">
@@ -67,18 +67,18 @@ select
 
                 <thead>
                     <tr>
-                       <th>Date</th>
-                       <th>Title</th>    
-                       <th>Amount</th>       
-                       <th>Paid By</th>
-                   </tr>
-               </thead>
-               <tbody class="dynamic_field">
-               </tbody>
-           </table>
-       </section>
-   </div>
-   <!-- page end-->
+                        <th>Date</th>
+                        <th>Title</th>    
+                        <th>Amount</th>       
+                        <th>Paid By</th>
+                    </tr>
+                </thead>
+                <tbody class="dynamic_field">
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <!-- page end-->
 </div>
 </div>
 <!--main content end-->
@@ -90,30 +90,14 @@ select
             year = $(this).val();
             if(year!='')
             {
+                var d = new Date();
+                var month = d.getMonth()+1;
+                dataTables(year,month);
                 jQuery('#monthlist').css({'display':'inline'});
                 jQuery('#monthlist').change(function()
                 {
-                    month = $(this).val();
-                   $('#showMonthlyExpenses').DataTable({
-                        "destroy": true,
-                        "pageLength": 10,
-                        "processing": true,
-                        "serverSide": true,
-                        "ajax":{
-                            "url": "{{ route('showMonthlyExpenses') }}",
-                            "dataType": "json",
-                            "type": "POST",
-                            "data":{ _token: "{{csrf_token()}}", year:year,
-                            month:month},
-                        },
-                        "columns": [
-                        { "data": "month" },
-                        { "data": "title" },
-                        { "data": "amount" },
-                        { "data": "paid_by" },
-                       
-                        ]    
-                    });   
+                    var month = $(this).val();
+                    dataTables(year,month);
                 });
             }
             else
@@ -122,5 +106,27 @@ select
             }
         });
     });
+    function dataTables(year,month)
+    {
+        $('#showMonthlyExpenses').DataTable({
+            "destroy": true,
+            "pageLength": 10,
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                "url": "{{ route('showMonthlyExpenses') }}",
+                "dataType": "json",
+                "type": "POST",
+                "data":{ _token: "{{csrf_token()}}", year:year,
+                month:month},
+            },
+            "columns": [
+            { "data": "month" },
+            { "data": "title" },
+            { "data": "amount" },
+            { "data": "paid_by" },
+            ]    
+        });   
+    }
 </script>
 @endsection

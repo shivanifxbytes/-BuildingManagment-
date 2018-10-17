@@ -165,6 +165,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Load user maintanence view with list of user when user id is equal to maintenance id
@@ -176,6 +177,7 @@ class DashboardController extends Controller
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
         return view('admin.userMaintenance', $data)->with('no', 1);
     }
+
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Load add maintenance view
@@ -186,6 +188,7 @@ class DashboardController extends Controller
         $user_id = Crypt::decrypt($user_id);
         return view('admin.addMaintenance');
     }
+
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
@@ -208,6 +211,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
     * @DateOfCreation         24 August 2018
     * @ShortDescription       This function handle the post request which get after submit
@@ -251,6 +255,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
     * @DateOfCreation         22 March 2018
     * @ShortDescription       Distroy the session and Make the Auth Logout
@@ -262,6 +267,7 @@ class DashboardController extends Controller
         Session::flush();
         return redirect('/');
     }
+
     /**
     * @DateOfCreation         04 September 2018
     * @ShortDescription       Display a listing of the resource.
@@ -277,6 +283,7 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
+
     /**
     * @DateOfCreation         04 September 2018
     * @ShortDescription       Display a listing of the resource.
@@ -292,6 +299,7 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
+
     /**
     * @DateOfCreation         05 September 2018
     * @ShortDescription       This function handle the post request which get after submit
@@ -337,6 +345,7 @@ class DashboardController extends Controller
         $import_success = 'File Imported And Insert Record successfully.';
         return back()->with(['import_success'=>$import_success,'error_array'=>$array]);
     }
+
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load maintenance master view with list of all maintenance
@@ -347,6 +356,7 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->selectMaintenance();
         return view('admin.maintenanceMaster', $data);
     }
+
     /**
     * @DateOfCreation         19 September 2018
     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
@@ -372,6 +382,7 @@ class DashboardController extends Controller
             return view('admin.addMaintenanceMaster', $data);
         }
     }
+
     /**
     * @DateOfCreation         19 September 2018
     * @ShortDescription       This function handle the post request which get after submit
@@ -415,6 +426,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
     * @DateOfCreation         19 September 2018
     * @ShortDescription       Function run according to the parameter If we get ID it will return deteled row
@@ -437,6 +449,7 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->selectFlatType();
         return view('admin.flatType', $data);
     }
+
     /**
     * @DateOfCreation         19 September 2018
     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
@@ -463,6 +476,7 @@ class DashboardController extends Controller
             return view('admin.addFlatType');
         }
     }
+
     /**
     * @DateOfCreation         19 September 2018
     * @ShortDescription       This function handle the post request which get after submit
@@ -507,6 +521,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
     * @DateOfCreation         19 September 2018
     * @ShortDescription       Function run according to the parameter If we get ID it will return deteled row
@@ -518,6 +533,7 @@ class DashboardController extends Controller
         DB::table('flat_type')->where('id', '=', $user_id)->delete();
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
+
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Get the ID from the ajax and pass
@@ -542,6 +558,7 @@ class DashboardController extends Controller
             return Config::get('constants.ID_NOT_CORRECT');
         }
     }
+
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the maintenance transaction form view
@@ -551,6 +568,7 @@ class DashboardController extends Controller
     {
         return view('admin.monthviewlist');
     }
+    
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the maintenance transaction form view
@@ -710,7 +728,7 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-    
+
     /**
     * [showMonthlyTransaction description]
     * @param  Request $request [description]
@@ -749,8 +767,8 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-
-     /**
+   
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
