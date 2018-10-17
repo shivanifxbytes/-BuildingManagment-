@@ -709,7 +709,7 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-    
+
     /**
     * [showMonthlyTransaction description]
     * @param  Request $request [description]
@@ -748,25 +748,15 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-        /**
-
+    
+    /**
      * Display a listing of the resource.
-
      *
-
      * @return \Illuminate\Http\Response
-
      */
-
     public function generatePDF()
-
     {
-
-
         $pdf = PDF::loadView('admin.paymentReceipt');
-
-
         return $pdf->download('recipt.pdf');
-
     }
 }
