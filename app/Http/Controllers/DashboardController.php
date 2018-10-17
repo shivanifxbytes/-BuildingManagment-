@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -26,7 +25,6 @@ use App\Flat;
 use Exception;
 use App\Monthlyexpenses;
 use PDF;
-
 class DashboardController extends Controller
 {
     /**
@@ -40,7 +38,6 @@ class DashboardController extends Controller
         $this->dashboardObj = new Dashboard();
         $this->userobj = new User();
     }
-
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the dashboard view
@@ -57,7 +54,6 @@ class DashboardController extends Controller
         $count['users']  = $this->dashboardObj->countUsers();
         return view('admin.dashboard', compact('count'));
     }
-
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load users view with list of all users
@@ -73,7 +69,6 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->queryData();
         return view('admin.users', $data);
     }
-
     /**
     * @DateOfCreation         24 Aug 2018
     * @ShortDescription       Function run according to the parameter if $user_id is NUll
@@ -101,7 +96,6 @@ class DashboardController extends Controller
             return view('admin.addUser', $data);
         }
     }
-
     /**
     * @DateOfCreation         24 Aug 2018
     * @ShortDescription       This function handle the post request which get after submit the
@@ -132,7 +126,6 @@ class DashboardController extends Controller
                 'mobile_number'    => $request->input('owner_mobile_no'),
                 'user_role_id'     => 2
                 );
-
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
                 $requestData['password']      = bcrypt($request->input("password"));
@@ -426,7 +419,6 @@ class DashboardController extends Controller
         DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
-
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load flat type view with list of all flats
@@ -562,7 +554,6 @@ class DashboardController extends Controller
         $data['flats'] = $this->transactionobj->selectAllTransaction();
         return view('admin.showMaintenanceTransactionList', $data);
     }
-
     /**
     * @DateOfCreation         28 September 2018s
     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
@@ -582,7 +573,6 @@ class DashboardController extends Controller
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
-
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the monthly Expences form view
@@ -592,7 +582,6 @@ class DashboardController extends Controller
     {
         return view('admin.monthlyExpenses');
     }
-
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Load the add Maintenance Transaction form view
@@ -601,10 +590,8 @@ class DashboardController extends Controller
     public function addMaintenanceTransaction()
     {
         $data['flats'] = $this->dashboardObj->getFlatDetail();
-
         return view('admin.maintenanceTransaction', $data);
     }
-
     /**
     * [addMonthlyExpense description]    {
     */
@@ -612,7 +599,6 @@ class DashboardController extends Controller
     {
         return view('admin.addMonthlyExpenses');
     }
-
     /**
     * [addMoreMonthlyExpense description]
     * @param Request $request [description]
@@ -651,7 +637,6 @@ class DashboardController extends Controller
         $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
-
     /**
     * [changeflattype description]
     * @param  Request $request [description]
@@ -663,7 +648,6 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
-
     /**
     * [showMonthlyTransaction description]
     * @param  Request $request [description]
@@ -710,7 +694,7 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-
+    
     /**
     * [showMonthlyTransaction description]
     * @param  Request $request [description]
@@ -749,8 +733,7 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-    
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
