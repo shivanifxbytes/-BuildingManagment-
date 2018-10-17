@@ -88,3 +88,5 @@ Route::post('flats/getflattype', 'DashboardController@changeflattype')->name('fl
 
 Route::post('showmonthlytransaction', 'DashboardController@showMonthlyTransaction')->name('showmonthlytransaction');
 Route::post('showMonthlyExpenses', 'DashboardController@showMonthlyExpenses')->name('showMonthlyExpenses');
+
+Route::get('generate-pdf','DashboardController@generatePDF');
