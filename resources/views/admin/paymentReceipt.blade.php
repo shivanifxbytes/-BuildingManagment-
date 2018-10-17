@@ -39,12 +39,12 @@
                 <div class="row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <p>
-                      <em>Date: 1st November, 2018</em>
+                      <strong><em>Date: 1st November, 2018</em></strong>
                     </p>
                   </div>
                   <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                     <p>
-                      <em>Receipt #: 34522677W</em>
+                      <strong><em>Receipt #: 34522677W</em></strong>
                     </p>
                   </div>
                 </div>
