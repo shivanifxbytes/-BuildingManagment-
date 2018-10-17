@@ -27,26 +27,26 @@
 <div class="row">
     <div class="col-lg-12">
         <section class="panel">
-           <div style="padding: 8px 8px">
-            <?php $current_month = date("m"); 
-            $current_year = date('Y')?>
-            <select id="yearlist" name="yearlist">
-                <option value=''>Select Year</option>
-                @for($i=$current_year; $i>=$current_year-20; $i--)
-                <option value="{{$i}}">{{ $i }}</option>
-                @endfor
-            </select>
-            <select id="monthlist" style="display: none">
-                <option value=''>Select Month</option>
-                @for($i=1; $i<=$current_month; $i++)
-                <?php  
-                $dateObj   = DateTime::createFromFormat('!m', $i);
-                $monthName = $dateObj->format('F'); 
-                $monthCode = $dateObj->format('m');// March ?>
-                <option value="{{$monthCode}}">{{ $monthName }}</option>
-                @endfor
-            </select>
-        </div>
+            <div style="padding: 8px 8px">
+                <?php $current_month = date("m"); 
+                $current_year = date('Y')?>
+                <select id="yearlist" name="yearlist">
+                    <option value=''>Select Year</option>
+                    @for($i=$current_year; $i>=$current_year-20; $i--)
+                    <option value="{{$i}}">{{ $i }}</option>
+                    @endfor
+                </select>
+                <select id="monthlist" style="display: none">
+                    <option value=''>Select Month</option>
+                    @for($i=1; $i<=$current_month; $i++)
+                    <?php  
+                    $dateObj   = DateTime::createFromFormat('!m', $i);
+                    $monthName = $dateObj->format('F'); 
+                    $monthCode = $dateObj->format('m');// March ?>
+                    <option value="{{$monthCode}}">{{ $monthName }}</option>
+                    @endfor
+                </select>
+            </div>
             @if ($errors->any())
             @foreach ($errors->all() as $error)
             <p class="error alert alert-block alert-danger fade in">
@@ -85,31 +85,14 @@
             year = $(this).val();
             if(year!='')
             {
+                var d = new Date();
+                var month = d.getMonth();
+                dataTables(year,month);
                 jQuery('#monthlist').css({'display':'inline'});
                 jQuery('#monthlist').change(function()
                 {
-                    month = $(this).val();
-                    $('#flat_types').DataTable({
-                        "destroy": true,
-                        "pageLength": 10,
-                        "processing": true,
-                        "serverSide": true,
-                        "ajax":{
-                            "url": "{{ route('showmonthlytransaction') }}",
-                            "dataType": "json",
-                            "type": "POST",
-                            "data":{ _token: "{{csrf_token()}}", year:year,
-                            month:month},
-                        },
-                        "columns": [
-                        { "data": "flat_number" },
-                        { "data": "owner" },
-                        { "data": "amount" },
-                        { "data": "pending_amount" },
-                        { "data": "extra_amount" },
-                        { "data": "status" }
-                        ]    
-                    });   
+                    var month = $(this).val();
+                    dataTables(year,month);
                 });
             }
             else
@@ -118,6 +101,29 @@
             }
         });
     });
-    
+    function dataTables(year,month)
+    {
+        $('#flat_types').DataTable({
+            "destroy": true,
+            "pageLength": 10,
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                "url": "{{ route('showmonthlytransaction') }}",
+                "dataType": "json",
+                "type": "POST",
+                "data":{ _token: "{{csrf_token()}}", year:year,
+                month:month},
+            },
+            "columns": [
+            { "data": "flat_number" },
+            { "data": "owner" },
+            { "data": "amount" },
+            { "data": "pending_amount" },
+            { "data": "extra_amount" },
+            { "data": "status" }
+            ]    
+        });   
+    }
 </script>
 @endsection

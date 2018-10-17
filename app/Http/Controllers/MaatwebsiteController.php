@@ -26,6 +26,7 @@ class MaatwebsiteDemoController extends Controller
     public function downloadExcel($type)
     {
         $data = Item::get()->toArray();
+        
         return Excel::create('itsolutionstuff_example', function ($excel) use ($data) {
             $excel->sheet('mySheet', function ($sheet) use ($data) {
                 $sheet->fromArray($data);
