@@ -68,6 +68,7 @@
                         <th><i class="icon_mail_alt"></i>{{ __('messages.pending_amount') }}</th>
                         <th><i class="icon_mail_alt"></i>{{ __('messages.extra_amount') }}</th>
                         <th><i class="icon_pin_alt"></i>{{ __('messages.status') }}</th>
+                        <th><i class="icon_pin_alt"></i>{{ __('messages.action') }}</th>
                     </tr>
                 </thead>
                 <tbody class="dynamic_field">
@@ -121,7 +122,8 @@
             { "data": "amount" },
             { "data": "pending_amount" },
             { "data": "extra_amount" },
-            { "data": "status" }
+            { "data": "status" },
+            { "data": "action" }
             ]    
         });   
     }

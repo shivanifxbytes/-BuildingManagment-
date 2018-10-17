@@ -268,7 +268,7 @@ class DashboardController extends Controller
     */
     public function downloadExcel($type)
     {
-        $data = Admin::get(['user_first_name','user_last_name','owner','tenant','carpet_area'])->toArray();
+        $data = Admin::get()->toArray();
         $data = json_decode(json_encode($data), true);
         return Excel::create('user_list', function ($excel) use ($data) {
             $excel->sheet('mySheet', function ($sheet) use ($data) {
@@ -684,7 +684,8 @@ class DashboardController extends Controller
             2 => 'amount',
             3 => 'pending_amount',
             4 => 'extra_amount',
-            5 => 'status'
+            5 => 'status',
+            6 => 'action'
             );
         $data = array();
         if (!empty($result)) {
@@ -695,6 +696,8 @@ class DashboardController extends Controller
                 $nestedData['pending_amount'] = $value->pending_amount;
                 $nestedData['extra_amount']   = $value->extra_amount;
                 $nestedData['status']         = 1;
+                $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
+                href='downloadExcel/pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a>";
                 $data[] = $nestedData;
             }
         }
