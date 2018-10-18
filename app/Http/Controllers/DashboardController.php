@@ -25,6 +25,7 @@ use App\Flat;
 use Exception;
 use App\Monthlyexpenses;
 use PDF;
+use Mail;
 class DashboardController extends Controller
 {
     /**
@@ -431,6 +432,7 @@ class DashboardController extends Controller
         DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
+
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load flat type view with list of all flats
@@ -572,6 +574,7 @@ class DashboardController extends Controller
         $data['flats'] = $this->transactionobj->selectAllTransaction();
         return view('admin.showMaintenanceTransactionList', $data);
     }
+
     /**
     * @DateOfCreation         28 September 2018s
     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
@@ -591,6 +594,7 @@ class DashboardController extends Controller
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
+
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       Load the monthly Expences form view
@@ -600,6 +604,7 @@ class DashboardController extends Controller
     {
         return view('admin.monthlyExpenses');
     }
+
     /**
     * @DateOfCreation         27 August 2018
     * @ShortDescription       Load the add Maintenance Transaction form view
@@ -610,16 +615,21 @@ class DashboardController extends Controller
         $data['flats'] = $this->dashboardObj->getFlatDetail();
         return view('admin.maintenanceTransaction', $data);
     }
+
     /**
-    * [addMonthlyExpense description]    {
+    * @DateOfCreation         27 August 2018
+    * @ShortDescription       Load the add Monthly Expense view
+    * @return                 View
     */
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
     }
+
     /**
-    * [addMoreMonthlyExpense description]
-    * @param Request $request [description]
+    * @DateOfCreation         27 August 2018
+    * @ShortDescription       Dynamically add input fields and generate total amount using js and ajax
+    * @return                 Result
     */
     public function addMoreMonthlyExpense(Request $request)
     {
@@ -655,6 +665,7 @@ class DashboardController extends Controller
         $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
+
     /**
     * [changeflattype description]
     * @param  Request $request [description]
@@ -666,6 +677,7 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+
     /**
     * [showMonthlyTransaction description]
     * @param  Request $request [description]
@@ -700,8 +712,8 @@ class DashboardController extends Controller
                 $nestedData['extra_amount']   = $value->extra_amount;
                 $nestedData['status']         = 1;
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
-                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
-                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
+                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='email pdf' 
+                href='send-pdf' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
                 $data[] = $nestedData;
             }
         }
@@ -752,14 +764,54 @@ class DashboardController extends Controller
         echo json_encode($json_data);
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /**
+    * @DateOfCreation         27 August 2018
+    * @ShortDescription       Load pdf of payment receipt 
+    * @return                 Result
+    */
     public function generatePDF()
     {
         $pdf = PDF::loadView('admin.paymentReceipt');
-        return $pdf->download('recipt.pdf');
+        $jai = $pdf->download('recipt.pdf');
     }
+ 
+    /**
+    * @DateOfCreation         27 August 2018
+    * @ShortDescription       Load pdf of payment receipt 
+    * @return                 Result
+    */
+   public function sendemail(Request $request)
+{
+
+    $data = array(
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request ->email,
+            'checkbox' => $request ->checkbox,
+            'bodyMessage' => $request->message
+        );
+
+     //code to send email to my inbox
+    $data = [];
+        $pdf = PDF::loadView('admin.paymentReceipt');
+        Mail::send('admin.paymentReceipt', $data, function ($message) use ($pdf) {
+            $message->from('shriya@example.com', 'Shriya');
+            $message->to('shivani@example.com')->subject('Invoice');
+            $message->attachData($pdf->output(), "receipt.pdf");
+        });
+    //Feedback mail to client
+    $pdf = PDF::loadView('your_view_name', $data)->setPaper('a4'); 
+    Mail::send('admin.paymentReceipt', $data, function($message) use ($pdf){
+            $message->from('shivani@gmail.com');
+            $message->to('urvi@gmail.com');
+            $message->subject('Thank you message');
+            //Attach PDF doc
+            $message->attachData($pdf->output(),'receipt.pdf');
+        });
+
+    Session::flash('success', 'Hello &nbsp;'.$data['name'].'&nbsp;Thank You for choosing us. Will reply to your query as soon as possible');
+
+    return redirect()->back();
+}
+
 }
