@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -25,6 +26,8 @@ use App\Flat;
 use Exception;
 use App\Monthlyexpenses;
 use PDF;
+use Mail;
+
 class DashboardController extends Controller
 {
     /**
@@ -701,7 +704,7 @@ class DashboardController extends Controller
                 $nestedData['status']         = 1;
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
                 href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
-                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
+                href='email-pdf' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
                 $data[] = $nestedData;
             }
         }
@@ -752,14 +755,29 @@ class DashboardController extends Controller
         echo json_encode($json_data);
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
     public function generatePDF()
     {
+        $data = [];
         $pdf = PDF::loadView('admin.paymentReceipt');
         return $pdf->download('recipt.pdf');
+    }
+    /**
+     * [emailPDF description]
+     * @return [type] [description]
+     */
+    public function emailPDF()
+    {
+        $data = [];
+        $pdf = PDF::loadView('admin.paymentReceipt');
+        Mail::send('admin.paymentReceipt', $data, function ($message) use ($pdf) {
+            $message->from('shriya@example.com', 'Shriya');
+            $message->to('shivani@example.com')->subject('Invoice');
+            $message->attachData($pdf->output(), "receipt.pdf");
+        });
     }
 }
