@@ -25,7 +25,7 @@ Route::get('/welcome', 'UserController@index');
 Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
 });
 // Admin Dashboard 
-Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
+Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index'])->middleware('auth');
 
 // Admin users route
 Route::get('/users', ['as'=>'users','uses'=>'DashboardController@users']);
