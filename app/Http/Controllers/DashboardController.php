@@ -717,10 +717,11 @@ class DashboardController extends Controller
     }
     
     /**
-    * [showMonthlyTransaction description]
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * @DateOfCreation         17 oct 2018
+     * @ShortDescription       This function show the monthly expenses of the flats in building
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function showMonthlyExpenses(Request $request)
     {
         $year     =  $request->year;
@@ -756,10 +757,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * @DateOfCreation         17 oct 2018
+     * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system 
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function generatePDF()
     {
         $data = [];
@@ -767,7 +769,8 @@ class DashboardController extends Controller
         return $pdf->download('recipt.pdf');
     }
     /**
-     * [emailPDF description]
+     * @DateOfCreation         17 oct 2018
+     * @ShortDescription       This function emails the generated pdf to user mail id
      * @return [type] [description]
      */
     public function emailPDF()
