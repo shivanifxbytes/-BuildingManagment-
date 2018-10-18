@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -26,6 +27,7 @@ use Exception;
 use App\Monthlyexpenses;
 use PDF;
 use Mail;
+
 class DashboardController extends Controller
 {
     /**
@@ -183,7 +185,7 @@ class DashboardController extends Controller
     }
     /**
      * @DateOfCreation         27 August 2018
-     * @ShortDescription       This function run according to the parameter If we get ID it will return 
+     * @ShortDescription       This function run according to the parameter If we get ID it will return
      *                         edit view
      * @return                 View
      */
@@ -414,7 +416,7 @@ class DashboardController extends Controller
     }
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function run according to the parameter If we get ID it will return 
+     * @ShortDescription       Function run according to the parameter If we get ID it will return
      *  deteled row
      * @return                 result
      */
@@ -436,7 +438,7 @@ class DashboardController extends Controller
     }
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function run according to the parameter If we get ID it will return edit 
+     * @ShortDescription       Function run according to the parameter If we get ID it will return edit
      *                         view
      * @return                 View
      */
@@ -504,7 +506,7 @@ class DashboardController extends Controller
     }
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function run according to the parameter If we get ID it will return 
+     * @ShortDescription       Function run according to the parameter If we get ID it will return
      *                         deteled row
      * @return                 result
      */
@@ -687,8 +689,8 @@ class DashboardController extends Controller
                 $nestedData['extra_amount']   = $value->extra_amount;
                 $nestedData['status']         = 1;
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
-                href='generate-pdf' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
-                href='email-pdf' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
+                href='generate-pdf/$value->flat_number/$value->month' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
+                href='email-pdf/$value->flat_number/$value->month' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
                 $data[] = $nestedData;
             }
         }
@@ -699,7 +701,7 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
-   
+
     /**
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function show the monthly expenses of the flats in building
@@ -739,15 +741,22 @@ class DashboardController extends Controller
             );
         echo json_encode($json_data);
     }
+
     /**
      * @DateOfCreation         17 oct 2018
-     * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system 
+     * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system
      * @return \Illuminate\Http\Response
      */
-    public function generatePDF()
+    public function generatePDF($flat_number, $month)
     {
-        $data = [];
-        $pdf = PDF::loadView('admin.paymentReceipt');
+        $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
+        foreach ($result as $key => $value) {
+            $flat_number = $value->flat_number;
+            $amount      = $value->amount;
+            $month       = $value->month;
+        }
+        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount];
+        $pdf = PDF::loadView('admin.paymentReceipt',$data);
         return $pdf->download('recipt.pdf');
     }
     /**
@@ -755,15 +764,21 @@ class DashboardController extends Controller
      * @ShortDescription       This function emails the generated pdf to user mail id
      * @return [type] [description]
      */
-    public function emailPDF()
+    public function emailPDF($flat_number, $month)
     {
-        $data = [];
-        $pdf = PDF::loadView('admin.paymentReceipt');
+        $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
+        foreach ($result as $key => $value) {
+            $flat_number = $value->flat_number;
+            $amount      = $value->amount;
+            $month       = $value->month;
+        }
+        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount];
+        $pdf  = PDF::loadView('admin.paymentReceipt', $data);
         Mail::send('admin.paymentReceipt', $data, function ($message) use ($pdf) {
             $message->from('shivani@example.com', 'Shriya');
             $message->to('urvi@example.com')->subject('Invoice');
             $message->attachData($pdf->output(), "receipt.pdf");
         });
-        return redirect('monthViewList')->with('success','Email Sent successfully');
+        return redirect('monthViewList')->with('success', 'Email Sent successfully');
     }
 }

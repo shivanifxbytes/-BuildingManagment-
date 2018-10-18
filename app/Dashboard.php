@@ -144,4 +144,19 @@ class Dashboard extends Model
         ->get();  
         return $expenses_details;
     }
+
+    /**
+     * [getTransactionByMonthAndYear description]
+     * @param  string $year  [description]
+     * @param  string $month [description]
+     * @return [type]        [description]
+     */
+    public function getExpensesByFlatNumber($flat_number, $month)
+    {
+        $expenses_details= DB::table('maintenance_transaction')->select('amount', 'flat_number','month')
+          ->where('month', '=', $month)
+           ->where('flat_number', '=', $flat_number)
+            ->get()->toArray();  
+        return $expenses_details;
+    }
 }

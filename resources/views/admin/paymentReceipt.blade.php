@@ -25,22 +25,22 @@
                         </div>
                     </div>
                     <table class="table table-hover">
-                        <tbody>
+                        <tbody>                                             
                             <tr>
                                 <td class="col-md-9"><em>Flat Number</em></td>
-                                <td class="col-md-1" style="text-align: center"> 101 </td>
+                                <td class="col-md-1" style="text-align: center"> {{ $flat_number }} </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Month Of Payment</em></td>
-                                <td class="col-md-1" style="text-align: center"> 10/28/2018 </td>
+                                <td class="col-md-1" style="text-align: center"> {{ $month }} </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-9"><em>Net Amount</em></td>
+                                <td class="col-md-1" style="text-align: center"> {{ $amount }} </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Paid By</em></td>
                                 <td class="col-md-1" style="text-align: center"> Cash </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-9"><em>Net Amount</em></td>
-                                <td class="col-md-1" style="text-align: center"> 3000 </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Comment</em></td>
@@ -54,7 +54,7 @@
                                 </td>
                                 <td class="text-center">
                                     <p>
-                                        <strong>3000 /-</strong>
+                                        <strong>{{ $amount }} /-</strong>
                                     </p>
                                 </td>
                             </tr>
