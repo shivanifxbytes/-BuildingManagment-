@@ -31,53 +31,53 @@ use Mail;
 class DashboardController extends Controller
 {
     /**
-    * @DateOfCreation      10-Oct-2018
-    * @ShortDescription    Create a new controller instance.
-    *
-    * @return void
-    */
+     * @DateOfCreation      10-Oct-2018
+     * @ShortDescription    Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->dashboardObj = new Dashboard();
         $this->userobj = new User();
     }
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the dashboard view
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the dashboard view
+     * @return                 View
+     */
     public function index()
     {
         /**
-        * @ShortDescription Blank array for the count for sending the array to the view.
-        *
-        * @var Array
-        */
+         * @ShortDescription    Blank array for the count for sending the array to the view.
+         *
+         * @var Array
+         */
         $count = [];
         $count['users']  = $this->dashboardObj->countUsers();
         return view('admin.dashboard', compact('count'));
     }
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load users view with list of all users
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load users view with list of all users
+     * @return                 View
+     */
     public function users()
     {
         /**
-        *@ShortDescription Blank array for the data for sending the array to the view.
-        *
-        * @var Array
-        */
+         * @ShortDescription Blank array for the data for sending the array to the view.
+         *
+         * @var Array
+         */
         $data['users'] = $this->dashboardObj->queryData();
         return view('admin.users', $data);
     }
     /**
-    * @DateOfCreation         24 Aug 2018
-    * @ShortDescription       Function run according to the parameter if $user_id is NUll
-    *                         then it return add view If we get ID it will return edit view
-    * @return                 View
-    */
+     * @DateOfCreation         24 Aug 2018
+     * @ShortDescription       Function run according to the parameter if $user_id is NUll
+     *                         then it return add view If we get ID it will return edit view
+     * @return                 View
+     */
     public function getUser($user_id = null)
     {
         if (!empty($user_id)) {
@@ -100,13 +100,13 @@ class DashboardController extends Controller
         }
     }
     /**
-    * @DateOfCreation         24 Aug 2018
-    * @ShortDescription       This function handle the post request which get after submit the
-    *                         and function run according to the parameter if $user_id is NUll
-    *                         then it will insert the value If we get ID it will update the value
-    *                         according to the ID
-    * @return                 Response
-    */
+     * @DateOfCreation         24 Aug 2018
+     * @ShortDescription       This function handle the post request which get after submit the
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
     public function postUser(Request $request, $user_id = null)
     {
         $rules = array(
@@ -163,10 +163,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         27 August 2018
-    * @ShortDescription       Load user maintanence view with list of user when user id is equal to maintenance id
-    * @return                 View
-    */
+     * @DateOfCreation         27 August 2018
+     * @ShortDescription       Load user maintanence view with list of user when user id is equal to
+     *                         maintenance id
+     * @return                 View
+     */
     public function showMaintenance($id, $user_id=null)
     {
         $data['user_id'] = Crypt::decrypt($id);
@@ -175,10 +176,10 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         27 August 2018
-    * @ShortDescription       Load add maintenance view
-    * @return                 View
-    */
+     * @DateOfCreation         27 August 2018
+     * @ShortDescription       Load add maintenance view
+     * @return                 View
+     */
     public function addMaintenance($id, $user_id)
     {
         $user_id = Crypt::decrypt($user_id);
@@ -186,10 +187,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         27 August 2018
-    * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
-    * @return                 View
-    */
+     * @DateOfCreation         27 August 2018
+     * @ShortDescription       This function run according to the parameter If we get ID it will return 
+     *                         edit view
+     * @return                 View
+     */
     public function editMaintenance($id)
     {
         if (!empty($id)) {
@@ -209,13 +211,13 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         24 August 2018
-    * @ShortDescription       This function handle the post request which get after submit
-    *                         and function run according to the parameter if $user_id is NUll
-    *                         then it will insert the value If we get ID it will update the value
-    *                         according to the ID
-    * @return                 Response
-    */
+     * @DateOfCreation         24 August 2018
+     * @ShortDescription       This function handle the post request which get after submit
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
     public function postMaintenence(Request $request, $id, $user_id = null)
     {
         $rules = array(
@@ -253,10 +255,10 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         22 March 2018
-    * @ShortDescription       Distroy the session and Make the Auth Logout
-    * @return                 Response
-    */
+     * @DateOfCreation         22 March 2018
+     * @ShortDescription       Distroy the session and Make the Auth Logout
+     * @return                 Response
+     */
     public function getLogout()
     {
         Auth::logout();
@@ -265,10 +267,10 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         04 September 2018
-    * @ShortDescription       Display a listing of the resource.
-    * @return                 Response
-    */
+     * @DateOfCreation         04 September 2018
+     * @ShortDescription       Display a listing of the resource.
+     * @return                 Response
+     */
     public function downloadExcel($type)
     {
         $data = Admin::get()->toArray();
@@ -281,10 +283,10 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         04 September 2018
-    * @ShortDescription       Display a listing of the resource.
-    * @return                 Response
-    */
+     * @DateOfCreation         04 September 2018
+     * @ShortDescription       Display a listing of the resource.
+     * @return                 Response
+     */
     public function downloadMaintenanceExcel($type, $id)
     {
         $data['user_maintenance'] = $this->dashboardObj->showUser($id);
@@ -297,13 +299,13 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         05 September 2018
-    * @ShortDescription       This function handle the post request which get after submit
-    *                         and function run according to the parameter if $user_id is NUll
-    *                         then it will insert the value If we get ID it will update the value
-    *                         according to the ID
-    * @return                 Response
-    */
+     * @DateOfCreation         05 September 2018
+     * @ShortDescription       This function handle the post request which get after submit
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
     public function importExcel(Request $request)
     {
         $request->validate([
@@ -343,10 +345,10 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load maintenance master view with list of all maintenance
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load maintenance master view with list of all maintenance
+     * @return                 View
+     */
     public function maintenanceMaster()
     {
         $data['users'] = $this->dashboardObj->selectMaintenance();
@@ -354,10 +356,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         19 September 2018
-    * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
-    * @return                 View
-    */
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       Function run according to the parameter If we get ID it will return edit
+     *  view
+     * @return                 View
+     */
     public function getMaintenanceMaster($id = null)
     {
         if (!empty($id)) {
@@ -380,13 +383,13 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         19 September 2018
-    * @ShortDescription       This function handle the post request which get after submit
-    *                         and function run according to the parameter if $user_id is NUll
-    *                         then it will insert the value If we get ID it will update the value
-    *                         according to the ID
-    * @return                 Response
-    */
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       This function handle the post request which get after submit
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
     public function postMaintenanceMaster(Request $request, $id = null)
     {
         $rules = array(
@@ -424,21 +427,23 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         19 September 2018
-    * @ShortDescription       Function run according to the parameter If we get ID it will return deteled row
-    * @return                 result
-    */
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       Function run according to the parameter If we get ID it will return 
+     *  deteled row
+     * @return                 result
+     */
     public function deleteMaintenanceMastere($user_id = null)
     {
         $user_id = Crypt::decrypt($user_id);
         DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
+
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load flat type view with list of all flats
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load flat type view with list of all flats
+     * @return                 View
+     */
     public function flatType()
     {
         $data['users'] = $this->dashboardObj->selectFlatType();
@@ -446,10 +451,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         19 September 2018
-    * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
-    * @return                 View
-    */
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       Function run according to the parameter If we get ID it will return edit 
+     *                         view
+     * @return                 View
+     */
     public function getFlatType($user_id = null)
     {
         $this->dashboardObj = new Master();
@@ -473,23 +479,21 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         19 September 2018
-    * @ShortDescription       This function handle the post request which get after submit
-    *                         and function run according to the parameter if $user_id is NUll
-    *                         then it will insert the value If we get ID it will update the value
-    *                         according to the ID
-    * @return                 Response
-    */
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       This function handle the post request which get after submit
+     *                         and function run according to the parameter if $user_id is NUll
+     *                         then it will insert the value If we get ID it will update the value
+     *                         according to the ID
+     * @return                 Response
+     */
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
             'flat_type'   => 'required|max:50',
             'flat_number' => 'required|string',
             );
-        // set validator
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            // redirect our admin back to the form with the errors from the validator
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
@@ -499,7 +503,6 @@ class DashboardController extends Controller
                 );
             if (empty($user_id)) {
                 $user = Master::insert('flat_type', $requestData);
-                //insert data in users table
                 if ($user) {
                     return redirect('flatType')->with('message', __('messages.Record_added'));
                 } else {
@@ -518,10 +521,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         19 September 2018
-    * @ShortDescription       Function run according to the parameter If we get ID it will return deteled row
-    * @return                 result
-    */
+     * @DateOfCreation         19 September 2018
+     * @ShortDescription       Function run according to the parameter If we get ID it will return 
+     *                         deteled row
+     * @return                 result
+     */
     public function deleteFlatType($user_id = null)
     {
         $user_id = Crypt::decrypt($user_id);
@@ -530,11 +534,11 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         27 August 2018
-    * @ShortDescription       Get the ID from the ajax and pass
-    *  it to the function to delete it
-    * @return                 Response
-    */
+     * @DateOfCreation         27 August 2018
+     * @ShortDescription       Get the ID from the ajax and pass
+     *                         it to the function to delete it
+     * @return                 Response
+     */
     public function deleteUser(Request $request)
     {
         try {
@@ -555,20 +559,20 @@ class DashboardController extends Controller
     }
 
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the maintenance transaction form view
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the maintenance transaction form view
+     * @return                 View
+     */
     public function monthViewList()
     {
         return view('admin.monthviewlist');
     }
     
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the maintenance transaction form view
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the maintenance transaction form view
+     * @return                 View
+     */
     public function showMaintenanceTransactionList()
     {
         $this->transactionobj = new Transaction();
@@ -576,10 +580,10 @@ class DashboardController extends Controller
         return view('admin.showMaintenanceTransactionList', $data);
     }
     /**
-    * @DateOfCreation         28 September 2018s
-    * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
-    * @return                 Response
-    */
+     * @DateOfCreation         28 September 2018s
+     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
+     * @return                 Response
+     */
     public function paidmaintenanceTransaction(Request $request)
     {
         $test = new Transaction();
@@ -594,36 +598,38 @@ class DashboardController extends Controller
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
+
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load the monthly Expences form view
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the monthly Expences form view
+     * @return                 View
+     */
     public function monthlyExpences()
     {
         return view('admin.monthlyExpenses');
     }
+
     /**
-    * @DateOfCreation         27 August 2018
-    * @ShortDescription       Load the add Maintenance Transaction form view
-    * @return                 View
-    */
+     * @DateOfCreation         27 August 2018
+     * @ShortDescription       Load the add Maintenance Transaction form view
+     * @return                 View
+     */
     public function addMaintenanceTransaction()
     {
         $data['flats'] = $this->dashboardObj->getFlatDetail();
         return view('admin.maintenanceTransaction', $data);
     }
     /**
-    * [addMonthlyExpense description]    {
-    */
+     * [addMonthlyExpense description]    {
+     */
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
     }
     /**
-    * [addMoreMonthlyExpense description]
-    * @param Request $request [description]
-    */
+     * [addMoreMonthlyExpense description]
+     * @param Request $request [description]
+     */
     public function addMoreMonthlyExpense(Request $request)
     {
         $datainsert = [];
@@ -658,22 +664,24 @@ class DashboardController extends Controller
         $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
+
     /**
-    * [changeflattype description]
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * [changeflattype description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function changeflattype(Request $request)
     {
         $id = $request->id;
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+
     /**
-    * [showMonthlyTransaction description]
-    * @param  Request $request [description]
-    * @return [type]           [description]
-    */
+     * [showMonthlyTransaction description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function showMonthlyTransaction(Request $request)
     {
         $year    =  $request->year;
@@ -759,7 +767,6 @@ class DashboardController extends Controller
     /**
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system 
-     *
      * @return \Illuminate\Http\Response
      */
     public function generatePDF()
