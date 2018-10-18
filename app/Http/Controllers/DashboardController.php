@@ -789,5 +789,6 @@ class DashboardController extends Controller
             $message->to('shivani@example.com')->subject('Invoice');
             $message->attachData($pdf->output(), "receipt.pdf");
         });
+        return redirect('monthViewList')->with('success','Email Sent successfully');
     }
 }
