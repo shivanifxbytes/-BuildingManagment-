@@ -128,7 +128,7 @@ class Dashboard extends Model
         return $transaction_details;
     }
 
-   /**
+    /**
      * [getTransactionByMonthAndYear description]
      * @param  string $year  [description]
      * @param  string $month [description]
