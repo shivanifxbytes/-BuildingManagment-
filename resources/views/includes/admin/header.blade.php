@@ -6,9 +6,9 @@
       <a href="{{ url('/') }}" class="logo">{{ __('messages.project_name') }}</a>   
       <div class="top-nav">
         <ul class="nav pull-right top-menu">
-          <li>
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-             <span class="profile-ava">                             
+          <li>{{Auth::user()->name}}
+
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">             <span class="profile-ava">                             
                             </span>
                             <b class="caret"></b>
                         </a>
