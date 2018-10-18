@@ -86,13 +86,14 @@
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function() {
+               var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth()+1;
+        dataTables(year,month);
         jQuery('#yearlist').change(function() {
             year = $(this).val();
             if(year!='')
             {
-                var d = new Date();
-                var month = d.getMonth()+1;
-                dataTables(year,month);
                 jQuery('#monthlist').css({'display':'inline'});
                 jQuery('#monthlist').change(function()
                 {

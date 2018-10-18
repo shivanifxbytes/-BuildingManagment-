@@ -26,6 +26,11 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
+        @if(session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+        @endif
         <section class="panel">
             <div style="padding: 8px 8px">
                 <?php $current_month = date("m"); 
@@ -82,13 +87,14 @@
 @section('scripts')
 <script type="text/javascript">
     jQuery(document).ready(function() {
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth()+1;
+        dataTables(year,month);
         jQuery('#yearlist').change(function() {
             year = $(this).val();
             if(year!='')
             {
-                var d = new Date();
-                var month = d.getMonth()+1;
-                dataTables(year,month);
                 jQuery('#monthlist').css({'display':'inline'});
                 jQuery('#monthlist').change(function()
                 {

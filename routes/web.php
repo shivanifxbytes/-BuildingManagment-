@@ -90,4 +90,6 @@ Route::post('showmonthlytransaction', 'DashboardController@showMonthlyTransactio
 Route::post('showMonthlyExpenses', 'DashboardController@showMonthlyExpenses')->name('showMonthlyExpenses');
 
 Route::get('generate-pdf','DashboardController@generatePDF');
-Route::get('send-pdf','DashboardController@sendemail');
+
+Route::get('email-pdf','DashboardController@emailPDF');
+
