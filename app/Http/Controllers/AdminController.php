@@ -33,7 +33,6 @@ class AdminController extends Controller
     */
     public function getLogin()
     {
-
         if (isset(auth()->user()->user_role_id) && auth()->user()->user_role_id == 1) {
             return redirect()->route('dashboard');
         }

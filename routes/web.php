@@ -12,8 +12,8 @@
 */
 
 // Admin User Login routes
-Route::get('/admin', 'AdminController@getLogin');
-Route::post('/admin', 'AdminController@postLogin');
+Route::get('/', 'AdminController@getLogin');
+Route::post('/', 'AdminController@postLogin');
 // User routes
 Route::group(['middleware' => ['web']], function () {
     // User register routes
@@ -25,9 +25,8 @@ Route::get('/welcome', 'UserController@index');
 Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
 });
 // Admin Dashboard 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
-});
 // Admin users route
 Route::get('/users', ['as'=>'users','uses'=>'DashboardController@users']);
 Route::get('/adminUser', ['as'=>'adminUser','uses'=>'DashboardController@users']);
@@ -35,12 +34,9 @@ Route::get('/adminUser', ['as'=>'adminUser','uses'=>'DashboardController@users']
 Route::get('dashboard/queryData', 'DashboardController@users');
 Route::get('dashboard/show', 'DashboardController@showmaintenance');
 // Admin Add edit route
-Route::group(['middleware' => ['web']], function () {
 Route::get('/addUser/{user_id?}', ['as'=>'adduser','uses'=>'DashboardController@getUser']);
 Route::post('/addUser/{user_id?}', ['as'=>'edituser','uses'=>'DashboardController@postuser']);
-});
 // Admin Dashboard show maintenance list Add edit route for maintenance
-Route::group(['middleware' => ['web']], function () {
 Route::get('/showMaintenance/{id?}', ['as'=>'showmaintenance','uses'=>'DashboardController@showmaintenance']);
     // Admin Dashboard Add user
 Route::get('/addMaintenance/{id?}/{user_id?}', ['as'=>'addmaintenance','uses'=>'DashboardController@addMaintenance']);
@@ -48,7 +44,6 @@ Route::get('/addMaintenance/{id?}/{user_id?}', ['as'=>'addmaintenance','uses'=>'
 Route::get('/editmaintenance/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@editMaintenance']);
     // Admin Dashboard Post user
 Route::post('/addMaintenance/{id?}/{user_id?}', ['as'=>'editmaintenance','uses'=>'DashboardController@postMaintenence']);
-});
 // Admin Dashboard delete user
 Route::post('/deleteUser','DashboardController@deleteUser');
 Route::get('/logout','DashboardController@getLogout');
@@ -60,37 +55,27 @@ Route::get('downloadExcel/{type}/{id?}', 'DashboardController@downloadMaintenanc
 // Admin for imfort file
 Route::post('importExcel', 'DashboardController@importExcel');
 // Admin maintenanceMaster
-Route::group(['middleware' => ['web']], function () {
 Route::get('/maintenanceMaster', ['as'=>'maintenanceMaster','uses'=>'DashboardController@maintenanceMaster']);
 Route::get('/addMaintenanceMaster/{user_id?}', ['as'=>'addMaintenanceMaster','uses'=>'DashboardController@getMaintenanceMaster']);
 Route::post('/addMaintenanceMaster/{user_id?}', ['as'=>'editMaintenanceMaster','uses'=>'DashboardController@postMaintenanceMaster']);
 Route::get('/deleteMastere/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteMaintenanceMastere']);
-});
 // Admin flatTypeMaster
-Route::group(['middleware' => ['web']], function () {
 Route::get('/flatType', ['as'=>'flatType','uses'=>'DashboardController@flatType']);
 Route::get('/addFlatType/{user_id?}', ['as'=>'addFlatType','uses'=>'DashboardController@getFlatType']);
 Route::post('/addFlatType/{user_id?}', ['as'=>'editFlatType','uses'=>'DashboardController@postFlatType']);
 Route::get('/delete/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteFlatType']);
-});
 Route::get('/showMaintenanceTransactionList', ['as'=>'showMaintenanceTransactionList','uses'=>'DashboardController@showMaintenanceTransactionList']);
 Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
 Route::get('/monthViewList', ['as'=>'monthViewList','uses'=>'DashboardController@monthViewList']);
 Route::get('/monthlyExpences', ['as'=>'monthlyExpences','uses'=>'DashboardController@monthlyExpences']);
 Route::post('/paid','DashboardController@paidmaintenanceTransaction');
-
 Route::get('/addMonthlyExpense', ['as'=>'addMonthlyExpense','uses'=>'DashboardController@addMonthlyExpense']);
 Route::post("addMoreMonthlyExpense","DashboardController@addMoreMonthlyExpense")->name('addMoreMonthlyExpense');
-
-
 Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
 Route::post('flats/getflattype', 'DashboardController@changeflattype')->name('flats/getflattype');
-
-
 Route::post('showmonthlytransaction', 'DashboardController@showMonthlyTransaction')->name('showmonthlytransaction');
 Route::post('showMonthlyExpenses', 'DashboardController@showMonthlyExpenses')->name('showMonthlyExpenses');
-
 Route::get('generate-pdf/{flat_number?}/{month?}','DashboardController@generatePDF');
-
 Route::get('email-pdf/{flat_number?}/{month?}','DashboardController@emailPDF');
 
+});
