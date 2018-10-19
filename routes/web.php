@@ -12,8 +12,8 @@
 */
 
 // Admin User Login routes
-Route::get('/', 'AdminController@getLogin');
-Route::post('/', 'AdminController@postLogin');
+Route::get('/admin', 'AdminController@getLogin');
+Route::post('/admin', 'AdminController@postLogin');
 // User routes
 Route::group(['middleware' => ['web']], function () {
     // User register routes
@@ -25,8 +25,9 @@ Route::get('/welcome', 'UserController@index');
 Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses'=>'UserController@userrMaintenance']);
 });
 // Admin Dashboard 
-Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index'])->middleware('auth');
-
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
+});
 // Admin users route
 Route::get('/users', ['as'=>'users','uses'=>'DashboardController@users']);
 Route::get('/adminUser', ['as'=>'adminUser','uses'=>'DashboardController@users']);

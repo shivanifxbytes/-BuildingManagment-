@@ -7,7 +7,10 @@
       <div class="top-nav">
         <ul class="nav pull-right top-menu">
           <li>
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{Auth::user()->name}}
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            @if(isset(Auth::user()->name))
+            {{Auth::user()->name}}
+             @endif
              <span class="profile-ava">                             
                             </span>
                             <b class="caret"></b>

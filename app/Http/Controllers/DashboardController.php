@@ -258,7 +258,7 @@ class DashboardController extends Controller
     {
         Auth::logout();
         Session::flush();
-        return redirect('/');
+        return redirect('/admin');
     }
     /**
      * @DateOfCreation         04 September 2018

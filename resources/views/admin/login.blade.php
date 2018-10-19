@@ -15,6 +15,7 @@
   	<div class="container">
             <div class="wrapper">
                     <form action="" method="post" name="Login_Form" class="form-signin">       
+                    @csrf
                         <h3 class="form-signin-heading">{{ __('messages.welcome_back') }}</h3>
                             <hr class="colorgraph"><br>
                             @if ($errors->any())
@@ -24,7 +25,6 @@
                                     </p>
                                 @endforeach
                             @endif
-                              <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                               <input type="text" class="form-control" name="email" placeholder="{{ __('messages.email') }}" required="" autofocus="" /> <br>
                               <input type="password" class="form-control" name="password" placeholder="*****" required/> 
                               <button class="btn btn-lg btn-primary btn-block"  name="Submit" value="Login" type="Submit">{{ __('messages.login_button') }}</button> 

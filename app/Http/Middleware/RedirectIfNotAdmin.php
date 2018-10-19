@@ -13,9 +13,13 @@ class RedirectIfNotAdmin
  * @return mixed
  */
 public function handle($request, Closure $next, $guard = 'admin')
-{	
-	if (!Auth::guard($guard)->check()) {
-        return redirect('/');
+{
+    if (auth()->user()->user_role_id == 1) {
+        return redirect('/dashboard');
+    }
+    else
+    {
+    	return redirect('/admin');
     }
     return $next($request);
     }

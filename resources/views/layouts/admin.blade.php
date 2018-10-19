@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="img/favicon.png">
     <title>{{ __('messages.project_name')}}</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- Bootstrap CSS -->
+ <meta name="csrf-token" content="{{ csrf_token() }}">    <!-- Bootstrap CSS -->
     <link href="{{ asset('public/backend/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- bootstrap theme -->
     <link href="{{ asset('public/backend/css/bootstrap-theme.css') }}" rel="stylesheet">

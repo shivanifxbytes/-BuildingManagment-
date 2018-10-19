@@ -33,7 +33,8 @@ class AdminController extends Controller
     */
     public function getLogin()
     {
-        if (auth()->guard('admin')->user()) {
+
+        if (isset(auth()->user()->user_role_id) && auth()->user()->user_role_id == 1) {
             return redirect()->route('dashboard');
         }
         return view('admin.login');
@@ -62,6 +63,7 @@ class AdminController extends Controller
             );
             if (Auth::attempt($inputData)) {
                 $role_id =  Auth::user()->user_role_id;
+
                 if ($role_id == Config::get('constants.ADMIN_ROLE')) {
                     return redirect("/dashboard")->with(array("message"=>__('messages.login_success')));
                 } else {
