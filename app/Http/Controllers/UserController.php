@@ -17,6 +17,7 @@ use App\Helpers\Helper;
 use myhelper;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Session;
+use App\Dashboard;
 
 class UserController extends Controller
 {
@@ -40,7 +41,6 @@ class UserController extends Controller
     {
         $id=  Auth::user()->id;
         return view('user.welcome')->with($id);
-        // echo "user page";
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends Controller
     {
     	$data['user_id'] = Crypt::decrypt($id);
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
-        return view('user.userMaintenance', $data)->with('no', Config:get('constants.S_NO'));
+        return view('user.userMaintenance', $data)->with('no', Config::get('constants.S_NO'));
     }
 
     /**

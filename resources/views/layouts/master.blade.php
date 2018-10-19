@@ -12,7 +12,7 @@
     <body>
           <!--Header-part-->
                  <div class="brand">{{ __('messages.project_name')}}</div>
-   
+    @include('includes.header') 
     <div id="flags" class="text-center"></div>     
           <!--end-Header-part-->
           <!-- Dynamic content Section -->

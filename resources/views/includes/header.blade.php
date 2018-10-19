@@ -18,9 +18,9 @@
                         <li>
                                 <a href="{{ url('/') }}">{{ __('messages.home') }}</a>
                         </li>
-                        @if(!empty(Auth::user()->user_id))
+                        @if(!empty(Auth::user()->name))
                         <li>
-                                <a>{{ __('messages.welcome') }} {{ Auth::user()->tenant_full_name }} {{ Auth::user()->tenant_full_name }}</a>
+                                <a>{{ __('messages.welcome') }} {{ Auth::user()->name }} </a>
                         </li>
                         <li>
                                 <a href="{{ url('/logout') }}">{{ __('messages.logout') }}</a>
