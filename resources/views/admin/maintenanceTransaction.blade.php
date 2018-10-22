@@ -39,7 +39,7 @@
                 <td><input type="text" id="rPendingAmout_{{$row->flat_number}}" name="rPendingAmout" id="" placeholder="" required></td>
                 <td><input type="text" id="extra_amount_{{$row->flat_number}}" name="extra_amount" id="" placeholder="" required></td>
                 <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" required></td>
-                <td><select name="paid_by[]" class="paid_by" required>
+                <td><select name="paid_by" id="paid_by_{{$row->flat_number}}" class="paid_by" required>
                       <option value="" >Paid BY</option>
                       <option value="Cash">Cash</option>
                       <option value="Cheque">Cheque</option>
@@ -72,6 +72,8 @@
         var reasonPendingAmount=$("#rPendingAmout_"+flatNumber).val();
         var extraAmount=$("#extra_amount_"+flatNumber).val();
         var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
+        var paid_by=$(select["#paid_by_"+flatNumber]).val();
+        console.log(paid_by);
         var date=$("#date_"+flatNumber).val();
         $.ajax({
             url: base_url + '/paid',
@@ -86,6 +88,7 @@
                 reasonPendingAmount: reasonPendingAmount,
                 extraAmount: extraAmount,
                 reasonExtraAmount: reasonExtraAmount,
+                paidBy: paidBy,
                 date:date
             },
             success: function (response) {

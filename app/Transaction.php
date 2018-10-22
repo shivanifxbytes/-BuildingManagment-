@@ -24,7 +24,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-     'amount','flat_number','tenant_name','pending_amount','extra_amount','reason_extra_amount','owner_name','reason_pending_amount','created_at','updated_at','month'
+     'amount','flat_number','tenant_name','pending_amount','extra_amount','reason_extra_amount','owner_name','reason_pending_amount','paid_by','created_at','updated_at','month'
     ];
 
     /**
