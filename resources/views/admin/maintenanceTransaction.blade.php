@@ -72,8 +72,8 @@
         var reasonPendingAmount=$("#rPendingAmout_"+flatNumber).val();
         var extraAmount=$("#extra_amount_"+flatNumber).val();
         var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
-        var paid_by=$(select["#paid_by_"+flatNumber]).val();
-        console.log(paid_by);
+        var paidBy=$("#paid_by_"+flatNumber).val();
+        console.log(paidBy)
         var date=$("#date_"+flatNumber).val();
         $.ajax({
             url: base_url + '/paid',
