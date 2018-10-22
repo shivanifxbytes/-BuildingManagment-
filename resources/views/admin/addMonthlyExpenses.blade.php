@@ -1,6 +1,8 @@
 @extends ('layouts.admin')
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet"> 
+ --> <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet"
+        type="text/css" /> 
 @endsection
 @section('content')   
 <div class="row">
@@ -113,11 +115,19 @@
 </div>
 @endsection
 @section('scripts')
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+            $(".date").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('.date').datepicker({  
-      format: 'mm/dd/yyyy',
-    });        
+      
     var postURL = "<?php echo url('addmore'); ?>";
     var i=1;  
     $('.dynamic-added').remove();
