@@ -773,8 +773,9 @@ class DashboardController extends Controller
             $flat_number = $value->flat_number;
             $amount      = $value->amount;
             $month       = $value->month;
+            $paid_by     = $value->paid_by;
         }
-        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount];
+        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by];
         $pdf  = PDF::loadView('admin.paymentReceipt', $data);
         Mail::send('admin.paymentReceipt', $data, function ($message) use ($pdf) {
             $message->from('shivani@example.com', 'Shriya');
