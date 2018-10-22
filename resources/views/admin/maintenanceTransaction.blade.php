@@ -24,6 +24,7 @@
             <th>Reason Panding Amount</th> 
             <th>Extra Amount</th>
             <th>Reason Extra Amount</th>
+            <th>Paid By</th>
             <th>Date</th>
             <th>Action</th>     
         </tr>
@@ -38,6 +39,12 @@
                 <td><input type="text" id="rPendingAmout_{{$row->flat_number}}" name="rPendingAmout" id="" placeholder="" required></td>
                 <td><input type="text" id="extra_amount_{{$row->flat_number}}" name="extra_amount" id="" placeholder="" required></td>
                 <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" required></td>
+                <td><select name="paid_by[]" class="paid_by" required>
+                      <option value="" >Paid BY</option>
+                      <option value="Cash">Cash</option>
+                      <option value="Cheque">Cheque</option>
+                    </select>
+                  </td>
                 <td><input type="text" id="date_{{$row->flat_number}}" class="date"></td>
                 <td><button type="button" class="btn btn-primary" onClick="payMaintence({{$row->flat_number}})">Paid</button></td>
             </form>

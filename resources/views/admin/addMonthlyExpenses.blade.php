@@ -1,6 +1,5 @@
 @extends ('layouts.admin')
 @section('styles')
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet"> 
  --> <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet"
         type="text/css" /> 
 @endsection

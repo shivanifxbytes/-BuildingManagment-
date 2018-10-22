@@ -59,7 +59,7 @@
         var csrf_token = "<?php echo csrf_token();?>";
     </script>
     <script src="{{ asset('public/backend/js/mycustom.js') }}" type="text/javascript"></script>
-     <script src="{{ asset('public/backend/js/bootstrapDatepicker.js') }}" type="text/javascript"></script>
+   
       <script src="{{ asset('public/backend/js/datatables.min.js') }}" type="text/javascript"></script>
      
     @yield('scripts')
