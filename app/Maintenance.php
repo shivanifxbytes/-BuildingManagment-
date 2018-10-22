@@ -71,5 +71,4 @@ class Maintenance extends Model
             ->get();
         
     }
-   
 }
