@@ -153,7 +153,7 @@ class Dashboard extends Model
      */
     public function getExpensesByFlatNumber($flat_number, $month)
     {
-        $expenses_details= DB::table('maintenance_transaction')->select('amount', 'flat_number','month')
+        $expenses_details= DB::table('maintenance_transaction')->select('amount', 'flat_number','month','paid_by')
           ->where('month', '=', $month)
            ->where('flat_number', '=', $flat_number)
             ->get()->toArray();  

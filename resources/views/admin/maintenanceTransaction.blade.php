@@ -73,7 +73,6 @@
         var extraAmount=$("#extra_amount_"+flatNumber).val();
         var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
         var paidBy=$("#paid_by_"+flatNumber).val();
-        console.log(paidBy)
         var date=$("#date_"+flatNumber).val();
         $.ajax({
             url: base_url + '/paid',

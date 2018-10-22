@@ -40,7 +40,7 @@
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Paid By</em></td>
-                                <td class="col-md-1" style="text-align: center"> Cash </td>
+                                <td class="col-md-1" style="text-align: center"> {{ $paid_by }}  </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Comment</em></td>
