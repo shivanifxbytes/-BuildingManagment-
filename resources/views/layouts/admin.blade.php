@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
     <link href="{{ asset('public/backend/css/sweetalert.css') }}" rel="stylesheet">
      <link href="{{ asset('public/backend/css/datatables.min.css') }}" rel="stylesheet">
+      <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet"
+        type="text/css" /> 
     <style type="text/css">
         ul.sidebar-menu li.active a{
             background: #fed189;
