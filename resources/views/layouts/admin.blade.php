@@ -13,7 +13,7 @@
     <link href="{{ asset('public/backend/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
     <link href="{{ asset('public/backend/css/sweetalert.css') }}" rel="stylesheet">
-     <link href="{{ asset('public/backend/css/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/backend/css/datatables.min.css') }}" rel="stylesheet">
     <style type="text/css">
         ul.sidebar-menu li.active a{
             background: #fed189;

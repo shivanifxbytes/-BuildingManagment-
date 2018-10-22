@@ -1,7 +1,7 @@
 @extends ('layouts.admin')
 @section('styles')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">  
-@endsection
+ <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet"
+        type="text/css" /> @endsection
 @section('content')   
 <div class="row">
     <div class="col-lg-12">
@@ -54,14 +54,16 @@
 </div>  
 @endsection
 @section('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript"> 
-    $(document).ready(function(){
-        $('.date').datepicker({  
-    format: 'mm/dd/yyyy',
-        });  
-    })        
-</script>  
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script language="javascript">
+        $(document).ready(function () {
+            $(".date").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+        });
+    </script>
 <script type="text/javascript"> 
     function payMaintence(flatNumber){
         var flatNumber=$("#flat_num_"+flatNumber).val();
