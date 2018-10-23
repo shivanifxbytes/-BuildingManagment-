@@ -748,7 +748,7 @@ class DashboardController extends Controller
      * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system
      * @return \Illuminate\Http\Response
      */
-    public function generatePDF($flat_number, $month,$email_send = NULL)
+    public function generateAndEmailPDF($flat_number, $month,$email_send = NULL)
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
         foreach ($result as $key => $value) {
