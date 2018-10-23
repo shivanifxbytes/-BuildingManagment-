@@ -14,8 +14,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <p>
-                                <strong><em>Date: 1st November, 2018</em></strong>
+                            <p id="demo">
+                                <strong><em>Date: <?php echo date('d M Y H:i:s'); ?></em></strong>
                             </p>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="padding-right:5%;">
@@ -69,4 +69,19 @@
         </div>
     </div>
 </body>
+
+<script>
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    document.getElementById("demo").innerHTML =
+    this.getAllResponseHeaders();
+  }
+};
+xhttp.open("GET", "ajax_info.txt", true);
+xhttp.send();
+</script>
+
 </html>
+
+
