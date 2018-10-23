@@ -114,7 +114,7 @@ class DashboardController extends Controller
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
             'flat_number'     => 'required|string|max:255',
             'carpet_area'     => 'required|max:50',
-            );
+        );
         if (empty($user_id)) {
             $rules = array(
                 'email'      => 'required|string|email|max:255|unique:users',
@@ -128,7 +128,7 @@ class DashboardController extends Controller
                 'name'             => $request->input('owner'),
                 'mobile_number'    => $request->input('owner_mobile_no'),
                 'user_role_id'     => 2
-                );
+            );
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
                 $requestData['password']      = bcrypt($request->input("password"));
@@ -151,7 +151,7 @@ class DashboardController extends Controller
                     $flatData = array(
                         'flat_number'      => $request->input('flat_number'),
                         'carpet_area'      => $request->input('carpet_area'),
-                        );
+                    );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
                     $flat =  Flat::where('owner_id', $user_id)->update($flatData);
                     return redirect('adminUser')->with('message', __('messages.Record_updated'));
@@ -221,7 +221,7 @@ class DashboardController extends Controller
             'month'          => 'required|max:50',
             'pending_amount' => 'required|max:50',
             'extra_amount'   => 'required|max:50',
-            );
+        );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -234,7 +234,7 @@ class DashboardController extends Controller
                 'user_status'    => $request->input('status'),
                 'created_at'     => date('Y-m-d'),
                 'updated_at'     => date('Y-m-d')
-                );
+            );
             $user_id = Crypt::decrypt($user_id);
             $users = DB::table('user_maintenance')->select('user_id', 'month')
             ->where('user_id', '=', $user_id)
@@ -302,7 +302,7 @@ class DashboardController extends Controller
     {
         $request->validate([
             'import_file' => 'required'
-            ]);
+        ]);
         $path = $request->file('import_file')->getRealPath();
         $data = Excel::load($path)->get();
         $i = 0;
@@ -310,14 +310,14 @@ class DashboardController extends Controller
         if ($data->count()) {
             foreach ($data as $key => $value) {
                 $arr = [
-                'user_id'        => $value->user_id,
-                'user_status'    => $value->user_status,
-                'amount'         => $value->amount,
-                'month'          => $value->month,
-                'user_status'    => Config::get('constants.ADMIN_ROLE'),
-                'pending_amount' => $value->pending_amount,
-                'extra_amount'   => $value->extra_amount,
-                'flat_number'    => $value->flat_number
+                    'user_id'        => $value->user_id,
+                    'user_status'    => $value->user_status,
+                    'amount'         => $value->amount,
+                    'month'          => $value->month,
+                    'user_status'    => Config::get('constants.ADMIN_ROLE'),
+                    'pending_amount' => $value->pending_amount,
+                    'extra_amount'   => $value->extra_amount,
+                    'flat_number'    => $value->flat_number
                 ];
                 if (!empty($arr)) {
                     $maintenance_records = Maintenance::selectMaintenance($value->user_id);
@@ -384,18 +384,18 @@ class DashboardController extends Controller
         $rules = array(
             'maintenance_amount' => 'required|max:50',
             'flat_number'        => 'max:10'
-            );
+        );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
-                );
+            );
             $insertData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
                 'flat_number'        => $request->input('flat_number')
-                );
+            );
             if (empty($id)) {
                 $user = Master::create($insertData);
                 if ($user) {
@@ -476,7 +476,7 @@ class DashboardController extends Controller
         $rules = array(
             'flat_type'   => 'required|max:50',
             'flat_number' => 'required|string',
-            );
+        );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -485,7 +485,7 @@ class DashboardController extends Controller
                 'flat_type'    => $request->input('flat_type'),
                 'flat_number'  => $request->input('flat_number'),
                 'created_at'   => date('Y-m-d H-i-s')
-                );
+            );
             if (empty($user_id)) {
                 $user = Master::insert('flat_type', $requestData);
                 if ($user) {
@@ -628,7 +628,7 @@ class DashboardController extends Controller
                 'amount'     => $amount[$key],
                 'paid_by'    => $paidBy[$key],
                 'reference_number'=> $cardNumber[$key],
-                ));
+            ));
         }
         Monthlyexpenses::insert($datainsert);
         $amount         = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date1)->get();
@@ -679,7 +679,7 @@ class DashboardController extends Controller
             4 => 'extra_amount',
             5 => 'status',
             6 => 'action'
-            );
+        );
         $data = array();
         if (!empty($result)) {
             foreach ($result as $key => $value) {
@@ -691,7 +691,7 @@ class DashboardController extends Controller
                 $nestedData['status']         = 1;
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
                 href='generate-pdf/$value->flat_number/$value->month' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
-                href='email-pdf/$value->flat_number/$value->month' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
+                href='generate-pdf/$value->flat_number/$value->month/TRUE' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
                 $data[] = $nestedData;
             }
         }
@@ -699,7 +699,7 @@ class DashboardController extends Controller
             "recordsTotal"    => intval($totalData),
             "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
-            );
+        );
         echo json_encode($json_data);
     }
 
@@ -724,7 +724,7 @@ class DashboardController extends Controller
             1 => 'title',
             2 => 'amount',
             3 => 'paid_by'
-            );
+        );
         $data = array();
         if (!empty($result)) {
             foreach ($result as $key => $value) {
@@ -739,7 +739,7 @@ class DashboardController extends Controller
             "recordsTotal"    => intval($totalData),
             "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
-            );
+        );
         echo json_encode($json_data);
     }
 
@@ -748,7 +748,7 @@ class DashboardController extends Controller
      * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system
      * @return \Illuminate\Http\Response
      */
-    public function generatePDF($flat_number, $month)
+    public function generateAndEmailPDF($flat_number, $month,$email_send = NULL)
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
         foreach ($result as $key => $value) {
@@ -759,29 +759,23 @@ class DashboardController extends Controller
         }
         $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by];
         $pdf = PDF::loadView('admin.paymentReceipt',$data);
-        return $pdf->download('recipt.pdf');
-    }
-    /**
-     * @DateOfCreation         17 oct 2018
-     * @ShortDescription       This function emails the generated pdf to user mail id
-     * @return [type] [description]
-     */
-    public function emailPDF($flat_number, $month)
-    {
-        $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
-        foreach ($result as $key => $value) {
-            $flat_number = $value->flat_number;
-            $amount      = $value->amount;
-            $month       = $value->month;
-            $paid_by     = $value->paid_by;
+        $file_path = $pdf->save(public_path('files/receipt.pdf'));
+        if($email_send == "TRUE")
+        {
+            Mail::send('admin.mailattachment', $data, function ($message) use ($pdf) {
+                $message->from('shivani@example.com', 'Shriya');
+                $message->to('shriya@example.com')->subject('Invoice');
+                $message->attach(public_path('files/receipt.pdf'), [
+                    'as' => 'receipt.pdf', 
+                    'mime' => 'application/pdf'
+                ]);
+            });
+            return redirect('monthViewList')->with('success', 'Email Sent successfully');
         }
-        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by];
-        $pdf  = PDF::loadView('admin.paymentReceipt', $data);
-        Mail::send('admin.paymentReceipt', $data, function ($message) use ($pdf) {
-            $message->from('shivani@example.com', 'Shriya');
-            $message->to('urvi@example.com')->subject('Invoice');
-            $message->attachData($pdf->output(), "receipt.pdf");
-        });
-        return redirect('monthViewList')->with('success', 'Email Sent successfully');
+        else
+        {
+            $pdf = $pdf->download('receipt.pdf');
+            return $pdf;
+        }
     }
 }
