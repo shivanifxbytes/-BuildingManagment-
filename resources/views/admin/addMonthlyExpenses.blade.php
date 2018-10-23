@@ -1,8 +1,8 @@
 @extends ('layouts.admin')
 @section('styles')
 
- <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet"
-        type="text/css" /> 
+<link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet"
+type="text/css" /> 
 @endsection
 @section('content')   
 <div class="row">
@@ -113,18 +113,30 @@
     </section>
   </div>
 </div>
+<?php
+echo $digits = '';
+function randomDigits($length){
+    $numbers = range(0,9);
+    shuffle($numbers);
+    for($i = 0; $i < $length; $i++){
+      global $digits;
+        $digits .= $numbers[$i];
+    }
+    return $digits;
+}
+?>
 @endsection
 @section('scripts')
-   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script language="javascript">
-        $(document).ready(function () {
-            $(".date").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        });
-    </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script language="javascript">
+  $(document).ready(function () {
+    $(".date").datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  });
+</script>
 <script type="text/javascript">
   $(document).ready(function(){      
     var postURL = "<?php echo url('addmore'); ?>";
@@ -136,23 +148,24 @@
       $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text"  value="" name="title[]" placeholder="" required/></td><td><input type="text" value="" name="amount[]" class="amount" placeholder="" required></td><td><select name="paid_by[]" class="paid_by" id="paid_by" ><option value="" selected="selected">Paid BY</option><option value="Cash">Cash</option><option value="Cheque">Cheque</option></select></td><td><input type="text" value="" name="card_number[]" placeholder="" required></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
     });  
     $(document).on('click', '.btn_remove', function(){  
-    var  cheque =   parseFloat($('#cheque_total').val());
-     var cash = parseFloat($('#cash_total').val());
+      var  cheque =   parseFloat($('#cheque_total').val());
+       console.log(cheque);
+      var cash = parseFloat($('#cash_total').val());
       var button_id = $(this).attr("id");   
       $('#row'+button_id+'').remove();  
       $(this).closest('tr').find('select[name="paid_by[]"]').each(function(){
         if(this.value == "Cash"){
           $(this).closest('tr').find('input[name="amount[]"]').each(function(){
             var amount = this.value;            
-             cash = cash - parseFloat(amount);
+            cash = cash - parseFloat(amount);
           });   
         }
         else
         {
-           $(this).closest('tr').find('input[name="amount[]"]').each(function(){
+          $(this).closest('tr').find('input[name="amount[]"]').each(function(){
             var amount = this.value;
             cheque = cheque - parseFloat(amount);
-        });
+          });
         }
       })
       console.log(cash);
@@ -160,26 +173,24 @@
       $('#cheque_total').val(cheque);
       $('#cash_total').val(cash);
       var total = cash+cheque;
-            console.log(total);
-
+      console.log(total);
       $('#total_amount').val(total);
     });     
-
     $(document).on('change', 'select[name="paid_by[]"]', function(){
       var cash = 0,cheque = 0;
       $('select[name="paid_by[]"]').each( function() {
         if(this.value == "Cash"){
-           $(this).closest('tr').find('input[name="amount[]"]').each(function(){
+          $(this).closest('tr').find('input[name="amount[]"]').each(function(){
             var amount = this.value;            
-             cash = cash + parseFloat(amount);
+            cash = cash + parseFloat(amount);
           });         
         }
         else
         {
-      $(this).closest('tr').find('input[name="amount[]"]').each(function(){
+          $(this).closest('tr').find('input[name="amount[]"]').each(function(){
             var amount = this.value;
             cheque = cheque + parseFloat(amount);
-        });
+          });
         }
       });
       $('#cheque_total').val(cheque);

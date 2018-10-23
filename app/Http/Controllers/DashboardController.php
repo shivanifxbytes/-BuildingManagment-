@@ -763,7 +763,7 @@ class DashboardController extends Controller
         if($email_send == "TRUE")
         {
             Mail::send('admin.mailattachment', $data, function ($message) use ($pdf) {
-                $message->from('shivani@example.com', 'Shriya');
+                $message->from('shivani@example.com', 'shivani');
                 $message->to('shriya@example.com')->subject('Invoice');
                 $message->attach(public_path('files/receipt.pdf'), [
                     'as' => 'receipt.pdf', 
