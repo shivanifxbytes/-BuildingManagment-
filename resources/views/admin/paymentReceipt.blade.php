@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <p id="demo">
-                                <strong><em>Date: <?php echo date('d M Y H:i:s'); ?></em></strong>
+                                <strong><em>Date: <?php echo date('d M Y'); ?></em></strong>
                             </p>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="padding-right:5%;">
