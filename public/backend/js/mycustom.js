@@ -1,5 +1,6 @@
+
 /* ------------------------------------------------
-        Delete on click event 
+        DE
         ------------------------------------------------ */   
 $(document).on('click', '.deleteDetail', function () {
     var id = $(this).data('id');
