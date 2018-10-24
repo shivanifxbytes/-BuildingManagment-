@@ -26,7 +26,7 @@
         <div class="col-lg-12">
           <div class="form-group">            
             <label for="flat_type">Flat Number</label>
-            <input type="text" value="{{$user[0]->flat_number}}" name="flat_number" id="flat_number" class="form-control" >       
+            <input type="text" value="{{$user[0]->flat_number}}" name="flat_number" id="flat_number" class="form-control" disabled >       
           </div> 
           <div class="form-group">
             <label for="flat_type">Flat Type</label>

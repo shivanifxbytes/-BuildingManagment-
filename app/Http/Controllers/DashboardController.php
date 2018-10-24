@@ -475,8 +475,8 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'   => 'required|max:50',
-            'flat_number' => 'required|string',
+            'flat_type'   => 'max:50',
+            'flat_number' => 'string',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -485,6 +485,10 @@ class DashboardController extends Controller
             $requestData = array(
                 'flat_type'    => $request->input('flat_type'),
                 'flat_number'  => $request->input('flat_number'),
+                'created_at'   => date('Y-m-d H-i-s')
+            );
+            $updateData = array(
+                'flat_type'    => $request->input('flat_type'),
                 'created_at'   => date('Y-m-d H-i-s')
             );
             if (empty($user_id)) {
@@ -497,7 +501,7 @@ class DashboardController extends Controller
             } else {
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
-                    $user = FlatType::where(array('id' => $user_id))->update($requestData);
+                    $user = FlatType::where(array('id' => $user_id))->update($updateData);
                     return redirect('flatType')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
