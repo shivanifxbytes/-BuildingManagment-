@@ -32,6 +32,18 @@
             <label for="flat_type">Flat Type</label>
            <input type="text" value="{{$user[0]->flat_type}}" name="flat_type" id="flat_type" class="form-control" >       
           </div> 
+                       <div class="form-group">
+                        <label for="flat_number">Flat Number</label>
+                        <select name="flat_number" id="flat_number" class="form-control" >
+                            @foreach($users as $users_key => $users_value)
+                            @if($user[0]->flat_number == $users_value->flat_number)
+                            <option value="{{$users_value->flat_number}}" selected="selected">{{$users_value->flat_number}}</option>
+                            @else
+                            <option value="{{$users_value->flat_number}}">{{$users_value->flat_number}}</option>
+                            @endif
+                            @endforeach
+                        </select>           
+                    </div> 
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">           
           <div class="form-group">
             <label>&nbsp;</label>
