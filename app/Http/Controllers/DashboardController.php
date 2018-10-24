@@ -27,6 +27,7 @@ use Exception;
 use App\Monthlyexpenses;
 use PDF;
 use Mail;
+use App\FlatType;
 
 class DashboardController extends Controller
 {
@@ -487,7 +488,7 @@ class DashboardController extends Controller
                 'created_at'   => date('Y-m-d H-i-s')
             );
             if (empty($user_id)) {
-                $user = Master::insert('flat_type', $requestData);
+                $user = FlatType::insert('flat_type', $requestData);
                 if ($user) {
                     return redirect('flatType')->with('message', __('messages.Record_added'));
                 } else {
@@ -496,7 +497,7 @@ class DashboardController extends Controller
             } else {
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
-                    $user = Master::where(array('id' => $user_id))->update($requestData);
+                    $user = FlatType::where(array('id' => $user_id))->update($requestData);
                     return redirect('flatType')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
