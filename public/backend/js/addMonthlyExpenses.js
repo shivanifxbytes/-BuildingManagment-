@@ -49,7 +49,6 @@ $(document).ready(function(){
         $('#total_amount').val(total);
     });  
 
-
     /* ------------------------------------------------
         Remove row by an event
         ------------------------------------------------ */   
@@ -76,9 +75,9 @@ $(document).ready(function(){
         $('#total_amount').val(total);
     })
 
-    /* ------------------------------------------------
+    /* -------------------------------------------------------------
         Remove row by an event
-        ------------------------------------------------ */   
+        ------------------------------------------------------------ */   
     $('#submit').click(function(){            
         var formData = $('#add_name').serialize();         
         var date = [];
@@ -125,9 +124,9 @@ $(document).ready(function(){
         });  
     });  
 
-    /* ------------------------------------------------
-        Remove row by an event
-        ------------------------------------------------ */   
+    /* ---------------------------------------------------------------
+        Error msg for add more monthly expenses whe recode inserted
+        ------------------------------------------------------------- */   
     function printErrorMsg (msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display','block');
