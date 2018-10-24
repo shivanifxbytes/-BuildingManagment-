@@ -46,4 +46,3 @@ $(document).on('click', '.deleteDetail', function () {
     });
 });
 
-

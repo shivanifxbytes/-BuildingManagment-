@@ -510,7 +510,7 @@ class DashboardController extends Controller
                 'created_at'   => date('Y-m-d H-i-s')
             );
             if (empty($user_id)) {
-                $user = FlatType::insert('flat_type', $requestData);
+                $user = FlatType::insert($requestData);
                 if ($user) {
                     return redirect('flatType')->with('message', __('messages.Record_added'));
                 } else {

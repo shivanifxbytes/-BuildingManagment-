@@ -75,34 +75,5 @@
 </form>
 @endsection
 @section('scripts')
-<script>
-  jQuery(document).ready(function() {
-    var value = attrid ='';
-    jQuery('select').change(function() {
-      value = $(this).val();
-      console.log(value);
-      jQuery.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-      jQuery.ajax({
-        url: "{{ route('flats/getflattype') }}",
-        type: 'post',
-        data: {
-          id:value,
-        },
-        success: function(result) {
-          console.log(result[0]);
-                $('#flat_type').val(result[0]);
-
-        },
-        error: function(xhr) {
-          console.log(xhr);
-          console.log(xhr.message);
-        }
-      });
-    });
-  });
-</script>
+<script src="{{ asset('public/backend/js/addMaintenanceMaster.js') }}" type="text/javascript"></script>
 @endsection

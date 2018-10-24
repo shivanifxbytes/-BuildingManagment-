@@ -84,8 +84,9 @@
 <!--main content end-->
 @endsection
 @section('scripts')
+<script src="{{ asset('public/backend/js/monthlyExpenses.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function() {
+        jQuery(document).ready(function() {
                var d = new Date();
         var year = d.getFullYear();
         var month = d.getMonth()+1;
