@@ -113,7 +113,7 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'     => 'required|string|max:255',
+            'flat_number'     => 'required|string|max:255|unique:flats',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
