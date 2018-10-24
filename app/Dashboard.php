@@ -23,14 +23,12 @@ class Dashboard extends Model
     public function queryData()
     {
         return  DB::table('flats')
-             ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
+             ->join('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
              ->join('users', 'flats.owner_id', '=', 'users.id')
             ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
             ->where('users.user_role_id', '=', ' 2')
             ->get();
     }
-
-   
 
     /**
     * @DateOfCreation         23 Aug 2018
