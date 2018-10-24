@@ -60,7 +60,7 @@
     </script>
     <script src="{{ asset('public/backend/js/mycustom.js') }}" type="text/javascript"></script>
    
-      <script src="{{ asset('public/backend/js/datatables.min.js') }}" type="text/javascript"></script>
+     <script src="{{ asset('public/backend/js/datatables.min.js') }}" type="text/javascript"></script>
      
     @yield('scripts')
 </body>
