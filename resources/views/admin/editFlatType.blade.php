@@ -23,14 +23,19 @@
         </p>
         @endforeach
         @endif
- <div class="col-lg-12">
+        <div class="col-lg-12">
           <div class="form-group">            
             <label for="flat_type">Flat Number</label>
-           <input type="text" value="{{$user[0]->flat_number}}" name="flat_number" id="flat_number" class="form-control" >       
+            <input type="text" value="{{$user[0]->flat_number}}" name="flat_number" id="flat_number" class="form-control" disabled >       
           </div> 
-          <div class="form-group">            
+          <div class="form-group">
             <label for="flat_type">Flat Type</label>
-           <input type="text" value="{{$user[0]->flat_type}}" name="flat_type" id="flat_type" class="form-control" >       
+            <select name="flat_type" id="flat_type" class="form-control" >
+              <option value="1BHK" @if($user[0]->flat_type == '1BHK') {{'selected'}} @endif>1BHK</option>
+              <option value="2BHK" @if($user[0]->flat_type == '2BHK') {{'selected'}} @endif>2BHK</option>
+              <option value="3BHK" @if($user[0]->flat_type == '3BHK') {{'selected'}} @endif>3BHK</option>
+              <option value="Paint House" @if($user[0]->flat_type == 'Paint House') {{'selected'}} @endif>Paint House</option>
+            </select>           
           </div> 
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">           
           <div class="form-group">

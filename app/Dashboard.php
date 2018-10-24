@@ -30,8 +30,6 @@ class Dashboard extends Model
             ->get();
     }
 
-   
-
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       This function selects the specified data from table

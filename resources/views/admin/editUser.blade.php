@@ -29,15 +29,17 @@
                     <div class="form-group">
                         <label>{{ __('messages.owner')}}</label>
                         <input type="text" class="form-control" value="{{$value->name}}"  name="owner" placeholder="{{ __('messages.owner')}}" required>
-                    </div>   
+                    </div>  
                     <div class="form-group">
                         <label for="flat_number">Flat Number</label>
                         <select name="flat_number" id="flat_number" class="form-control" >
-                            @if($users[$key]->flat_number == $value->flat_number)
-                            <option value="{{$value->flat_number}}" selected="selected">{{$value->flat_number}}</option>
+                            @foreach($users as $users_key => $users_value)
+                            @if($value->flat_number == $users_value->flat_number)
+                            <option value="{{$users_value->flat_number}}" selected="selected">{{$users_value->flat_number}}</option>
                             @else
-                            <option value="{{$users[$key]->flat_number }}">{{$users[$key]->flat_number }}</option>
+                            <option value="{{$users_value->flat_number}}">{{$users_value->flat_number}}</option>
                             @endif
+                            @endforeach
                         </select>           
                     </div> 
                     <div class="form-group">

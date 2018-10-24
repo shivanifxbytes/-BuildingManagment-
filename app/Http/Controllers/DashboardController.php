@@ -27,6 +27,7 @@ use Exception;
 use App\Monthlyexpenses;
 use PDF;
 use Mail;
+use App\FlatType;
 
 class DashboardController extends Controller
 {
@@ -41,6 +42,7 @@ class DashboardController extends Controller
         $this->dashboardObj = new Dashboard();
         $this->userobj = new User();
     }
+    
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the dashboard view
@@ -57,6 +59,7 @@ class DashboardController extends Controller
         $count['users']  = $this->dashboardObj->countUsers();
         return view('admin.dashboard', compact('count'));
     }
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load users view with list of all users
@@ -72,6 +75,7 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->queryData();
         return view('admin.users', $data);
     }
+
     /**
      * @DateOfCreation         24 Aug 2018
      * @ShortDescription       Function run according to the parameter if $user_id is NUll
@@ -99,6 +103,7 @@ class DashboardController extends Controller
             return view('admin.addUser', $data);
         }
     }
+
     /**
      * @DateOfCreation         24 Aug 2018
      * @ShortDescription       This function handle the post request which get after submit the
@@ -112,7 +117,7 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'     => 'required|string|max:255',
+            'flat_number'     => 'required|string|max:255|unique:flats',
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
@@ -161,6 +166,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load user maintanence view with list of user when user id is equal to
@@ -173,6 +179,7 @@ class DashboardController extends Controller
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
         return view('admin.userMaintenance', $data)->with('no', 1);
     }
+
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load add maintenance view
@@ -183,6 +190,7 @@ class DashboardController extends Controller
         $user_id = Crypt::decrypt($user_id);
         return view('admin.addMaintenance');
     }
+
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       This function run according to the parameter If we get ID it will return
@@ -206,6 +214,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
      * @DateOfCreation         24 August 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -249,6 +258,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
      * @DateOfCreation         22 March 2018
      * @ShortDescription       Distroy the session and Make the Auth Logout
@@ -260,6 +270,7 @@ class DashboardController extends Controller
         Session::flush();
         return redirect('/');
     }
+
     /**
      * @DateOfCreation         04 September 2018
      * @ShortDescription       Display a listing of the resource.
@@ -275,6 +286,7 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
+
     /**
      * @DateOfCreation         04 September 2018
      * @ShortDescription       Display a listing of the resource.
@@ -290,6 +302,7 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
+
     /**
      * @DateOfCreation         05 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -335,6 +348,7 @@ class DashboardController extends Controller
         $import_success = 'File Imported And Insert Record successfully.';
         return back()->with(['import_success'=>$import_success,'error_array'=>$array]);
     }
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load maintenance master view with list of all maintenance
@@ -345,6 +359,7 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->selectMaintenance();
         return view('admin.maintenanceMaster', $data);
     }
+
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit
@@ -371,6 +386,7 @@ class DashboardController extends Controller
             return view('admin.addMaintenanceMaster', $data);
         }
     }
+
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -414,6 +430,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return
@@ -426,6 +443,7 @@ class DashboardController extends Controller
         DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load flat type view with list of all flats
@@ -436,6 +454,7 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->selectFlatType();
         return view('admin.flatType', $data);
     }
+
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit
@@ -474,8 +493,8 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'   => 'required|max:50',
-            'flat_number' => 'required|string',
+            'flat_type'   => 'max:50',
+            'flat_number' => 'string',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -486,8 +505,12 @@ class DashboardController extends Controller
                 'flat_number'  => $request->input('flat_number'),
                 'created_at'   => date('Y-m-d H-i-s')
             );
+            $updateData = array(
+                'flat_type'    => $request->input('flat_type'),
+                'created_at'   => date('Y-m-d H-i-s')
+            );
             if (empty($user_id)) {
-                $user = Master::insert('flat_type', $requestData);
+                $user = FlatType::insert('flat_type', $requestData);
                 if ($user) {
                     return redirect('flatType')->with('message', __('messages.Record_added'));
                 } else {
@@ -496,7 +519,7 @@ class DashboardController extends Controller
             } else {
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
-                    $user = Master::where(array('id' => $user_id))->update($requestData);
+                    $user = FlatType::where(array('id' => $user_id))->update($updateData);
                     return redirect('flatType')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
