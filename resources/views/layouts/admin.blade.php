@@ -49,9 +49,9 @@
     <script src="{{ asset('public/backend/js/jquery-ui-1.10.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/backend/js/jquery-1.8.3.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/backend/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> 
     <script src="{{ asset('public/backend/js/sweetalert.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('public/backend/js/jquery-1.7.2.min.js') }}"></script>
-    <script  src="{{ asset('public/backend/js/jquery-ui.js') }}"></script>
+    <script src="{{ asset('public/backend/js/addMonthlyExpenses.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         var table = $('#data-table').DataTable( {
             rowReorder: true
