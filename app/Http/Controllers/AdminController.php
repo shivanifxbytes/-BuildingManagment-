@@ -27,10 +27,10 @@ class AdminController extends Controller
     }
 
     /**
-    * @DateOfCreation         22 aug 2018
-    * @ShortDescription       Load the login view for admin
-    * @return                 View
-    */
+     * @DateOfCreation         22 aug 2018
+     * @ShortDescription       Load the login view for admin
+     * @return                 View
+     */
     public function getLogin()
     {
         if (isset(auth()->user()->user_role_id) && auth()->user()->user_role_id == 1) {
@@ -40,10 +40,10 @@ class AdminController extends Controller
     }
 
     /**
-    * @DateOfCreation         22 aug 2018
-    * @ShortDescription       login user
-    * @return                 result
-    */
+     * @DateOfCreation         22 aug 2018
+     * @ShortDescription       login user
+     * @return                 result
+     */
     public function postLogin(Request $request)
     {
         $rules = array(
@@ -71,7 +71,7 @@ class AdminController extends Controller
             } else {
                 //Check Email exist in the database or not
                 if (Admin::where(
-                        'email',
+                    'email',
                     '=',
                     $inputData['email']
                 )->first()) {
