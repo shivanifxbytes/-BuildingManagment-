@@ -56,14 +56,7 @@
 @section('scripts')
    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script language="javascript">
-        $(document).ready(function () {
-            $(".date").datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        });
-    </script>
+   
 <script type="text/javascript"> 
     function payMaintence(flatNumber){
         var flatNumber=$("#flat_num_"+flatNumber).val();
