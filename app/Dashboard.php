@@ -39,6 +39,7 @@ class Dashboard extends Model
     {
         return Admin::where('user_role_id', Config::get('constants.USER_ROLE'))->count();
     }
+
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       This function join two tables and selects the specified data from tables
@@ -75,6 +76,7 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->get();
     }
+
     /**
      * @DateOfCreation         10 oct 2018
      * @ShortDescription       This function selects the flat_type for the specified id from table
@@ -85,6 +87,7 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
+    
     /**
      * [getFlatDetail description]
      * @return [type] [description]

@@ -17,7 +17,7 @@ $(document).ready(function(){
     });  
 
     /* ------------------------------------------------
-        Remove row by an event and 
+       subtract amount according cash and cheque by an event
         ------------------------------------------------ */
     $(document).on('click', '.btn_remove', function(){  
         var  cheque =   parseFloat($('#cheque_total').val());
@@ -50,7 +50,7 @@ $(document).ready(function(){
     });  
 
     /* ------------------------------------------------
-        Remove row by an event
+        Add amount according cash and cheque by an event
         ------------------------------------------------ */   
     $(document).on('change', 'select[name="paid_by[]"]', function(){
         var cash = 0,cheque = 0;
@@ -64,8 +64,7 @@ $(document).ready(function(){
             }
             else
             {
-                                $(this).closest('tr').find('input[name="card_number[]"]').prop("disabled", false);
-
+                $(this).closest('tr').find('input[name="card_number[]"]').prop("disabled", false);
                 $(this).closest('tr').find('input[name="amount[]"]').each(function(){
                     var amount = this.value;
                     cheque = cheque + parseFloat(amount);
@@ -78,9 +77,9 @@ $(document).ready(function(){
         $('#total_amount').val(total);
     })
 
-    /* -------------------------------------------------------------
-        Remove row by an event
-        ------------------------------------------------------------ */   
+    /* ------------------------------------------------------------------
+        Get values from form and insert data in to monthly expenses table
+          ------------------------------------------------------------ */   
     $('#submit').click(function(){            
         var formData = $('#add_name').serialize();         
         var date = [];
@@ -128,7 +127,7 @@ $(document).ready(function(){
     });  
 
     /* ---------------------------------------------------------------
-        Error msg for add more monthly expenses whe recode inserted
+        Error msg for add more monthly expenses 
         ------------------------------------------------------------- */   
     function printErrorMsg (msg) {
         $(".print-error-msg").find("ul").html('');

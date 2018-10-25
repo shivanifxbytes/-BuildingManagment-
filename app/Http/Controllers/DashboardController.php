@@ -482,6 +482,7 @@ class DashboardController extends Controller
             return view('admin.addFlatType');
         }
     }
+    
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -527,6 +528,7 @@ class DashboardController extends Controller
             }
         }
     }
+
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return
@@ -539,6 +541,7 @@ class DashboardController extends Controller
         DB::table('flat_type')->where('id', '=', $user_id)->delete();
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
+
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Get the ID from the ajax and pass
@@ -563,6 +566,7 @@ class DashboardController extends Controller
             return Config::get('constants.ID_NOT_CORRECT');
         }
     }
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the maintenance transaction form view
@@ -584,6 +588,7 @@ class DashboardController extends Controller
         $data['flats'] = $this->transactionobj->selectAllTransaction();
         return view('admin.showMaintenanceTransactionList', $data);
     }
+
     /**
      * @DateOfCreation         28 September 2018s
      * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
@@ -600,10 +605,11 @@ class DashboardController extends Controller
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
         $test->paid_by=$input['paidBy'];
-        $test->month =date("Y-m-d", strtotime($input['date']));
+        $test->month =date("Y-m-d", strtotime($input['date']));4
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the monthly Expences form view
@@ -613,6 +619,7 @@ class DashboardController extends Controller
     {
         return view('admin.monthlyExpenses');
     }
+
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load the add Maintenance Transaction form view
@@ -623,6 +630,7 @@ class DashboardController extends Controller
         $data['flats'] = $this->dashboardObj->getFlatDetail();
         return view('admin.maintenanceTransaction', $data);
     }
+
     /**
      * [addMonthlyExpense description]    {
      */
@@ -630,6 +638,7 @@ class DashboardController extends Controller
     {
         return view('admin.addMonthlyExpenses');
     }
+
     /**
      * [addMoreMonthlyExpense description]
      * @param Request $request [description]
@@ -668,6 +677,7 @@ class DashboardController extends Controller
         $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
+
     /**
      * [changeflattype description]
      * @param  Request $request [description]
@@ -679,6 +689,7 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
+
     /**
      * [showMonthlyTransaction description]
      * @param  Request $request [description]
@@ -765,6 +776,7 @@ class DashboardController extends Controller
         );
         return json_encode($json_data);
     }
+
     /**
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function generate pdf and provide download and open option depends 
