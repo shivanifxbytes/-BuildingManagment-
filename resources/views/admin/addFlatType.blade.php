@@ -30,7 +30,7 @@
           <div class="form-group">            
             <label for="flat_type">Flat Type</label>
            <select name="flat_type" id="flat_type" class="form-control" >
-              <option value="" selected="selected">Flat</option>
+              <option value="" selected="selected">Select Flat Type</option>
               <option value="1BHK">1BHK</option>
               <option value="2BHK">2BHK</option>
               <option value="3BHK">3BHK</option>
