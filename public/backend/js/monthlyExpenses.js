@@ -23,22 +23,25 @@
     function dataTables(year,month)
     {
         $('#showMonthlyExpenses').DataTable({
-            "destroy": true,
-            "pageLength": 10,
-            "processing": true,
-            "serverSide": true,
-            "ajax":{
-                "url": "{{ route('showMonthlyExpenses') }}",
-                "dataType": "json",
-                "type": "POST",
-                "data":{ _token: "{{csrf_token()}}", year:year,
+            destroy: true,
+            pageLength: 10,
+            processing: true,
+            serverSide: true,
+            ajax:{
+                url: base_url + '/showMonthlyExpenses',
+                 headers: {
+                'X-CSRF-TOKEN': csrf_token
+            },
+                dataType: "json",
+                type: "POST",
+                data:{ _token: csrf_token, year:year,
                 month:month},
             },
-            "columns": [
-            { "data": "month" },
-            { "data": "title" },
-            { "data": "amount" },
-            { "data": "paid_by" },
+            columns: [
+            { data: "month" },
+            { data: "title" },
+            { data: "amount" },
+            { data: "paid_by" },
             ]    
         });   
     }
