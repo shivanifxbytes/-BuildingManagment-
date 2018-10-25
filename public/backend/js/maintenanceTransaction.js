@@ -41,10 +41,9 @@
             success: function (response) {
                 if (response.success == "Paid") {
                     swal("paid!", "Your entry has been paid.", "success");
-                } else if(response.error)
+                } else if(response.success == 'Data Updated')
                 {
-                    console.log(response.error);
-                    swal("already paid!", "flat maintenance already been paid for the month.", "error");
+                    swal("updated", "flat maintenance has been paid for the month.", "success");
                 }
                 else {
                     swal("error", "Something want wrong, Please try again later", "error");
