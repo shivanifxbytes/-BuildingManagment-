@@ -605,7 +605,7 @@ class DashboardController extends Controller
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
         $test->paid_by=$input['paidBy'];
-        $test->month =date("Y-m-d", strtotime($input['date']));4
+        $test->month =date("Y-m-d", strtotime($input['date']));
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
