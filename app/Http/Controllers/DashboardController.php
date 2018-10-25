@@ -433,7 +433,7 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function run according to the parameter If we get ID it will return
+     * @ShortDescription       Function delete the row of maintenance master table
      *  deteled row
      * @return                 result
      */
@@ -458,7 +458,7 @@ class DashboardController extends Controller
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit
-     *                         view
+     *                         view if id = null it will return addflat type view
      * @return                 View
      */
     public function getFlatType($user_id = null)
@@ -531,8 +531,8 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function run according to the parameter If we get ID it will return
-     *                         deteled row
+     * @ShortDescription       Function deteted row of flattype 
+     *               
      * @return                 result
      */
     public function deleteFlatType($user_id = null)
@@ -569,7 +569,7 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         23 Aug 2018
-     * @ShortDescription       Load the maintenance transaction form view
+     * @ShortDescription       Load the month View List for maintenance transaction
      * @return                 View
      */
     public function monthViewList()
@@ -579,8 +579,8 @@ class DashboardController extends Controller
     
     /**
      * @DateOfCreation         23 Aug 2018
-     * @ShortDescription       Load the maintenance transaction form view
-     * @return                 View
+     * @ShortDescription       Load the maintenance transaction list
+     * @return                 result
      */
     public function showMaintenanceTransactionList()
     {
