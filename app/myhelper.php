@@ -19,6 +19,32 @@ function showStatus($status)
 }
 
 /**
+ * @DateOfCreation         23 Aug 2018
+ * @ShortDescription       Return the Html according to the status provided from view
+ * @return                 Response
+ */
+function showMaintainenceStatus($status)
+{
+    $val = '';
+    switch ($status) {
+        case '1':
+        $val = "<p style='color:green'>Paid</p>";
+        break;
+        case '0':
+        $val = "<p style='color:red'>Unpaid</p>";
+        break;
+         case '2':
+        $val = "<p style='color:blue'>Partially Paid</p>";
+        break;
+        default:
+                $val = "<p style='color:red'>Unpaid</p>";
+
+        break;
+
+    }
+    return $val;
+}
+/**
 * @DateOfCreation         23 Aug 2018
 * @ShortDescription       Return the Html according to the month provided from view
 * @return                 Response

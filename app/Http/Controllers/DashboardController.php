@@ -482,7 +482,7 @@ class DashboardController extends Controller
             return view('admin.addFlatType');
         }
     }
-    
+
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -605,7 +605,7 @@ class DashboardController extends Controller
         $test->extra_amount=$input['extraAmount'];
         $test->reason_extra_amount=$input['reasonExtraAmount'];
         $test->paid_by=$input['paidBy'];
-        $test->month =date("Y-m-d", strtotime($input['date']));4
+        $test->month =date("Y-m-d", strtotime($input['date']));
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
@@ -718,11 +718,11 @@ class DashboardController extends Controller
         if (!empty($result)) {
             foreach ($result as $key => $value) {
                 $nestedData['flat_number']    = $value->flat_number;
-                $nestedData['owner']          = $value->owner_name;
-                $nestedData['amount']         = $value->amount;
-                $nestedData['pending_amount'] = $value->pending_amount;
-                $nestedData['extra_amount']   = $value->extra_amount;
-                $nestedData['status']         = 1;
+                $nestedData['owner']          = isset($value->owner_name)?$value->owner_name:'N/A';
+                $nestedData['amount']         = isset($value->amount)?$value->amount:'N/A';
+                $nestedData['pending_amount'] = isset($value->pending_amount)?$value->pending_amount:'N/A';
+                $nestedData['extra_amount']   = isset($value->extra_amount)?$value->extra_amount:'N/A';
+                $nestedData['status']         = showMaintainenceStatus($value->status);
                 $nestedData['action']         = "<a class='btn btn-success' title='download pdf' 
                 href='generate-pdf/$value->flat_number/$value->month' style='margin:5px;'data-toggle='tooltip'>download pdf</a><a class='btn btn-success' title='download pdf' 
                 href='generate-pdf/$value->flat_number/$value->month/TRUE' style='margin:5px;'data-toggle='tooltip'>Email pdf</a>";
