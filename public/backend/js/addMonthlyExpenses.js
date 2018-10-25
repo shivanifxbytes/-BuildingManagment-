@@ -102,11 +102,11 @@ $(document).ready(function(){
         });
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': csrf_token
             }
         });
         $.ajax({  
-            url: "{{ route('addMoreMonthlyExpense') }}", 
+            url: base_url+'/addMoreMonthlyExpense', 
             type:"POST",  
             data:{date:date,title:title,amount:amount,paid_by:paid_by,card_number:card_number},
             dataType: 'json',

@@ -117,5 +117,8 @@ type="text/css" />
 @section('scripts')
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript">
+    var csrf_token = "<?php echo csrf_token(); ?>";
+</script>
 <script src="{{ asset('public/backend/js/addMonthlyExpenses.js') }}" type="text/javascript"></script>
 @endsection
