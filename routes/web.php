@@ -73,7 +73,7 @@ Route::get('/addMonthlyExpense', ['as'=>'addMonthlyExpense','uses'=>'DashboardCo
 Route::post("addMoreMonthlyExpense","DashboardController@addMoreMonthlyExpense")->name('addMoreMonthlyExpense');
 Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
 Route::post('flats/getflattype', 'DashboardController@changeflattype')->name('flats/getflattype');
-Route::post('/showmonthlytransaction', 'DashboardController@showMonthlyTransaction')->name('showmonthlytransaction');
+Route::post('showmonthlytransaction', 'DashboardController@showMonthlyTransaction')->name('showmonthlytransaction');
 Route::post('showMonthlyExpenses', 'DashboardController@showMonthlyExpenses')->name('showMonthlyExpenses');
 Route::get('generate-pdf/{flat_number?}/{month?}/{email_send?}','DashboardController@generateAndEmailPDF');
 });
