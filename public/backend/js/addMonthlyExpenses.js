@@ -64,6 +64,8 @@ $(document).ready(function(){
             }
             else
             {
+                                $(this).closest('tr').find('input[name="card_number[]"]').prop("disabled", false);
+
                 $(this).closest('tr').find('input[name="amount[]"]').each(function(){
                     var amount = this.value;
                     cheque = cheque + parseFloat(amount);
