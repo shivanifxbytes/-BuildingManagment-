@@ -121,8 +121,8 @@ class DashboardController extends Controller
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
-                $rules['email']      = 'required|string|email|max:255|unique:users';
-                $rules['password']   = 'required|string|min:6|confirmed';
+            $rules['email']      = 'required|string|email|max:255|unique:users';
+            $rules['password']   = 'required|string|min:6|confirmed';
         }
 
         $validator = Validator::make($request->all(), $rules);
@@ -531,8 +531,8 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function deteted row of flattype 
-     *               
+     * @ShortDescription       Function deteted row of flattype
+     *
      * @return                 result
      */
     public function deleteFlatType($user_id = null)
@@ -606,8 +606,6 @@ class DashboardController extends Controller
         $test->reason_extra_amount=$input['reasonExtraAmount'];
         $test->paid_by=$input['paidBy'];
         $test->month =date("Y-m-d", strtotime($input['date']));
-                $test->status =$input['status'];
-
         $test->save();
         return response()->json(['success'=>'Paid']);
     }
@@ -624,8 +622,8 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         27 August 2018
-     * @ShortDescription       Load the add Maintenance Transaction form view
-     * @return                 View
+     * @ShortDescription       Load all flats details
+     * @return                 result
      */
     public function addMaintenanceTransaction()
     {
@@ -634,16 +632,19 @@ class DashboardController extends Controller
     }
 
     /**
-     * [addMonthlyExpense description]    {
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the add monthly Expences form view
+     * @return                 View
      */
     public function addMonthlyExpense()
     {
         return view('admin.addMonthlyExpenses');
     }
-
+   
     /**
-     * [addMoreMonthlyExpense description]
-     * @param Request $request [description]
+     * @DateOfCreation         28 September 2018s
+     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
+     * @return                 Response
      */
     public function addMoreMonthlyExpense(Request $request)
     {
@@ -693,10 +694,12 @@ class DashboardController extends Controller
     }
 
     /**
-     * [showMonthlyTransaction description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
+      * @DateOfCreation         17 oct 2018
+      * @ShortDescription       This function show the monthly transaction list using data table
+      *                         corresponding month and year with ajax and jquery
+      * @param  Request $request []
+      * @return [type]           result
+      */
     public function showMonthlyTransaction(Request $request)
     {
         $year    =  $request->year;
@@ -736,14 +739,15 @@ class DashboardController extends Controller
             "recordsFiltered" => intval($totalFiltered),
             "data"            => $data
         );
-          return json_encode($json_data);
+        return json_encode($json_data);
     }
 
     /**
      * @DateOfCreation         17 oct 2018
-     * @ShortDescription       This function show the monthly expenses of the flats in building
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * @ShortDescription       This function show the monthly expenses list using data table
+     *                         corresponding month and year with ajax and jquery
+     * @param  Request $request []
+     * @return [type]           result
      */
     public function showMonthlyExpenses(Request $request)
     {
@@ -781,11 +785,11 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         17 oct 2018
-     * @ShortDescription       This function generate pdf and provide download and open option depends 
-     *                         on operating system
-     * @return \Illuminate\Http\Response
+     * @ShortDescription       This function generate pdf send email receipt and provide download
+     *                         and open option depends on operating system
+     * @return                 Response
      */
-    public function generateAndEmailPDF($flat_number, $month,$email_send = NULL)
+    public function generateAndEmailPDF($flat_number, $month, $email_send = null)
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
         foreach ($result as $key => $value) {
@@ -795,22 +799,19 @@ class DashboardController extends Controller
             $paid_by     = $value->paid_by;
         }
         $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by];
-        $pdf = PDF::loadView('admin.paymentReceipt',$data);
+        $pdf = PDF::loadView('admin.paymentReceipt', $data);
         $file_path = $pdf->save(public_path('files/receipt.pdf'));
-        if($email_send == "TRUE")
-        {
+        if ($email_send == "TRUE") {
             Mail::send('admin.mailattachment', $data, function ($message) use ($pdf) {
                 $message->from('shivani@example.com', 'shivani');
                 $message->to('shriya@example.com')->subject('Invoice');
                 $message->attach(public_path('files/receipt.pdf'), [
-                    'as' => 'receipt.pdf', 
+                    'as' => 'receipt.pdf',
                     'mime' => 'application/pdf'
                 ]);
             });
             return redirect('monthViewList')->with('success', 'Email Sent successfully');
-        }
-        else
-        {
+        } else {
             $pdf = $pdf->download('receipt.pdf');
             return $pdf;
         }
