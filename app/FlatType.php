@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class FlatType extends Model
 {
     /**
@@ -12,4 +12,5 @@ class FlatType extends Model
      * @var String
      */
     protected $table = 'flat_type';
+
 }

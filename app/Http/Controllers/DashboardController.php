@@ -596,17 +596,27 @@ class DashboardController extends Controller
      */
     public function paidmaintenanceTransaction(Request $request)
     {
-        $test = new Transaction();
-        $input = $request->all();
-        $test->flat_number=$input['flatNumber'];
-        $test->amount=$input['amount'];
-        $test->pending_amount=$input['pendingAmount'];
-        $test->reason_pending_amount=$input['reasonPendingAmount'];
-        $test->extra_amount=$input['extraAmount'];
-        $test->reason_extra_amount=$input['reasonExtraAmount'];
-        $test->paid_by=$input['paidBy'];
-        $test->month =date("Y-m-d", strtotime($input['date']));
-        $test->save();
+        $flatData = array(
+                'flat_number'    => $request->input('flatNumber'),
+                'amount'  => $request->input('amount'),
+                'pending_amount'=>$request->input('pendingAmount'),
+                'reason_pending_amount'=>$request->input('reasonPendingAmount'),
+                'extra_amount'=>$request->input('extraAmount'),
+                'reason_extra_amount'=>$request->input('reasonExtraAmount'),
+                'paid_by'=>$request->input('paidBy'),
+                'month'   => date("Y-m-d", strtotime($request->input('date'))),
+                'status'=>$request->input('status'),
+        );
+        $year = date('Y',strtotime($request->input('date')));
+        $month = date('m',strtotime($request->input('date')));
+        $flat_number = $request->input('flatNumber');
+        $records  = Transaction::getRecordsByMonthAndYear($year, $month, $flat_number);
+        if(count($records)>0)
+        {
+            $flat =  Transaction::updateMaintainanceData($flatData,$month,$flat_number);
+            return response()->json(['success'=>'Data Updated']);
+        }
+        Transaction::insert($flatData);
         return response()->json(['success'=>'Paid']);
     }
 
