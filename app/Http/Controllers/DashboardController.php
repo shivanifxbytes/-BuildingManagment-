@@ -117,14 +117,14 @@ class DashboardController extends Controller
         $rules = array(
             'owner'           => 'required|max:50',
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
-            'flat_number'     => 'required|string|max:255|unique:flats',
+            'flat_number'     => 'required|string|max:255|unique:flats,owner_id,'. $user_id,
             'carpet_area'     => 'required|max:50',
         );
         if (empty($user_id)) {
-            $rules = array(
-                'email'      => 'required|string|email|max:255|unique:users',
-                'password'   => 'required|string|min:6|confirmed',);
+                $rules['email']      = 'required|string|email|max:255|unique:users';
+                $rules['password']   = 'required|string|min:6|confirmed';
         }
+
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -399,7 +399,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_number'        => 'max:10'
+            'flat_number'        => 'max:10|unique:maintenance_master'
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -493,8 +493,8 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'   => 'max:50',
-            'flat_number' => 'string',
+            'flat_type'   => 'required|max:50',
+            'flat_number' => 'string|unique:flat_type',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
