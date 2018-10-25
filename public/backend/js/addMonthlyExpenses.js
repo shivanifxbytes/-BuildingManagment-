@@ -56,6 +56,7 @@ $(document).ready(function(){
         var cash = 0,cheque = 0;
         $('select[name="paid_by[]"]').each( function() {
             if(this.value == "Cash"){
+                $(this).closest('tr').find('input[name="card_number[]"]').prop("disabled", true);
                 $(this).closest('tr').find('input[name="amount[]"]').each(function(){
                     var amount = this.value;            
                     cash = cash + parseFloat(amount);
