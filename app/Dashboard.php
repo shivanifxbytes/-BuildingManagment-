@@ -87,7 +87,7 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
-    
+
     /**
      * [getFlatDetail description]
      * @return [type] [description]
@@ -119,11 +119,13 @@ class Dashboard extends Model
     public function getTransactionByMonthAndYear($year='',$month='',$limit='',$start='')
     {
         $transaction_details = DB::table('flats as f')
-        ->join('users as u', 'f.owner_id', '=', 'u.id')
-        ->join('maintenance_transaction as t', 'f.flat_number', '=', 't.flat_number')
-        ->select('t.flat_number', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
-        ->where(DB::raw('YEAR(month)'),$year)
-        ->where(DB::raw('MONTH(month)'),$month)
+        ->rightJoin('flat_type as ft','f.flat_number','=','ft.flat_number')
+        ->leftJoin('users as u', 'f.owner_id', '=', 'u.id')
+        ->leftJoin('maintenance_transaction as t', 'f.flat_number', '=', 't.flat_number')
+        ->select('ft.flat_number','t.status', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
+        ->where('ft.flat_number','!=','')
+        ->orWhere(DB::raw('YEAR(month)'),$year)
+        ->orWhere(DB::raw('MONTH(month)'),$month)
         ->limit($limit)
         ->offset($start)
         ->get();
