@@ -765,10 +765,10 @@ class DashboardController extends Controller
         );
         return json_encode($json_data);
     }
-
     /**
      * @DateOfCreation         17 oct 2018
-     * @ShortDescription       This function generate pdf and provide download and open option depends *                         on operating system
+     * @ShortDescription       This function generate pdf and provide download and open option depends 
+     *                         on operating system
      * @return \Illuminate\Http\Response
      */
     public function generateAndEmailPDF($flat_number, $month,$email_send = NULL)
