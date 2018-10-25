@@ -2,7 +2,6 @@
 @section('content')
 <div class="row">
   <div class="col-lg-12">
-
     <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_master') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenanceMaster"> {{__('messages.add_maintenance')}} </a>
     </h3>
     <ol class="breadcrumb">

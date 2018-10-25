@@ -38,8 +38,7 @@
                     <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                   </tr>
                 </thead>
-                <tbody>
-                
+                <tbody>               
                   @foreach($users as $key => $row)
                   <tr>
                     <td>{{$row->flat_number}}</td>                                    

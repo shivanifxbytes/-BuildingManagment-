@@ -130,8 +130,8 @@ class Dashboard extends Model
         ->leftJoin('maintenance_transaction as t', 'f.flat_number', '=', 't.flat_number')
         ->select('ft.flat_number','t.status', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
         ->where('ft.flat_number','!=','')
-        ->orWhere(DB::raw('YEAR(month)'),$year)
-        ->orWhere(DB::raw('MONTH(month)'),$month)
+        ->where(DB::raw('YEAR(month)'),$year)
+        ->where(DB::raw('MONTH(month)'),$month)
         ->limit($limit)
         ->offset($start)
         ->get();

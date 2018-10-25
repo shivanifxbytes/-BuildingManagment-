@@ -69,7 +69,6 @@
         </div>
     </div>
 </body>
-
 <script>
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {

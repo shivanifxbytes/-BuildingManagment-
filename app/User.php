@@ -64,7 +64,7 @@ class User extends Authenticatable
     * @DateOfCreation         23-August-2018
     * @ShortDescription       This function either get the record or terminate end
     * @param  [id]            ID of the record to be retrieved
-    * @return [object]     [user record or error]
+    * @return [object]        [user record or error]
     */
     public function retrieveRecordOrTerminate($id)
     {

@@ -61,8 +61,8 @@
         </div> 
         <div class="form-group">
           <label for="user_password-confirm">{{ __('Confirm Password') }}</label>
-          <input id="user_password-confirm" type="password" class="form-control" name="password_confirmation" required>           
-        </div>                            
+          <input id="user_password-confirm" type="password" class="form-control" name="password_confirmation" required>     
+           </div>                            
         <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div class="form-group">
           <label>&nbsp;</label>
