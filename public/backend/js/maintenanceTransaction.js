@@ -13,6 +13,14 @@
         var reasonExtraAmount=$("#extra_rAmount_"+flatNumber).val();
         var paidBy=$("#paid_by_"+flatNumber).val();
         var date=$("#date_"+flatNumber).val();
+        if(pendingAmount > 0)
+        {
+            status = '2';
+        }
+        else
+        {
+            status = '1';
+        }
         $.ajax({
             url: base_url + '/paid',
             type: 'post',
@@ -27,7 +35,8 @@
                 extraAmount: extraAmount,
                 reasonExtraAmount: reasonExtraAmount,
                 paidBy: paidBy,
-                date:date
+                date:date,
+                status:status
             },
             success: function (response) {
                 if (response.success == "Paid") {
