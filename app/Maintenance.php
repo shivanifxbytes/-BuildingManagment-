@@ -57,9 +57,6 @@ class Maintenance extends Model
     * @DateOfDeprecated
     * @ShortDescription             This function selects the specified data from table
     * @LongDescription
-    * @param  string $table_name
-    * @param  array  $select_array
-    * @param  array  $where_array
     * @return [object]               [StdClass result object]
     */
     public static function selectMaintenance($id)

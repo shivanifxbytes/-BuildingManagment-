@@ -17,7 +17,8 @@ class Dashboard extends Model
  
     /**
     * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       This function join three tables users, flat_type,and flats and selects the *                         specified data from tables
+    * @ShortDescription       This function join two tables users, flat_type, and select
+    *                         the specified data from tables
     * @return                 result
     */
     public function queryData()
@@ -48,15 +49,16 @@ class Dashboard extends Model
     public function showUser($id)
     {
         return  DB::table('flats')
-             ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
-            ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
-            ->where('users.user_role_id', '=', ' 2')
-            ->get();
+        ->leftJoin('flat_type', 'flat_type.flat_number', '=', 'flats.flat_number')
+        ->select('flat_type', 'flat_type.flat_number', 'carpet_area', 'flats.flat_number', 'users.name', 'mobile_number', 'email')
+        ->where('users.user_role_id', '=', ' 2')
+        ->get();
     }
  
     /**
      * @DateOfCreation         27 Aug 2018
-     * @ShortDescription       This function selects the specified data from table
+     * @ShortDescription       This function join flat_type and maintenance_master tables
+     *                         selects the specified data from table
      * @return                 result
      */
     public function selectMaintenance()
@@ -69,7 +71,7 @@ class Dashboard extends Model
 
     /**
      * @DateOfCreation         27 Aug 2018
-     * @ShortDescription       This function selects the specified data from table
+     * @ShortDescription       This function select all data from flat_type table
      * @return                 result
      */
     public function selectFlatType()
@@ -79,9 +81,9 @@ class Dashboard extends Model
 
     /**
      * @DateOfCreation         10 oct 2018
-     * @ShortDescription       This function selects the flat_type for the specified id from table
-     * @param  [int] $id [flat number whose id is to be retrieved]
-     * @return result array
+     * @ShortDescription       This function select data from flat_type table 
+     * @param  [int] $id       flat number whose id is to be retrieved
+     * @return                 result array
      */
     public function getFlatTypeById($id)
     {
@@ -89,8 +91,10 @@ class Dashboard extends Model
     }
 
     /**
-     * [getFlatDetail description]
-     * @return [type] [description]
+     * @DateOfCreation         10 oct 2018
+     * @ShortDescription       funtion join three tables users flat_type and flats and 
+     *                         select selected data from the tables
+     * @return                 result array
      */
     public function getFlatDetail()
     {
@@ -111,10 +115,12 @@ class Dashboard extends Model
     }
 
     /**
-     * [getTransactionByMonthAndYear description]
-     * @param  string $year  [description]
-     * @param  string $month [description]
-     * @return [type]        [description]
+     * @DateOfCreation         10 oct 2018
+     * @ShortDescription       funtion join three tables users flat_type and maintenance_transaction and 
+     *                         select selected data from the tables
+     * @param  string $year    year field of the given year from database 
+     * @param  string $month   [month field of the given month from database]
+     * @return [type]          Result
      */
     public function getTransactionByMonthAndYear($year='',$month='',$limit='',$start='')
     {
@@ -131,12 +137,14 @@ class Dashboard extends Model
         ->get();
         return $transaction_details;
     }
-
-    /**
-     * [getTransactionByMonthAndYear description]
-     * @param  string $year  [description]
-     * @param  string $month [description]
-     * @return [type]        [description]
+   
+   /**
+     * @DateOfCreation         10 oct 2018
+     *  @ShortDescription      Funtion select all data from monthly_expenses table 
+     *                         corresponding by year and month
+     * @param  string $year    year field of the given year from database 
+     * @param  string $month   [month field of the given month from database]
+     * @return [type]          Result
      */
     public function getExpensesByMonthAndYear($year='',$month='',$limit='',$start='')
     {
@@ -150,17 +158,19 @@ class Dashboard extends Model
     }
 
     /**
-     * [getTransactionByMonthAndYear description]
-     * @param  string $year  [description]
-     * @param  string $month [description]
-     * @return [type]        [description]
+     * @DateOfCreation                10 oct 2018
+     *  @ShortDescription             Funtion select data from maintenance_transaction table 
+     *                                corresponding by flat_number and month
+     * @param  string $flat_number    flat_number field of the given flat_number from database 
+     * @param  string $month          month field of the given month from database
+     * @return [type]                 Result
      */
     public function getExpensesByFlatNumber($flat_number, $month)
     {
         $expenses_details= DB::table('maintenance_transaction')->select('amount', 'flat_number','month','paid_by')
-          ->where('month', '=', $month)
-           ->where('flat_number', '=', $flat_number)
-            ->get()->toArray();  
+        ->where('month', '=', $month)
+        ->where('flat_number', '=', $flat_number)
+        ->get()->toArray();  
         return $expenses_details;
     }
 }
