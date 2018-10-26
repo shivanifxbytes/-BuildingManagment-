@@ -46,10 +46,17 @@
                             </tr>
                             <tr>
                                 <td class="text-right">
+                                </td>
+                                <td class="col-md-1 text-right">
+                                       <strong>Subtotal: </strong> <strong>{{ $maintenance_amount }}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">
                                         
                                 </td>
                                 <td class="col-md-1 text-right">
-                                       <strong>Subtotal: </strong> <strong>{{ $amount }} /-</strong>
+                                       <strong>Amount Status: </strong> <strong>{{$extra_amount}}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -74,7 +81,4 @@ xhttp.onreadystatechange = function() {
 xhttp.open("GET", "ajax_info.txt", true);
 xhttp.send();
 </script>
-
 </html>
-
-

@@ -838,7 +838,7 @@ class DashboardController extends Controller
         } elseif ($maintenance_amount>$amount) {
             $extra_amount = $maintenance_amount-$amount."/- Pending Amount ";
         } else {
-            $amount = $amount."/- Paid ";
+            $extra_amount = " Paid ";
         }
         $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by,'reason_pending_amount'=>$reason_pending_amount,'pending_amount'=>$pending_amount,'extra_amount'=>$extra_amount,'maintenance_amount'=>$maintenance_amount];
         $pdf = PDF::loadView('admin.paymentReceipt', $data);
