@@ -58,7 +58,7 @@ class DashboardController extends Controller
      * @return                 View
      */
     public function index()
-    { 
+    {
         /**
          * @ShortDescription    Blank array for the count for sending the array to the view.
          *
@@ -119,8 +119,8 @@ class DashboardController extends Controller
      *                         and function run according to the parameter if $user_id is NUll
      *                         then it will insert the value If we get ID it will update the value
      *                         according to the ID
-     * @param  object  $request [HTTP Request object] 
-     * @param  int     $user_id [id of user in case of edit,null in case of add]  
+     * @param  object  $request [HTTP Request object]
+     * @param  int     $user_id [id of user in case of edit,null in case of add]
      * @return                 Response
      */
     public function postUser(Request $request, $user_id = null)
@@ -402,7 +402,7 @@ class DashboardController extends Controller
      *                         then it will insert the value If we get ID it will update the value
      *                         according to the ID
      * @param Object  $request [Request Object]
-     * @param integer $id      [user id in case of edit, null in case of add] 
+     * @param integer $id      [user id in case of edit, null in case of add]
      * @return                 Response
      */
     public function postMaintenanceMaster(Request $request, $id = null)
@@ -411,8 +411,7 @@ class DashboardController extends Controller
             'maintenance_amount' => 'required|max:50',
             'flat_number'        => 'max:10|unique:maintenance_master'
         );
-        if(empty($id))
-        {
+        if (empty($id)) {
             $rules['flat_number'] = 'required|max:10|unique:maintenance_master';
         }
         $validator = Validator::make($request->all(), $rules);
@@ -448,7 +447,7 @@ class DashboardController extends Controller
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function deletes the specified record from table
-     * @param int [$user_id]   [user id whose record is to be deleted] 
+     * @param int [$user_id]   [user id whose record is to be deleted]
      * @return                 result
      */
     public function deleteMaintenanceMastere($user_id = null)
@@ -473,7 +472,7 @@ class DashboardController extends Controller
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit
      *                         view if id = null it will return addflat type view
-     * @param integer $id      [user id in case of edit, null in case of add] 
+     * @param integer $id      [user id in case of edit, null in case of add]
      * @return                 View
      */
     public function getFlatType($user_id = null)
@@ -505,7 +504,7 @@ class DashboardController extends Controller
      *                         then it will insert the value If we get ID it will update the value
      *                         according to the ID
      * @param Object  $request [Request Object]
-     * @param integer $id      [user id in case of edit, null in case of add] 
+     * @param integer $id      [user id in case of edit, null in case of add]
      * @return                 Response
      */
     public function postFlatType(Request $request, $user_id = null)
@@ -549,7 +548,7 @@ class DashboardController extends Controller
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function deteted row of flattype
-     * @param integer $id      [user id in case of edit, null in case of add] 
+     * @param integer $id      [user id in case of edit, null in case of add]
      * @return                 result
      */
     public function deleteFlatType($user_id = null)
@@ -625,13 +624,12 @@ class DashboardController extends Controller
             'month'                => date("Y-m-d", strtotime($request->input('date'))),
             'status'               => $request->input('status'),
         );
-        $year = date('Y',strtotime($request->input('date')));
-        $month = date('m',strtotime($request->input('date')));
+        $year = date('Y', strtotime($request->input('date')));
+        $month = date('m', strtotime($request->input('date')));
         $flat_number = $request->input('flatNumber');
         $records  = Transaction::getRecordsByMonthAndYear($year, $month, $flat_number);
-        if(count($records)>0)
-        {
-            $flat =  Transaction::updateMaintainanceData($flatData,$month,$flat_number);
+        if (count($records)>0) {
+            $flat =  Transaction::updateMaintainanceData($flatData, $month, $flat_number);
             return response()->json(['success'=>'Data Updated']);
         }
         Transaction::insert($flatData);
@@ -825,6 +823,7 @@ class DashboardController extends Controller
     public function generateAndEmailPDF($flat_number, $month, $email_send = null)
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
+        $extra_amount = '';
         foreach ($result as $key => $value) {
             $reason_pending_amount = $value->reason_pending_amount;
             $pending_amount        = $value->pending_amount;
@@ -834,7 +833,14 @@ class DashboardController extends Controller
             $maintenance_amount    = $value->maintenance_amount;
             $paid_by               = $value->paid_by;
         }
-        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by,'reason_pending_amount'=>$reason_pending_amount,'pending_amount'=>$pending_amount,'maintenance_amount'=>$maintenance_amount];
+        if ($maintenance_amount<$amount) {
+            $extra_amount = $amount-$maintenance_amount."/- Extra Amount ";
+        } elseif ($maintenance_amount>$amount) {
+            $extra_amount = $maintenance_amount-$amount."/- Pending Amount ";
+        } else {
+            $amount = $amount."/- Paid ";
+        }
+        $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by,'reason_pending_amount'=>$reason_pending_amount,'pending_amount'=>$pending_amount,'extra_amount'=>$extra_amount,'maintenance_amount'=>$maintenance_amount];
         $pdf = PDF::loadView('admin.paymentReceipt', $data);
         $file_path = $pdf->save(public_path('files/receipt.pdf'));
         if ($email_send == "TRUE") {
