@@ -441,7 +441,7 @@ class DashboardController extends Controller
     public function deleteMaintenanceMastere($user_id = null)
     {
         $user_id = Crypt::decrypt($user_id);
-        DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
+        $delete  = Master::deleteMaintenanceMastere($user_id);
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
 
@@ -539,7 +539,7 @@ class DashboardController extends Controller
     public function deleteFlatType($user_id = null)
     {
         $user_id = Crypt::decrypt($user_id);
-        DB::table('flat_type')->where('id', '=', $user_id)->delete();
+         $delete  = FlatType::deleteFlatType($user_id);
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
 

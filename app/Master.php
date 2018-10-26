@@ -21,6 +21,7 @@ class Master extends Model
     protected $fillable = [
        'maintenance_amount','flat_number','id','created_at',
     ];
+
     /**
      *@ShortDescription The attributes that should be hidden for arrays.
      *
@@ -29,6 +30,7 @@ class Master extends Model
     protected $hidden = [
         'user_password',
     ];
+
     /**
         * @DateOfCreation         27 Aug 2018
         * @ShortDescription       This function selects the specified data from table and count
@@ -39,6 +41,7 @@ class Master extends Model
         return DB::table('flat_type')
         ->where('id', '=', $user_id)->count();
     }
+
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       This function selects the specified data from table
@@ -49,6 +52,7 @@ class Master extends Model
         return DB::table('flat_type')
         ->where('id', '=', $user_id)->get()->toArray();
     }
+
     /**
      * @DateOfCreation       11 September 2018
      * @DateOfDeprecated
@@ -62,6 +66,7 @@ class Master extends Model
     {
         return DB::table($table_name)->insertGetId($insert_array);
     }
+
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       This function selects the specified data from table
@@ -71,4 +76,15 @@ class Master extends Model
     {
         return DB::table('flat_type')->get();
     }
+    
+   /**
+    * @DateOfCreation         27 oct 2018
+    * @ShortDescription       This function delete the specified row from table
+    * @return                 result
+    */
+   public static function deleteMaintenanceMastere($user_id)
+   {
+     return DB::table('maintenance_master')->where('id', '=', $user_id)->delete();
+   }
+
 }
