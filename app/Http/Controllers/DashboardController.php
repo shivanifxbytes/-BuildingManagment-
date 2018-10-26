@@ -803,8 +803,6 @@ class DashboardController extends Controller
     public function generateAndEmailPDF($flat_number, $month, $email_send = null)
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
-        $maintenance_amount = 0;
-        $amount = 0;
         foreach ($result as $key => $value) {
             $reason_pending_amount = $value->reason_pending_amount;
             $pending_amount        = $value->pending_amount;
@@ -813,19 +811,6 @@ class DashboardController extends Controller
             $month                 = $value->month;
             $maintenance_amount    = $value->maintenance_amount;
             $paid_by               = $value->paid_by;
-            /*if ($maintenance_amount<$amount) {
-                $extra_amount = $amount
-                echo "extra";
-                die();
-            }
-            elseif ($maintenance_amount>$amount) {
-                echo "pending";
-                die();
-            }
-            else{
-                echo "paid";
-                die();
-            }*/
         }
         $data = ['month'=>$month,'flat_number'=>$flat_number,'amount'=>$amount,'paid_by'=>$paid_by,'reason_pending_amount'=>$reason_pending_amount,'pending_amount'=>$pending_amount,'maintenance_amount'=>$maintenance_amount];
         $pdf = PDF::loadView('admin.paymentReceipt', $data);
