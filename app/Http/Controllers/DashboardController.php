@@ -615,15 +615,15 @@ class DashboardController extends Controller
     public function paidmaintenanceTransaction(Request $request)
     {
         $flatData = array(
-            'flat_number'    => $request->input('flatNumber'),
-            'amount'  => $request->input('amount'),
-            'pending_amount'=>$request->input('pendingAmount'),
-            'reason_pending_amount'=>$request->input('reasonPendingAmount'),
-            'extra_amount'=>$request->input('extraAmount'),
-            'reason_extra_amount'=>$request->input('reasonExtraAmount'),
-            'paid_by'=>$request->input('paidBy'),
-            'month'   => date("Y-m-d", strtotime($request->input('date'))),
-            'status'=>$request->input('status'),
+            'flat_number'          => $request->input('flatNumber'),
+            'amount'               => $request->input('amount'),
+            'pending_amount'       => $request->input('pendingAmount'),
+            'reason_pending_amount'=> $request->input('reasonPendingAmount'),
+            'extra_amount'         => $request->input('extraAmount'),
+            'reason_extra_amount'  => $request->input('reasonExtraAmount'),
+            'paid_by'              => $request->input('paidBy'),
+            'month'                => date("Y-m-d", strtotime($request->input('date'))),
+            'status'               => $request->input('status'),
         );
         $year = date('Y',strtotime($request->input('date')));
         $month = date('m',strtotime($request->input('date')));
@@ -814,13 +814,13 @@ class DashboardController extends Controller
     }
 
     /**
-     * @DateOfCreation         17 oct 2018
-     * @ShortDescription       This function generate pdf send email receipt and provide download
-     *                         and open option depends on operating system
-     * @param integer  $flat_number [flat number]
-     * @param integer  $month [month]
-     * @param integer  $email_send [whether to send email or not,default not send]
-     * @return Response
+     * @DateOfCreation    17 oct 2018
+     * @ShortDescription  This function generate pdf send email receipt and provide download
+     *                    and open option depends on operating system
+     * @param integer     $flat_number [flat number]
+     * @param integer     $month [month]
+     * @param integer     $email_send [whether to send email or not,default not send]
+     * @return            Response
      */
     public function generateAndEmailPDF($flat_number, $month, $email_send = null)
     {
