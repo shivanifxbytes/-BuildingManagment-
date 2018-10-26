@@ -19,6 +19,16 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Session;
 use App\Dashboard;
 
+/**
+ * UserController Class
+ *
+ * @package
+ * @subpackage            UserController
+ * @category              Controller
+ * @DateOfCreation        17 August 2018
+ * @ShortDescription      This class contains all the function related to user functionality
+ */
+
 class UserController extends Controller
 {
     /**
@@ -33,10 +43,10 @@ class UserController extends Controller
     }
 
     /**
-    * @DateOfCreation         30 aug 2018
-    * @ShortDescription       Load the login view for user
-    * @return                 View
-    */
+     * @DateOfCreation         30 aug 2018
+     * @ShortDescription       Load the login view for user
+     * @return                 View
+     */
     public function index()
     {
         $id=  Auth::user()->id;
@@ -44,26 +54,26 @@ class UserController extends Controller
     }
 
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       Load users view with list of all users
-    * @return                 View
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load users view with list of all users
+     * @return                 View
+     */
     public function users()
     {
         /**
-        *@ShortDescription Blank array for the data for sending the array to the view.
-        *
-        * @var Array
-        */
+         *@ShortDescription Blank array for the data for sending the array to the view.
+         *
+         * @var Array
+         */
         $data['users'] = $this->dashboardObj->queryData();
         return view('user.users', $data);
     }
 
     /**
-    * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       Load user maintanence view with list of that user whoes log in
-    * @return                 View
-    */
+     * @DateOfCreation         27 Aug 2018
+     * @ShortDescription       Load user maintanence view with list of that user whoes log in
+     * @return                 View
+     */
     public function userrMaintenance($id, $user_id=null)
     {
     	$data['user_id'] = Crypt::decrypt($id);
@@ -84,6 +94,7 @@ class UserController extends Controller
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       Register user from user side
+    * @param Request $request [HTTP Request Object]
     * @return                 View
     */
     public function userRegister(Request $request)
@@ -95,14 +106,11 @@ class UserController extends Controller
                     'user_email'      => 'required|string|email|max:255|unique:users',
                     'password'        => 'required|string|min:6|confirmed'
                 );
-        // set validator
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            // redirect our admin back to the form with the errors from the validator
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             if (empty($id)) {
-                //final array of the data from the request
                 $insertData = array(
                                     'tenant_full_name' => $request->input('tenant_full_name'),
                                     'flat_number'     => $request->input('flat_number'),
@@ -113,7 +121,6 @@ class UserController extends Controller
                                     'user_role_id'    => Config::get('constants.USER_ROLE')
                                 );
                 $user = User::create($insertData);
-                //insert data in users table
                 if ($user) {
                     return redirect('/')->with('message', __('messages.Record_added'));
                 } else {

@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Config;
 
+/**
+ * Dashboard
+ *
+ * @package                
+ * @subpackage             Dashboard
+ * @category               Model
+ * @DateOfCreation         22 aug 2018
+ * @ShortDescription       The model is is connected to the user table and you can perform
+ *                         relevant operation with respect to this class
+ */
 class Dashboard extends Model
 {
     /**

@@ -8,6 +8,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Config;
 
+/**
+ * Maintenance
+ *
+ * @package                
+ * @subpackage             Dashboard
+ * @category               Model
+ * @DateOfCreation         22 aug 2018
+ * @ShortDescription       The model is is connected to the user_maintenance table and you can perform
+ *                         relevant operation with respect to this class
+ */
 class Maintenance extends Model
 {
     use Notifiable;

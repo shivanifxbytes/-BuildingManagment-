@@ -2,16 +2,17 @@
 namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 /**
  * Admin
  *
- * @package                BlogProject
+ * @package                
  * @subpackage             Admin
  * @category               Model
  * @DateOfCreation         22 aug 2018
  * @ShortDescription       The model is is connected to the user table and you can perform
  *                         relevant operation with respect to this class
- **/
+ */
 class Admin extends Authenticatable
 {
     use Notifiable;

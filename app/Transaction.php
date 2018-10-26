@@ -8,6 +8,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use Config;
 
+/**
+ * Transaction
+ *
+ * @package                
+ * @subpackage             Transaction
+ * @category               Model
+ * @DateOfCreation         22 aug 2018
+ * @ShortDescription       The model is is connected to the maintenance_transaction table and you can perform
+ *                         relevant operation with respect to this class
+ */
 class Transaction extends Model
 {
     use Notifiable;
