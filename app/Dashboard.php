@@ -29,7 +29,7 @@ class Dashboard extends Model
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       This function join two tables users, flat_type, and select
     *                         the specified data from tables
-    * @return                 result
+    * @return                 result array
     */
     public function queryData()
     {
@@ -44,7 +44,7 @@ class Dashboard extends Model
     /**
     * @DateOfCreation         23 Aug 2018
     * @ShortDescription       This function selects the specified data from table
-    * @return                 result
+    * @return                 result array
     */
     public function countUsers()
     {
@@ -54,7 +54,7 @@ class Dashboard extends Model
     /**
     * @DateOfCreation         27 Aug 2018
     * @ShortDescription       This function join two tables and selects the specified data from tables
-    * @return                 result
+    * @return                 result array
     */
     public function showUser($id)
     {
@@ -69,7 +69,7 @@ class Dashboard extends Model
      * @DateOfCreation         27 Aug 2018
      * @ShortDescription       This function join flat_type and maintenance_master tables
      *                         selects the specified data from table
-     * @return                 result
+     * @return                 result array
      */
     public function selectMaintenance()
     {
@@ -82,7 +82,7 @@ class Dashboard extends Model
     /**
      * @DateOfCreation         27 Aug 2018
      * @ShortDescription       This function select all data from flat_type table
-     * @return                 result
+     * @return                 result array
      */
     public function selectFlatType()
     {
@@ -130,7 +130,7 @@ class Dashboard extends Model
      *                         select selected data from the tables
      * @param  string $year    year field of the given year from database 
      * @param  string $month   [month field of the given month from database]
-     * @return [type]          Result
+     * @return [type]          result array
      */
     public function getTransactionByMonthAndYear($year='',$month='',$limit='',$start='')
     {
@@ -154,7 +154,7 @@ class Dashboard extends Model
      *                         corresponding by year and month
      * @param  string $year    year field of the given year from database 
      * @param  string $month   [month field of the given month from database]
-     * @return [type]          Result
+     * @return [type]          result array
      */
     public function getExpensesByMonthAndYear($year='',$month='',$limit='',$start='')
     {
@@ -173,7 +173,7 @@ class Dashboard extends Model
      *                                corresponding by flat_number and month
      * @param  string $flat_number    flat_number field of the given flat_number from database 
      * @param  string $month          month field of the given month from database
-     * @return [type]                 Result
+     * @return [type]                 result array
      */
      public function getExpensesByFlatNumber($flat_number, $month)
     {
