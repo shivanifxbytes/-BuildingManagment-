@@ -29,6 +29,15 @@ use PDF;
 use Mail;
 use App\FlatType;
 
+/**
+ * DashboardController Class
+ *
+ * @package
+ * @subpackage            DashboardController
+ * @category              Controller
+ * @DateOfCreation        17 August 2018
+ * @ShortDescription      This class contains all the function related to admin functionality
+ */
 class DashboardController extends Controller
 {
     /**
@@ -42,14 +51,14 @@ class DashboardController extends Controller
         $this->dashboardObj = new Dashboard();
         $this->userobj = new User();
     }
-    
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the dashboard view
      * @return                 View
      */
     public function index()
-    {
+    { 
         /**
          * @ShortDescription    Blank array for the count for sending the array to the view.
          *
@@ -110,6 +119,8 @@ class DashboardController extends Controller
      *                         and function run according to the parameter if $user_id is NUll
      *                         then it will insert the value If we get ID it will update the value
      *                         according to the ID
+     * @param  object  $request [HTTP Request object] 
+     * @param  int     $user_id [id of user in case of edit,null in case of add]  
      * @return                 Response
      */
     public function postUser(Request $request, $user_id = null)
@@ -359,8 +370,8 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function run according to the parameter If we get ID it will return edit
-     *  view
+     * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
+     * @param                  int $id [user id in case of edit, null in case of add]
      * @return                 View
      */
     public function getMaintenanceMaster($id = null)
@@ -390,6 +401,8 @@ class DashboardController extends Controller
      *                         and function run according to the parameter if $user_id is NUll
      *                         then it will insert the value If we get ID it will update the value
      *                         according to the ID
+     * @param Object  $request [Request Object]
+     * @param integer $id      [user id in case of edit, null in case of add] 
      * @return                 Response
      */
     public function postMaintenanceMaster(Request $request, $id = null)
@@ -434,8 +447,8 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         19 September 2018
-     * @ShortDescription       Function delete the row of maintenance master table
-     *  deteled row
+     * @ShortDescription       This function deletes the specified record from table
+     * @param int [$user_id]   [user id whose record is to be deleted] 
      * @return                 result
      */
     public function deleteMaintenanceMastere($user_id = null)
@@ -460,6 +473,7 @@ class DashboardController extends Controller
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit
      *                         view if id = null it will return addflat type view
+     * @param integer $id      [user id in case of edit, null in case of add] 
      * @return                 View
      */
     public function getFlatType($user_id = null)
@@ -490,6 +504,8 @@ class DashboardController extends Controller
      *                         and function run according to the parameter if $user_id is NUll
      *                         then it will insert the value If we get ID it will update the value
      *                         according to the ID
+     * @param Object  $request [Request Object]
+     * @param integer $id      [user id in case of edit, null in case of add] 
      * @return                 Response
      */
     public function postFlatType(Request $request, $user_id = null)
@@ -533,20 +549,20 @@ class DashboardController extends Controller
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function deteted row of flattype
-     *
+     * @param integer $id      [user id in case of edit, null in case of add] 
      * @return                 result
      */
     public function deleteFlatType($user_id = null)
     {
         $user_id = Crypt::decrypt($user_id);
-         $delete  = FlatType::deleteFlatType($user_id);
+        $delete  = FlatType::deleteFlatType($user_id);
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
 
     /**
      * @DateOfCreation         27 August 2018
-     * @ShortDescription       Get the ID from the ajax and pass
-     *                         it to the function to delete it
+     * @ShortDescription       This function delete the record of the user by ajax request
+     * @param Object  $request [Request Object]
      * @return                 Response
      */
     public function deleteUser(Request $request)
@@ -577,7 +593,7 @@ class DashboardController extends Controller
     {
         return view('admin.monthviewlist');
     }
-    
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the maintenance transaction list
@@ -592,21 +608,22 @@ class DashboardController extends Controller
 
     /**
      * @DateOfCreation         28 September 2018s
-     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
+     * @ShortDescription       This function save the record of the transaction on ajax request
+     * @param Object  $request [Request Object]
      * @return                 Response
      */
     public function paidmaintenanceTransaction(Request $request)
     {
         $flatData = array(
-                'flat_number'    => $request->input('flatNumber'),
-                'amount'  => $request->input('amount'),
-                'pending_amount'=>$request->input('pendingAmount'),
-                'reason_pending_amount'=>$request->input('reasonPendingAmount'),
-                'extra_amount'=>$request->input('extraAmount'),
-                'reason_extra_amount'=>$request->input('reasonExtraAmount'),
-                'paid_by'=>$request->input('paidBy'),
-                'month'   => date("Y-m-d", strtotime($request->input('date'))),
-                'status'=>$request->input('status'),
+            'flat_number'    => $request->input('flatNumber'),
+            'amount'  => $request->input('amount'),
+            'pending_amount'=>$request->input('pendingAmount'),
+            'reason_pending_amount'=>$request->input('reasonPendingAmount'),
+            'extra_amount'=>$request->input('extraAmount'),
+            'reason_extra_amount'=>$request->input('reasonExtraAmount'),
+            'paid_by'=>$request->input('paidBy'),
+            'month'   => date("Y-m-d", strtotime($request->input('date'))),
+            'status'=>$request->input('status'),
         );
         $year = date('Y',strtotime($request->input('date')));
         $month = date('m',strtotime($request->input('date')));
@@ -651,10 +668,11 @@ class DashboardController extends Controller
     {
         return view('admin.addMonthlyExpenses');
     }
-   
+
     /**
      * @DateOfCreation         28 September 2018s
-     * @ShortDescription       Get the ID from the ajax and pass it to the function to save it
+     * @ShortDescription       This function save the record of the monthly expenses on ajax request
+     * @param Object  $request [Request Object]
      * @return                 Response
      */
     public function addMoreMonthlyExpense(Request $request)
@@ -693,9 +711,10 @@ class DashboardController extends Controller
     }
 
     /**
-     * [changeflattype description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * @DateOfCreation         28 September 2018s
+     * @ShortDescription       This function change the flat type on ajax request
+     * @param Object  $request [Request Object]
+     * @return [Object]        [StdClass Result Object]
      */
     public function changeflattype(Request $request)
     {
@@ -705,12 +724,12 @@ class DashboardController extends Controller
     }
 
     /**
-      * @DateOfCreation         17 oct 2018
-      * @ShortDescription       This function show the monthly transaction list using data table
-      *                         corresponding month and year with ajax and jquery
-      * @param  Request $request []
-      * @return [type]           result
-      */
+     * @DateOfCreation         17 oct 2018
+     * @ShortDescription       This function show the monthly transaction list using data table
+     *                         corresponding month and year with ajax and jquery
+     * @param Object  $request [Request Object]
+     * @return [Object]        [json response]
+     */
     public function showMonthlyTransaction(Request $request)
     {
         $year    =  $request->year;
@@ -757,8 +776,8 @@ class DashboardController extends Controller
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function show the monthly expenses list using data table
      *                         corresponding month and year with ajax and jquery
-     * @param  Request $request []
-     * @return [type]           result
+     * @param Object  $request [Request Object]
+     * @return [Object]        [json response]
      */
     public function showMonthlyExpenses(Request $request)
     {
@@ -798,7 +817,10 @@ class DashboardController extends Controller
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function generate pdf send email receipt and provide download
      *                         and open option depends on operating system
-     * @return                 Response
+     * @param integer  $flat_number [flat number]
+     * @param integer  $month [month]
+     * @param integer  $email_send [whether to send email or not,default not send]
+     * @return Response
      */
     public function generateAndEmailPDF($flat_number, $month, $email_send = null)
     {
