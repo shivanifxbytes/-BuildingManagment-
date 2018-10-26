@@ -68,4 +68,19 @@ class Maintenance extends Model
             ->get();
         
     }
+
+     /**
+    * @DateOfCreation               05 Sep 2018
+    * @DateOfDeprecated
+    * @ShortDescription             This function selects the specified data from table
+    * @LongDescription
+    * @return [object]               [StdClass result object]
+    */
+     public static function selectPostMaintenance($id, $user_id)
+     {
+        return DB::table('user_maintenance')->select('user_id', 'month')
+            ->where('user_id', '=', $user_id)
+            ->where('month', '=', $requestData['month'])
+            ->get()->toArray();
+     }
 }
