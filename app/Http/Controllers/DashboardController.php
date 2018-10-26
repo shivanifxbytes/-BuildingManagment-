@@ -245,12 +245,9 @@ class DashboardController extends Controller
                 'updated_at'     => date('Y-m-d')
             );
             $user_id = Crypt::decrypt($user_id);
-            $users = DB::table('user_maintenance')->select('user_id', 'month')
-            ->where('user_id', '=', $user_id)
-            ->where('month', '=', $requestData['month'])
-            ->get()->toArray();
+            $users = Maintenance::selectPostMaintenance($id, $user_id);
             if (count($users)>0) {
-                return redirect()->back()->withInput()->withErrors(__('messages.already_paid '));
+                return redirect()->back()->withInput()->withErrors(__('messages.already_paid'));
             } else {
                 $requestData['user_id'] = $user_id;
                 $user = Maintenance::create($requestData);
@@ -680,7 +677,7 @@ class DashboardController extends Controller
             ));
         }
         Monthlyexpenses::insert($datainsert);
-        $amount         = DB::table('monthly_expenses')->select('amount', 'paid_by')->where('month', $date1)->get();
+        $amount         = Monthlyexpenses::selectMoreMonthlyExpense($date1);
         $cash_amount    = 0;
         $cheque_amount  = 0;
         foreach ($amount as $key => $value) {
