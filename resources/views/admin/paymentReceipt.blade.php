@@ -12,55 +12,49 @@
                     <div class="text-center">
                         <h1><strong>RECEIPT</strong></h1>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <p id="demo">
-                                <strong><em>Date: <?php echo date('d M Y'); ?></em></strong>
-                            </p>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 text-right" style="padding-right:5%;">
-                            <p>
-                                <strong><em>Receipt #: 34522677W</em></strong>
-                            </p>
-                        </div>
-                    </div>
                     <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-9"><strong><em>Date: <?php echo date('d M Y'); ?></em></strong></th>
+                                <th class="col-md-1 text-right"" ><strong><em>Receipt #: 34522677W</em></strong></th>
+                            </tr>
+                        </thead>
                         <tbody>                                             
                             <tr>
                                 <td class="col-md-9"><em>Flat Number</em></td>
-                                <td class="col-md-1" style="text-align: center"> {{ $flat_number }} </td>
+                                <td class="col-md-1 text-right"> {{ $flat_number }} </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Month Of Payment</em></td>
-                                <td class="col-md-1" style="text-align: center"> {{ $month }} </td>
+                                <td class="col-md-1 text-right"> {{ $month }} </td>
                             </tr>
                             <tr>
-                                <td class="col-md-9"><em>Net Amount</em></td>
-                                <td class="col-md-1" style="text-align: center"> {{ $amount }} </td>
+                                <td class="col-md-9"><em>Monthly Amount</em></td>
+                                <td class="col-md-1 text-right"> {{ $maintenance_amount }} </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-9"><em>Paid Amount</em></td>
+                                <td class="col-md-1 text-right"> {{ $amount }} </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Paid By</em></td>
-                                <td class="col-md-1" style="text-align: center"> {{ $paid_by }}  </td>
+                                <td class="col-md-1 text-right"> {{ $paid_by }}  </td>
                             </tr>
                             <tr>
                                 <td class="col-md-9"><em>Comment</em></td>
-                                <td class="col-md-1" style="text-align: center"> abcd </td>
+                                <td class="col-md-1 text-right"> {{$reason_pending_amount}} </td>
                             </tr>
                             <tr>
                                 <td class="text-right">
-                                    <p>
-                                        <strong>Subtotal: </strong>
-                                    </p>
+                                        
                                 </td>
-                                <td class="text-center">
-                                    <p>
-                                        <strong>{{ $amount }} /-</strong>
-                                    </p>
+                                <td class="col-md-1 text-right">
+                                       <strong>Subtotal: </strong> <strong>{{ $amount }} /-</strong>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="text-right"><h4><strong>Authorised Signature: </strong></h4></td>
                                 <td></td>
+                                <td class="text-right"><br/><strong>Authorised Signature: </strong></td>
                             </tr>
                         </tbody>
                     </table>

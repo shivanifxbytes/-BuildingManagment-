@@ -165,12 +165,16 @@ class Dashboard extends Model
      * @param  string $month          month field of the given month from database
      * @return [type]                 Result
      */
-    public function getExpensesByFlatNumber($flat_number, $month)
+     public function getExpensesByFlatNumber($flat_number, $month)
     {
-        $expenses_details= DB::table('maintenance_transaction')->select('amount', 'flat_number','month','paid_by')
+        $expenses_details= DB::table('maintenance_transaction as t')
+        ->join('maintenance_master as m','t.flat_number','=','m.flat_number')
+        ->select('m.maintenance_amount', 't.flat_number','amount','pending_amount','reason_pending_amount','month','paid_by')
+        ->where('t.flat_number', '=', $flat_number)
         ->where('month', '=', $month)
-        ->where('flat_number', '=', $flat_number)
-        ->get()->toArray();  
+        ->get();
         return $expenses_details;
+
     }
+  
 }
