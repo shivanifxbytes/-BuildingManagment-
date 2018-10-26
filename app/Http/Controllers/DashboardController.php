@@ -401,6 +401,10 @@ class DashboardController extends Controller
             'maintenance_amount' => 'required|max:50',
             'flat_number'        => 'max:10|unique:maintenance_master'
         );
+        if(empty($id))
+        {
+            $rules['flat_number'] = 'required|max:10|unique:maintenance_master';
+        }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
