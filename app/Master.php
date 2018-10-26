@@ -3,6 +3,17 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use DB;
+
+/**
+ * Master
+ *
+ * @package                
+ * @subpackage             Master
+ * @category               Model
+ * @DateOfCreation         22 aug 2018
+ * @ShortDescription       The model is is connected to the maintenance_master table and you can perform
+ *                         relevant operation with respect to this class
+ */
 class Master extends Model
 {
     use Notifiable;

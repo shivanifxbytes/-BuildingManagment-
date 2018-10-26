@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Config;
 
+/**
+ * Monthlyexpenses
+ *
+ * @package                
+ * @subpackage             Monthlyexpenses
+ * @category               Model
+ * @DateOfCreation         22 aug 2018
+ * @ShortDescription       The model is is connected to the monthly_expenses table and you can perform
+ *                         relevant operation with respect to this class
+ */
 class Monthlyexpenses extends Model
 {
     

@@ -9,8 +9,8 @@ use Config;
 /**
  * User
  *
- * @package                BlogProject
- * @subpackage             Blog
+ * @package                
+ * @subpackage             User
  * @category               Model
  * @DateOfCreation         24 aug 2018
  * @ShortDescription       The model is is connected to the users table and you can perform
