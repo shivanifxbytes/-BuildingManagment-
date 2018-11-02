@@ -32,17 +32,17 @@
         </div>           
         <div class="form-group">
           <label for="flat_number">Flat Number</label>
-          <select name="flat_number" id="flat_number" class="form-control" >
-            <option value="" selected="selected">Select Flat Number</option>
-            @foreach($users as $key => $row)
-            <option value="{{$row->flat_number }}">{{$row->flat_number }}</option>
-            @endforeach
-          </select>           
+           <input type="text" class="form-control" name="flat_number" placeholder="{{ __('messages.flat_number')}}" required>        
         </div> 
-        <div class="form-group">
-          <label>{{ __('messages.flat_type')}}</label>
-          <input type="text" id="flat_type" class="form-control" name="flat_type" value="" placeholder="{{ __('messages.flat_type')}}" readonly required>
-        </div> 
+       <div class="form-group">
+                        <label for="flat_type">Flat Type</label>
+                        <select name="flat_type" id="flat_type" class="form-control" >
+                            <option value="" selected="selected">Select Flat Type</option>
+                            @foreach($users as $key => $row)
+                            <option value="{{$row->id }}">{{$row->flat_type }}</option>
+                            @endforeach
+                        </select>           
+                    </div>
         <div  id="flat_type" class="form-group">
           <label>{{ __('messages.carpet_area')}}</label>
           <input type="text" class="form-control" name="carpet_area" placeholder="{{ __('messages.carpet_area')}}" required>

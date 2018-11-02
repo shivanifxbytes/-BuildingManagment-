@@ -98,7 +98,7 @@ class DashboardController extends Controller
                 $user_id = Crypt::decrypt($user_id);
                 $check = Admin::where('id', '=', $user_id)->count();
                 if (is_int($user_id) && $check > 0) {
-                    $data['users'] = $this->dashboardObj->selectFlatType();
+                    //$data['users'] = $this->dashboardObj->selectFlatType();
                     $data['user'] = $this->dashboardObj->queryData()->where('id', $user_id);
                     return view('admin.editUser', $data);
                 } else {
@@ -147,7 +147,7 @@ class DashboardController extends Controller
             );
             if (empty($user_id)) {
                 $requestData['email']    = $request->input('email');
-                $requestData['password']      = bcrypt($request->input("password"));
+                $requestData['password'] = bcrypt($request->input("password"));
                 $user = Admin::insertGetId($requestData);
                 if ($user) {
                     $flatData = array(
