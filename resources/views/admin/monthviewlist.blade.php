@@ -1,22 +1,23 @@
 @extends ('layouts.admin')
 @section('styles')
 <style type="text/css">
-    #flat_types_length {
-        display: none;
-    }
-    select
-    {
-        padding: 5px 8px;
-    }
-    #flat_types_filter {
-        display: none;
-    }
+#flat_types_length {
+    display: none;
+}
+select
+{
+    padding: 5px 8px;
+}
+#flat_types_filter {
+    display: none;
+
+}
 </style>
 @endsection
 @section('content')       
 <div class="row">
     <div class="col-lg-12">
-        <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_transaction') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenanceTransaction"> {{__('messages.add')}} </a>
+        <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.maintenance_transaction') }}<a id="add_link" class="btn btn-primary pull-right" href=" {{ url('/') }}/addMaintenanceTransaction"> {{__('messages.add')}} </a>
         </h3>
         <ol class="breadcrumb">
             <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
@@ -38,15 +39,14 @@
                 <select id="yearlist" name="yearlist">
                     @for($i=$current_year; $i>=$current_year-20; $i--)
                     @if($i==$current_year)
-                                        <option value="{{$i}}" selected="">{{ $i }}</option>
-
+                    <option value="{{$i}}" selected="">{{ $i }}</option>
                     @else
                     <option value="{{$i}}">{{ $i }}</option>
                     @endif
                     @endfor
                 </select>
                 <select id="monthlist" >
-                    @for($i=1; $i<=$current_month; $i++)
+                    @for($i=1; $i<=12; $i++)
                     <?php  
                     $dateObj   = DateTime::createFromFormat('!m', $i);
                     $monthName = $dateObj->format('F'); 

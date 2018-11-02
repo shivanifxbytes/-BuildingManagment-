@@ -653,9 +653,9 @@ class DashboardController extends Controller
      * @ShortDescription       Load all flats details
      * @return                 result
      */
-    public function addMaintenanceTransaction()
+    public function addMaintenanceTransaction($year,$month)
     {
-        $data['flats'] = $this->dashboardObj->getFlatDetail();
+        $data['flats'] = $this->dashboardObj->getFlatDetail($year,$month);
         return view('admin.maintenanceTransaction', $data);
     }
 

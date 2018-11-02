@@ -120,7 +120,7 @@ class Dashboard extends Model
      *                         select selected data from the tables
      * @return                 result array
      */
-    public function getFlatDetail()
+    public function getFlatDetail($year,$month)
     {
         $flat_detail =  DB::table('flats')
         ->select('flat_number', 'owner_id', 'tenant_id')
@@ -131,7 +131,11 @@ class Dashboard extends Model
         $flat_details =  DB::table('flats as f')
         ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
         ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
-        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+        ->leftJoin('maintenance_transaction as mt', 'f.flat_number', '=', 'mt.flat_number')
+        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount')
+    ->where('f.flat_number','!=','')
+        ->orWhere(DB::raw('YEAR(month)'),$year)
+        ->orWhere(DB::raw('MONTH(month)'),$month)
         ->get();
         }
         return $flat_details;
