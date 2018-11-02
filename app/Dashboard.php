@@ -129,11 +129,10 @@ class Dashboard extends Model
         foreach ($flat_detail as $key => $value) {
         $owner_id = $flat_detail[$key]->owner_id;
         $tenant_id = $flat_detail[$key]->tenant_id;
-        $flat_details =  DB::table('flats')
-        ->rightJoin('flat_type as ft','flats.flat_number','=','ft.flat_number')
-        ->leftJoin('users as o', 'flats.owner_id', '=', 'o.id')
-        ->leftJoin('users as t', 'flats.tenant_id', '=', 't.id')
-        ->select('ft.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+        $flat_details =  DB::table('flats as f')
+        ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
+        ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
+        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
         ->get();
         }
         return $flat_details;
