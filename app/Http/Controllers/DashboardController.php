@@ -409,10 +409,10 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_number'        => 'max:10|unique:maintenance_master'
+            'flat_type'        => 'max:10'
         );
         if (empty($id)) {
-            $rules['flat_number'] = 'required|max:10|unique:maintenance_master';
+            $rules['flat_type'] = 'required|max:10';
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -423,7 +423,7 @@ class DashboardController extends Controller
             );
             $insertData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
-                'flat_number'        => $request->input('flat_number')
+                'flat_type_id'        => $request->input('flat_type')
             );
             if (empty($id)) {
                 $user = Master::create($insertData);
@@ -435,7 +435,7 @@ class DashboardController extends Controller
             } else {
                 $flat_number = Crypt::decrypt($id);
                 if (is_int($flat_number)) {
-                    $user = Master::where(array('flat_number' => $flat_number))->update($requestData);
+                    $user = Master::where(array('flat_type' => $flat_type))->update($requestData);
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));

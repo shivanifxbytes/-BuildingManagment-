@@ -74,7 +74,8 @@ class Dashboard extends Model
     public function selectMaintenance()
     {
         return DB::table('maintenance_master')
-        ->select('maintenance_master.id', 'flat_type', 'flat_type', 'maintenance_amount')
+        ->join('flat_type','flat_type.id','=','maintenance_master.flat_type_id')
+        ->select('maintenance_master.id', 'flat_type', 'maintenance_amount','maintenance_master.flat_type_id')
         ->get();
     }
 
