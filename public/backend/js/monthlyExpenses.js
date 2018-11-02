@@ -1,13 +1,12 @@
     jQuery(document).ready(function() {
                var d = new Date();
-        var year = d.getFullYear();
-        var month = d.getMonth()+1;
+   var year = $('#yearlist').val();
+        var month = $('#monthlist').val();
         dataTables(year,month);
         jQuery('#yearlist').change(function() {
             year = $(this).val();
             if(year!='')
             {
-                jQuery('#monthlist').css({'display':'inline'});
                 jQuery('#monthlist').change(function()
                 {
                     var month = $(this).val();

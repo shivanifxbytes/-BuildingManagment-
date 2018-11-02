@@ -822,12 +822,13 @@ class DashboardController extends Controller
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
         $extra_amount = '';
+
         foreach ($result as $key => $value) {
             $reason_pending_amount = $value->reason_pending_amount;
             $pending_amount        = $value->pending_amount;
             $flat_number           = $value->flat_number;
             $amount                = $value->amount;
-            $month                 = $value->month;
+            $month                 = date('d-F-Y', strtotime($value->month));
             $maintenance_amount    = $value->maintenance_amount;
             $paid_by               = $value->paid_by;
         }

@@ -36,19 +36,27 @@
                 <?php $current_month = date("m"); 
                 $current_year = date('Y')?>
                 <select id="yearlist" name="yearlist">
-                    <option value=''>Select Year</option>
                     @for($i=$current_year; $i>=$current_year-20; $i--)
+                    @if($i==$current_year)
+                                        <option value="{{$i}}" selected="">{{ $i }}</option>
+
+                    @else
                     <option value="{{$i}}">{{ $i }}</option>
+                    @endif
                     @endfor
                 </select>
-                <select id="monthlist" style="display: none">
-                    <option value=''>Select Month</option>
+                <select id="monthlist" >
                     @for($i=1; $i<=$current_month; $i++)
                     <?php  
                     $dateObj   = DateTime::createFromFormat('!m', $i);
                     $monthName = $dateObj->format('F'); 
                     $monthCode = $dateObj->format('m');// March ?>
+                    @if($i==$current_month)
+                    <option value="{{$monthCode}}" selected="">{{ $monthName }}</option>
+
+                    @else
                     <option value="{{$monthCode}}">{{ $monthName }}</option>
+                    @endif
                     @endfor
                 </select>
             </div>

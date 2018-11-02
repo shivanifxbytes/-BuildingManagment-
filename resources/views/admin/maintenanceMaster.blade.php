@@ -28,7 +28,6 @@
       <table class="table table-striped table-advance table-hover" id="data-table">
         <thead>
           <tr>
-            <th>Flat Number</th>
             <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>
             <th><i class="icon_profile"></i>{{ __('messages.maintenance_amount') }}</th>            
             <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
@@ -37,7 +36,6 @@
         <tbody>       
          @foreach($users as $key => $row)
          <tr>
-          <th>{{$row->flat_number}}</th>        
           <td>{{$row->flat_type}}</td>
           <td>{{$row->maintenance_amount}}</td>     
           <td>
@@ -58,5 +56,4 @@
 </section>
 </section>
 <!--main content end-->
-
 @endsection
