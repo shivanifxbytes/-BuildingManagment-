@@ -81,6 +81,21 @@ class Dashboard extends Model
 
     /**
      * @DateOfCreation         27 Aug 2018
+     * @ShortDescription       This function join flat_type and maintenance_master tables
+     *                         selects the specified data from table
+     * @return                 result array
+     */
+    public function getMaintenanceFlatTypeByID($flat_type_id)
+    {
+        return DB::table('maintenance_master')
+        ->join('flat_type','flat_type.id','=','maintenance_master.flat_type_id')
+        ->select('maintenance_master.id', 'flat_type', 'maintenance_amount','maintenance_master.flat_type_id')
+        ->where('maintenance_master.flat_type_id',$flat_type_id)
+        ->get();
+    }
+
+    /**
+     * @DateOfCreation         27 Aug 2018
      * @ShortDescription       This function select all data from flat_type table
      * @return                 result array
      */

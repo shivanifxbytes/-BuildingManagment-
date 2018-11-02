@@ -29,7 +29,7 @@
         <div class="col-lg-12">
           <div class="form-group">
             <label>{{ __('messages.flat_type')}}</label>
-            <input type="text" id="flat_type" class="form-control" name="flat_type" value="{{$row->flat_number }}" placeholder="{{ __('messages.flat_type')}}" disabled required>
+            <input type="text" id="flat_type" class="form-control" name="flat_type" value="{{$row->flat_type }}" placeholder="{{ __('messages.flat_type')}}" disabled required>
           </div> 
           <div class="form-group">
             <label>{{ __('messages.amount')}}</label>

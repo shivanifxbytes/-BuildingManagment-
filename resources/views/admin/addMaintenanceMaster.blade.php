@@ -31,8 +31,8 @@
                         <input type="text" class="form-control" name="maintenance_amount" placeholder="{{ __('messages.amount')}}" required>
                     </div>
                     <div class="form-group">
-                        <label for="flat_type">Flat Type</label>
-                        <select name="flat_type" id="flat_type" class="form-control" >
+                        <label for="flat_type_id">Flat Type</label>
+                        <select name="flat_type_id" id="flat_type_id" class="form-control" >
                             <option value="" selected="selected">Select Flat Type</option>
                             @foreach($users as $key => $row)
                             <option value="{{$row->id }}">{{$row->flat_type }}</option>
