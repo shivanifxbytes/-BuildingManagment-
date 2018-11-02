@@ -65,7 +65,7 @@ Route::get('/addFlatType/{user_id?}', ['as'=>'addFlatType','uses'=>'DashboardCon
 Route::post('/addFlatType/{user_id?}', ['as'=>'editFlatType','uses'=>'DashboardController@postFlatType']);
 Route::get('/delete/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteFlatType']);
 Route::get('/showMaintenanceTransactionList', ['as'=>'showMaintenanceTransactionList','uses'=>'DashboardController@showMaintenanceTransactionList']);
-Route::get('/addMaintenanceTransaction', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
+Route::get('/addMaintenanceTransaction/{year}/{month}', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
 Route::get('/monthViewList', ['as'=>'monthViewList','uses'=>'DashboardController@monthViewList']);
 Route::get('/monthlyExpences', ['as'=>'monthlyExpences','uses'=>'DashboardController@monthlyExpences']);
 Route::post('/paid','DashboardController@paidmaintenanceTransaction');

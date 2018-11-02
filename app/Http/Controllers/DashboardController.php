@@ -381,10 +381,11 @@ class DashboardController extends Controller
     {
         if (!empty($id)) {
             try {
-                $flat_number = Crypt::decrypt($id);
-                $check = Master::where('flat_number', '=', $flat_number)->count();
-                if (is_int($flat_number) && $check > 0) {
-                    $data['flats'] = Master::get()->where('flat_number', $flat_number);
+                $flat_type_id = Crypt::decrypt($id);
+                $check = Master::where('flat_type_id', '=', $flat_type_id)->count();
+                if (is_int($flat_type_id) && $check > 0) {
+                    $data['flats'] = $this->dashboardObj->getMaintenanceFlatTypeByID($flat_type_id);
+
                     return view('admin.editMaintenanceMaster', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -412,12 +413,15 @@ class DashboardController extends Controller
     {
         $rules = array(
             'maintenance_amount' => 'required|max:50',
-            'flat_type'        => 'max:10'
+            'flat_type_id'        => 'max:10|unique:maintenance_master'
         );
         if (empty($id)) {
-            $rules['flat_type'] = 'required|max:10';
+            $rules['flat_type_id'] = 'required|max:10|unique:maintenance_master';
         }
-        $validator = Validator::make($request->all(), $rules);
+        $messages = [
+            'flat_type_id.unique' => 'Amount For The Selected Flat Type Already Exists!',
+        ];
+        $validator = Validator::make($request->all(), $rules,$messages);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
@@ -426,7 +430,7 @@ class DashboardController extends Controller
             );
             $insertData = array(
                 'maintenance_amount' => $request->input('maintenance_amount'),
-                'flat_type_id'        => $request->input('flat_type')
+                'flat_type_id'        => intval($request->input('flat_type_id'))
             );
             if (empty($id)) {
                 $user = Master::create($insertData);
@@ -436,9 +440,9 @@ class DashboardController extends Controller
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
             } else {
-                $flat_number = Crypt::decrypt($id);
-                if (is_int($flat_number)) {
-                    $user = Master::where(array('flat_type' => $flat_type))->update($requestData);
+                $flat_type_id = Crypt::decrypt($id);
+                if (is_int($flat_type_id)) {
+                    $user = Master::where(array('flat_type_id' => $flat_type_id))->update($requestData);
                     return redirect('maintenanceMaster')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
@@ -652,9 +656,9 @@ class DashboardController extends Controller
      * @ShortDescription       Load all flats details
      * @return                 result
      */
-    public function addMaintenanceTransaction()
+    public function addMaintenanceTransaction($year,$month)
     {
-        $data['flats'] = $this->dashboardObj->getFlatDetail();
+        $data['flats'] = $this->dashboardObj->getFlatDetail($year,$month);
         return view('admin.maintenanceTransaction', $data);
     }
 

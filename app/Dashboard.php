@@ -80,6 +80,21 @@ class Dashboard extends Model
 
     /**
      * @DateOfCreation         27 Aug 2018
+     * @ShortDescription       This function join flat_type and maintenance_master tables
+     *                         selects the specified data from table
+     * @return                 result array
+     */
+    public function getMaintenanceFlatTypeByID($flat_type_id)
+    {
+        return DB::table('maintenance_master')
+        ->join('flat_type','flat_type.id','=','maintenance_master.flat_type_id')
+        ->select('maintenance_master.id', 'flat_type', 'maintenance_amount','maintenance_master.flat_type_id')
+        ->where('maintenance_master.flat_type_id',$flat_type_id)
+        ->get();
+    }
+
+    /**
+     * @DateOfCreation         27 Aug 2018
      * @ShortDescription       This function select all data from flat_type table
      * @return                 result array
      */
@@ -105,7 +120,7 @@ class Dashboard extends Model
      *                         select selected data from the tables
      * @return                 result array
      */
-    public function getFlatDetail()
+    public function getFlatDetail($year,$month)
     {
         $flat_detail =  DB::table('flats')
         ->select('flat_number', 'owner_id', 'tenant_id')
@@ -113,11 +128,14 @@ class Dashboard extends Model
         foreach ($flat_detail as $key => $value) {
         $owner_id = $flat_detail[$key]->owner_id;
         $tenant_id = $flat_detail[$key]->tenant_id;
-        $flat_details =  DB::table('flats')
-        ->rightJoin('flat_type as ft','flats.flat_number','=','ft.flat_number')
-        ->leftJoin('users as o', 'flats.owner_id', '=', 'o.id')
-        ->leftJoin('users as t', 'flats.tenant_id', '=', 't.id')
-        ->select('ft.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+        $flat_details =  DB::table('flats as f')
+        ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
+        ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
+        ->leftJoin('maintenance_transaction as mt', 'f.flat_number', '=', 'mt.flat_number')
+        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount')
+    ->where('f.flat_number','!=','')
+        ->orWhere(DB::raw('YEAR(month)'),$year)
+        ->orWhere(DB::raw('MONTH(month)'),$month)
         ->get();
         }
         return $flat_details;

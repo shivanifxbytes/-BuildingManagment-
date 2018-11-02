@@ -2,19 +2,26 @@ jQuery(document).ready(function() {
         var d = new Date();
         var year = $('#yearlist').val();
         var month = $('#monthlist').val();
+
+                $("#add_link").attr("href", base_url+"/addMaintenanceTransaction/"+year+"/"+month);
+
         dataTables(year,month);
         jQuery('#yearlist').change(function() {
             year = $(this).val();
-            if(year!='')
-            {
-                jQuery('#monthlist').change(function()
+                                dataTables(year,month);
+
+
+                                                         $("#add_link").attr("href", base_url+"/addMaintenanceTransaction/"+year+"/"+month);
+
+        });
+         jQuery('#monthlist').change(function()
                 {
                     var month = $(this).val();
                     dataTables(year,month);
+                                             $("#add_link").attr("href", base_url+"/addMaintenanceTransaction/"+year+"/"+month);
+
                 });
-            }
-  
-        });
+
     });
     function dataTables(year,month)
     {

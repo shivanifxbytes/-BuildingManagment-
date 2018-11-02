@@ -30,7 +30,7 @@ class Master extends Model
      * @var array
      */
     protected $fillable = [
-       'maintenance_amount','flat_number','id','created_at',
+       'maintenance_amount','flat_type_id','id','created_at',
     ];
 
     /**

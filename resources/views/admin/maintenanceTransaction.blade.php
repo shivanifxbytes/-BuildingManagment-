@@ -34,11 +34,11 @@
                 <td><input type="text" id="flat_num_{{$row->flat_number}}" value='{{$row->flat_number}}' name="flat_type" placeholder='' disabled/></td>
                 <td><input type="text" name="tenent" id="" placeholder="enter tenent name" value='{{$row->tenant_name}}' required disabled></td>
                 <td><input type="text" name="owner" id="" placeholder="" value='{{$row->owner_name}}' required disabled></td>
-                <td><input type="text" id="amount_{{$row->flat_number}}" name="amount" id="" placeholder="" required ></td>
-                <td><input type="text" id="pending_amount_{{$row->flat_number}}" name="pending_amount" id="" placeholder="" required></td>
-                <td><input type="text" id="rPendingAmout_{{$row->flat_number}}" name="rPendingAmout" id="" placeholder="" required></td>
-                <td><input type="text" id="extra_amount_{{$row->flat_number}}" name="extra_amount" id="" placeholder="" required></td>
-                <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" required></td>
+                <td><input type="text" id="amount_{{$row->flat_number}}" value='{{$row->amount}}' name="amount" id="" placeholder="" required ></td>
+                <td><input type="text" id="pending_amount_{{$row->flat_number}}" name="pending_amount" id="" value='{{$row->pending_amount}}' placeholder="" required></td>
+                <td><input type="text" id="rPendingAmout_{{$row->flat_number}}" name="rPendingAmout" id="" value='{{$row->reason_pending_amount}}' placeholder="" required></td>
+                <td><input type="text" id="extra_amount_{{$row->flat_number}}" name="extra_amount" id="" value='{{$row->extra_amount}}'  placeholder="" required></td>
+                <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" value='{{$row->reason_extra_amount}}' required></td>
                 <td><select name="paid_by" id="paid_by_{{$row->flat_number}}" class="paid_by" required>
                       <option value="" >Paid BY</option>
                       <option value="Cash">Cash</option>
