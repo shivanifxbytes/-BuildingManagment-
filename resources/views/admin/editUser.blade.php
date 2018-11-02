@@ -30,17 +30,9 @@
                         <label>{{ __('messages.owner')}}</label>
                         <input type="text" class="form-control" value="{{$value->name}}"  name="owner" placeholder="{{ __('messages.owner')}}" required>
                     </div>  
-                    <div class="form-group">
+                     <div class="form-group">
                         <label for="flat_number">Flat Number</label>
-                        <select name="flat_number" id="flat_number" class="form-control" >
-                            @foreach($users as $users_key => $users_value)
-                            @if($value->flat_number == $users_value->flat_number)
-                            <option value="{{$users_value->flat_number}}" selected="selected">{{$users_value->flat_number}}</option>
-                            @else
-                            <option value="{{$users_value->flat_number}}">{{$users_value->flat_number}}</option>
-                            @endif
-                            @endforeach
-                        </select>           
+                        <input id="flat_number" type="text" class="form-control" name="flat_number" value="{{$value->flat_number}}" required>       
                     </div> 
                     <div class="form-group">
                         <label>Enter Mobile No.</label>            

@@ -32,15 +32,15 @@
         </div>           
         <div class="form-group">
           <label for="flat_number">Flat Number</label>
-           <input type="text" class="form-control" name="flat_number" placeholder="{{ __('messages.flat_number')}}" required>        
+           <input type="text" class="form-control" name="flat_number" placeholder="{{ __('messages.flats')}}" required>        
         </div> 
        <div class="form-group">
                         <label for="flat_type">Flat Type</label>
                         <select name="flat_type" id="flat_type" class="form-control" >
                             <option value="" selected="selected">Select Flat Type</option>
-                           
-                            <option value="{{$row->id }}"></option>
-                            
+                            @foreach($users as $key => $row)
+                            <option value="{{$row->id }}">{{$row->flat_type }}</option>
+                            @endforeach
                         </select>           
                     </div>
         <div  id="flat_type" class="form-group">
