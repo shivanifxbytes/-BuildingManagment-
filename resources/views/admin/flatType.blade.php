@@ -27,16 +27,14 @@
               @endif
               <table class="table table-striped table-advance table-hover" id="data-table">
                   <thead>
-                  <tr>
-                    <th>s.no</th>
-                    <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                           
+                  <tr>                
+                   <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                           
                     <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                   </tr>
                 </thead>
                 <tbody>                 
                   @foreach($users as $key => $row)
-                  <tr>
-                    <td></td>
+                  <tr>                  
                     <td>{{$row->flat_type}}</td>                       
                    <td>
                       <div class="btn-group">

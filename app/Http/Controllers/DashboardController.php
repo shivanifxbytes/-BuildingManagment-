@@ -511,15 +511,13 @@ class DashboardController extends Controller
     {
         $rules = array(
             'flat_type'   => 'required|max:50',
-            
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
         } else {
             $requestData = array(
-                'flat_type'    => $request->input('flat_type'),
-                
+                'flat_type'    => $request->input('flat_type'),               
                 'created_at'   => date('Y-m-d H-i-s')
             );
             $updateData = array(
