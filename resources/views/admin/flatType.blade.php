@@ -28,7 +28,7 @@
               <table class="table table-striped table-advance table-hover" id="data-table">
                   <thead>
                   <tr>
-                    <th>Flat Number</th>
+                    <th>s.no</th>
                     <th><i class="icon_mail_alt"></i>{{ __('messages.flat_type') }}</th>                           
                     <th><i class="icon_cogs"></i> {{__('messages.action')}}</th>
                   </tr>
@@ -36,7 +36,7 @@
                 <tbody>                 
                   @foreach($users as $key => $row)
                   <tr>
-                    <th>{{$row->flat_number}}</th>
+                    <td></td>
                     <td>{{$row->flat_type}}</td>                       
                    <td>
                       <div class="btn-group">

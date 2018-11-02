@@ -511,7 +511,7 @@ class DashboardController extends Controller
     {
         $rules = array(
             'flat_type'   => 'required|max:50',
-            'flat_number' => 'string|unique:flat_type',
+            
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -519,7 +519,7 @@ class DashboardController extends Controller
         } else {
             $requestData = array(
                 'flat_type'    => $request->input('flat_type'),
-                'flat_number'  => $request->input('flat_number'),
+                
                 'created_at'   => date('Y-m-d H-i-s')
             );
             $updateData = array(
@@ -624,10 +624,10 @@ class DashboardController extends Controller
             'month'                => date("Y-m-d", strtotime($request->input('date'))),
             'status'               => $request->input('status'),
         );
-        $year = date('Y', strtotime($request->input('date')));
-        $month = date('m', strtotime($request->input('date')));
+        $year        = date('Y', strtotime($request->input('date')));
+        $month       = date('m', strtotime($request->input('date')));
         $flat_number = $request->input('flatNumber');
-        $records  = Transaction::getRecordsByMonthAndYear($year, $month, $flat_number);
+        $records     = Transaction::getRecordsByMonthAndYear($year, $month, $flat_number);
         if (count($records)>0) {
             $flat =  Transaction::updateMaintainanceData($flatData, $month, $flat_number);
             return response()->json(['success'=>'Data Updated']);
@@ -779,8 +779,8 @@ class DashboardController extends Controller
      */
     public function showMonthlyExpenses(Request $request)
     {
-        $year     =  $request->year;
-        $month    =  $request->month;
+        $year     = $request->year;
+        $month    = $request->month;
         $result1  = $this->dashboardObj->getExpensesByMonthAndYear($year, $month, 100);
         $limit    = $request->input('length');
         $start    = $request->input('start');
