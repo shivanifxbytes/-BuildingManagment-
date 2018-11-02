@@ -31,7 +31,7 @@ class Flat extends Model
      * @var array
      */
     protected $fillable = [
-        'tenant_id','owner_id','flat_number','carpet_area','super_built_up_area',
+        'tenant_id','owner_id','flat_number','carpet_area','super_built_up_area','flat_type_id',
     ];
 
     /**
