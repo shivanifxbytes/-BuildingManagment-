@@ -130,10 +130,12 @@ class DashboardController extends Controller
             'owner_mobile_no' => 'required|regex:/[0-9]{10}/|digits:10',
             'flat_number'     => 'required|string|max:255|unique:flats,owner_id,'. $user_id,
             'carpet_area'     => 'required|max:50',
+            'flat_type'        => 'max:10'
         );
         if (empty($user_id)) {
             $rules['email']      = 'required|string|email|max:255|unique:users';
             $rules['password']   = 'required|string|min:6|confirmed';
+            
         }
 
         $validator = Validator::make($request->all(), $rules);
@@ -153,7 +155,8 @@ class DashboardController extends Controller
                     $flatData = array(
                         'flat_number'      => $request->input('flat_number'),
                         'carpet_area'      => $request->input('carpet_area'),
-                        'owner_id'         => $user);
+                        'owner_id'         => $user,
+                        'flat_type_id'=>$request->input('flat_type'),);
                 }
                 $flat =  Flat::insertGetId($flatData);
                 if ($flat) {

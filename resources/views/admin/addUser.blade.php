@@ -38,9 +38,9 @@
                         <label for="flat_type">Flat Type</label>
                         <select name="flat_type" id="flat_type" class="form-control" >
                             <option value="" selected="selected">Select Flat Type</option>
-                            @foreach($users as $key => $row)
-                            <option value="{{$row->id }}">{{$row->flat_type }}</option>
-                            @endforeach
+                           
+                            <option value="{{$row->id }}"></option>
+                            
                         </select>           
                     </div>
         <div  id="flat_type" class="form-group">
