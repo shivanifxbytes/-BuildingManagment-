@@ -187,10 +187,10 @@ $flat_details = json_decode(json_encode($flat_details), true);
 
     }
 
-    public function getTransactionByMonthAndYearForFlatNumber($year,$month,$flat_number)
+    public function getTransactionByMonthAndYearForFlatNumber($year,$month)
     {
          $maintenance_transaction_detail = DB::table('maintenance_transaction')->select('flat_number as mt_flat_number','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount','paid_by')->where(DB::raw('YEAR(month)'),$year)
-        ->where(DB::raw('MONTH(month)'),$month)->where('flat_number',$flat_number)->get();
+        ->where(DB::raw('MONTH(month)'),$month)->get();
    $maintenance_transaction_detail = json_decode(json_encode($maintenance_transaction_detail), true);
 return $maintenance_transaction_detail;
     }
