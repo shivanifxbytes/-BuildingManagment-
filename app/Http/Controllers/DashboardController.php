@@ -658,59 +658,8 @@ class DashboardController extends Controller
      */
     public function addMaintenanceTransaction($year,$month)
     {
-        $flats = [];
-        $array = $this->dashboardObj->getFlatDetail($year,$month);
-   
-
-        foreach ($array as $key => $value) {
-            
-            print_r($array);
-            # code...
-            $flat_number = $array[$key]['flat_number'];
-            $main_detail=$this->dashboardObj->getTransactionByMonthAndYearForFlatNumber($year,$month);
-           
-            print_r($main_detail);
-
-            foreach ($main_detail as $main_key => $main_value){
-            # code...
-             $amount          =  $main_detail[$main_key]['amount'];
-             echo $amount;
-                          echo "<hr />";
-
-             $pending_amount  =  $main_detail[$main_key]['pending_amount'];
-                          echo "Pending Amount".$pending_amount;
-                          echo "<hr />";
-             $extra_amount    =  $main_detail[$main_key]['extra_amount'];
-             $rpending_amount =  $main_detail[$main_key]['reason_pending_amount'];
-             $rextra_amount   =  $main_detail[$main_key]['reason_extra_amount'];
-             $month   =  $main_detail[$main_key]['month'];
-             $paid_by =  $main_detail[$main_key]['paid_by'];
-
-
-
-
-            
-         }
-          $array[$key]['amount']                = $amount;
-             $array[$key]['reason_pending_amount'] = isset($reason_pending_amount)?$reason_pending_amount:' ';
-             $array[$key]['reason_extra_amount']   = isset($reason_extra_amount)?$reason_extra_amount:'   ';
-             $array[$key]['pending_amount']        = isset($pending_amount)?$pending_amount:'  ';
-             $array[$key]['extra_amount']          = isset($extra_amount)?$extra_amount:'    ';
-             $array[$key]['month']                 = isset($month)?$month:' ';
-             $array[$key]['paid_by']               = isset($paid_by)?$paid_by:'   ';
-echo "<pre>";
-
-             print_r($array[$key]);
-     }
-     echo "<pre>";
-
-array_push($flats,$array);
-echo "<pre>";
-     print_r($flats);
-     die;
-
-
-        return view('admin.maintenanceTransaction',['flats' => $flats]);
+        $data['flats'] = $this->dashboardObj->getFlatDetail($year,$month);
+        return view('admin.maintenanceTransaction', $data);
     }
 
     /**
