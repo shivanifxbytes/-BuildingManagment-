@@ -34,8 +34,8 @@ class Dashboard extends Model
     public function queryData()
     {
         return  DB::table('flats')
-             ->join('flat_type', 'flat_type.flat_type', '=', 'flats.flat_type_id')
-             ->join('users', 'flats.owner_id', '=', 'users.id')
+            ->join('flat_type', 'flat_type.flat_type', '=', 'flats.flat_type_id')
+            ->join('users', 'flats.owner_id', '=', 'users.id')
             ->select('flat_type', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
             ->where('users.user_role_id', '=', ' 2')
             ->get();
@@ -99,7 +99,8 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
-    /**
+    
+   /**
      * @DateOfCreation         10 oct 2018
      * @ShortDescription       funtion join three tables users flat_type and flats and 
      *                         select selected data from the tables
@@ -122,9 +123,6 @@ class Dashboard extends Model
         }
         $data['maintenance_transaction_detail'] = DB::table('maintenance_transaction')->select('flat_number','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount','paid_by')->where(DB::raw('YEAR(month)'),$year)
         ->where(DB::raw('MONTH(month)'),$month)->get();
-
-
-
         return $data;
     }
 
