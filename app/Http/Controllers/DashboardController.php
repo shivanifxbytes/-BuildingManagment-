@@ -658,8 +658,8 @@ class DashboardController extends Controller
      */
     public function addMaintenanceTransaction($year,$month)
     {
-        $data['flats'] = $this->dashboardObj->getFlatDetail($year,$month);
-        return view('admin.maintenanceTransaction', $data);
+        $flats = $this->dashboardObj->getFlatDetail($year,$month);
+        return view('admin.maintenanceTransaction',['flats' => $flats]);
     }
 
     /**
