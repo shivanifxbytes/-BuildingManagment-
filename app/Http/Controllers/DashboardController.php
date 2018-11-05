@@ -1,6 +1,5 @@
 <?php
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -28,7 +27,6 @@ use App\Monthlyexpenses;
 use PDF;
 use Mail;
 use App\FlatType;
-
 /**
  * DashboardController Class
  *
@@ -51,7 +49,6 @@ class DashboardController extends Controller
         $this->dashboardObj = new Dashboard();
         $this->userobj = new User();
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the dashboard view
@@ -68,7 +65,6 @@ class DashboardController extends Controller
         $count['users']  = $this->dashboardObj->countUsers();
         return view('admin.dashboard', compact('count'));
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load users view with list of all users
@@ -84,7 +80,6 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->queryData();
         return view('admin.users', $data);
     }
-
     /**
      * @DateOfCreation         24 Aug 2018
      * @ShortDescription       Function run according to the parameter if $user_id is NUll
@@ -112,7 +107,6 @@ class DashboardController extends Controller
             return view('admin.addUser', $data);
         }
     }
-
     /**
      * @DateOfCreation         24 Aug 2018
      * @ShortDescription       This function handle the post request which get after submit the
@@ -137,7 +131,6 @@ class DashboardController extends Controller
             $rules['password']   = 'required|string|min:6|confirmed';
             
         }
-
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
@@ -180,7 +173,6 @@ class DashboardController extends Controller
             }
         }
     }
-
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load user maintanence view with list of user when user id is equal to
@@ -193,7 +185,6 @@ class DashboardController extends Controller
         $data['user_maintenance'] = $this->dashboardObj->showUser($data['user_id']);
         return view('admin.userMaintenance', $data)->with('no', 1);
     }
-
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load add maintenance view
@@ -204,7 +195,6 @@ class DashboardController extends Controller
         $user_id = Crypt::decrypt($user_id);
         return view('admin.addMaintenance');
     }
-
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       This function run according to the parameter If we get ID it will return
@@ -228,7 +218,6 @@ class DashboardController extends Controller
             }
         }
     }
-
     /**
      * @DateOfCreation         24 August 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -269,7 +258,6 @@ class DashboardController extends Controller
             }
         }
     }
-
     /**
      * @DateOfCreation         22 March 2018
      * @ShortDescription       Distroy the session and Make the Auth Logout
@@ -281,7 +269,6 @@ class DashboardController extends Controller
         Session::flush();
         return redirect('/');
     }
-
     /**
      * @DateOfCreation         04 September 2018
      * @ShortDescription       Display a listing of the resource.
@@ -297,7 +284,6 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
-
     /**
      * @DateOfCreation         04 September 2018
      * @ShortDescription       Display a listing of the resource.
@@ -313,7 +299,6 @@ class DashboardController extends Controller
             });
         })->download($type);
     }
-
     /**
      * @DateOfCreation         05 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -359,7 +344,6 @@ class DashboardController extends Controller
         $import_success = 'File Imported And Insert Record successfully.';
         return back()->with(['import_success'=>$import_success,'error_array'=>$array]);
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load maintenance master view with list of all maintenance
@@ -370,7 +354,6 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->selectMaintenance();
         return view('admin.maintenanceMaster', $data);
     }
-
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit view
@@ -385,7 +368,6 @@ class DashboardController extends Controller
                 $check = Master::where('flat_type_id', '=', $flat_type_id)->count();
                 if (is_int($flat_type_id) && $check > 0) {
                     $data['flats'] = $this->dashboardObj->getMaintenanceFlatTypeByID($flat_type_id);
-
                     return view('admin.editMaintenanceMaster', $data);
                 } else {
                     return redirect()->back()->withErrors(__('messages.Id_incorrect'));
@@ -398,7 +380,6 @@ class DashboardController extends Controller
             return view('admin.addMaintenanceMaster', $data);
         }
     }
-
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -450,7 +431,6 @@ class DashboardController extends Controller
             }
         }
     }
-
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function deletes the specified record from table
@@ -463,7 +443,6 @@ class DashboardController extends Controller
         $delete  = Master::deleteMaintenanceMastere($user_id);
         return redirect('maintenanceMaster')->with('message', __('messages.Record_delete'));
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load flat type view with list of all flats
@@ -474,7 +453,6 @@ class DashboardController extends Controller
         $data['users'] = $this->dashboardObj->selectFlatType();
         return view('admin.flatType', $data);
     }
-
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function run according to the parameter If we get ID it will return edit
@@ -503,7 +481,6 @@ class DashboardController extends Controller
             return view('admin.addFlatType');
         }
     }
-
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       This function handle the post request which get after submit
@@ -549,7 +526,6 @@ class DashboardController extends Controller
             }
         }
     }
-
     /**
      * @DateOfCreation         19 September 2018
      * @ShortDescription       Function deteted row of flattype
@@ -562,7 +538,6 @@ class DashboardController extends Controller
         $delete  = FlatType::deleteFlatType($user_id);
         return redirect('flatType')->with('message', __('messages.Record_delete'));
     }
-
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       This function delete the record of the user by ajax request
@@ -587,7 +562,6 @@ class DashboardController extends Controller
             return Config::get('constants.ID_NOT_CORRECT');
         }
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the month View List for maintenance transaction
@@ -597,7 +571,6 @@ class DashboardController extends Controller
     {
         return view('admin.monthviewlist');
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the maintenance transaction list
@@ -609,7 +582,6 @@ class DashboardController extends Controller
         $data['flats'] = $this->transactionobj->selectAllTransaction();
         return view('admin.showMaintenanceTransactionList', $data);
     }
-
     /**
      * @DateOfCreation         28 September 2018s
      * @ShortDescription       This function save the record of the transaction on ajax request
@@ -640,7 +612,6 @@ class DashboardController extends Controller
         Transaction::insert($flatData);
         return response()->json(['success'=>'Paid']);
     }
-
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       Load the monthly Expences form view
@@ -650,8 +621,7 @@ class DashboardController extends Controller
     {
         return view('admin.monthlyExpenses');
     }
-
-   /**
+    /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load all flats details
      * @return                 result
@@ -687,7 +657,15 @@ class DashboardController extends Controller
     array_push($flats,$array);
     return view('admin.maintenanceTransaction',['flats' => $flats]);
     }
-
+    /**
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       Load the add monthly Expences form view
+     * @return                 View
+     */
+    public function addMonthlyExpense()
+    {
+        return view('admin.addMonthlyExpenses');
+    }
     /**
      * @DateOfCreation         28 September 2018s
      * @ShortDescription       This function save the record of the monthly expenses on ajax request
@@ -728,7 +706,6 @@ class DashboardController extends Controller
         $total = $cheque_amount+$cash_amount;
         return response()->json(['success'=>'done','cash'=>$cash_amount,'cheque'=>$cheque_amount,'total'=>$total]);
     }
-
     /**
      * @DateOfCreation         28 September 2018s
      * @ShortDescription       This function change the flat type on ajax request
@@ -741,7 +718,6 @@ class DashboardController extends Controller
         $result = $this->dashboardObj->getFlatTypeById($id);
         return $result;
     }
-
     /**
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function show the monthly transaction list using data table
@@ -790,7 +766,6 @@ class DashboardController extends Controller
         );
         return json_encode($json_data);
     }
-
     /**
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function show the monthly expenses list using data table
@@ -831,7 +806,6 @@ class DashboardController extends Controller
         );
         return json_encode($json_data);
     }
-
     /**
      * @DateOfCreation    17 oct 2018
      * @ShortDescription  This function generate pdf send email receipt and provide download
@@ -845,7 +819,6 @@ class DashboardController extends Controller
     {
         $result = $this->dashboardObj->getExpensesByFlatNumber($flat_number, $month);
         $extra_amount = '';
-
         foreach ($result as $key => $value) {
             $reason_pending_amount = $value->reason_pending_amount;
             $pending_amount        = $value->pending_amount;
