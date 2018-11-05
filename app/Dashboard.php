@@ -99,8 +99,8 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
-
-    /**
+    
+   /**
      * @DateOfCreation         10 oct 2018
      * @ShortDescription       funtion join three tables users flat_type and flats and 
      *                         select selected data from the tables
