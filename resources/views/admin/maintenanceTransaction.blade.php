@@ -28,61 +28,49 @@
             <th>Date</th>
             <th>Action</th>     
         </tr>
-        @foreach($flats['flat_details'] as $key => $row)    
-               <tr>
+        <pre>
+        @foreach($flats as $key => $row)
+ <?php  $amount = isset($row['amount'])?$row['amount']:'';
+ $pending_amount = isset($row['pending_amount'])?$row['pending_amount']:'';
+  $reason_pending_amount = isset($row['reason_pending_amount'])?$row['reason_pending_amount']:'';
+
+ $extra_amount = isset($row['extra_amount'])?$row['extra_amount']:'';
+
+ $reason_extra_amount = isset($row['reason_extra_amount'])?$row['reason_extra_amount']:'';
+  $paid_by = isset($row['paid_by'])?$row['paid_by']:'';
+
+ $month = isset($row['month'])?$row['month']:'';
+
+
+  ?>
+        <tr>
+            
+            {{$amount}}
             <form method="POST" action=""  class="form-horizontal ">   
-                <td><input type="text" id="flat_num_{{$row->flat_number}}" value='{{$row->flat_number}}' name="flat_type" placeholder='' disabled/></td>
-                <td><input type="text" name="tenent" id="" placeholder="enter tenent name" value='{{$row->tenant_name}}' required disabled></td>
-                <td><input type="text" name="owner" id="" placeholder="" value='{{$row->owner_name}}' required disabled></td>
-              @if(isset($flats['maintenance_transaction_detail'][$key]->flat_number))
-              <?php 
-              $flat_number = $flats['maintenance_transaction_detail'][$key]->flat_number; 
-              $amount =  $flats['maintenance_transaction_detail'][$key]->amount;
-                    $pending_amount =  $flats['maintenance_transaction_detail'][$key]->pending_amount;
-                    $reason_pending_amount =  $flats['maintenance_transaction_detail'][$key]->reason_pending_amount;
-                    $extra_amount =  $flats['maintenance_transaction_detail'][$key]->extra_amount;
-                    $reason_extra_amount =  $flats['maintenance_transaction_detail'][$key]->reason_extra_amount;
-                                        $paid_by =  $flats['maintenance_transaction_detail'][$key]->paid_by;
-                                           $month =  $flats['maintenance_transaction_detail'][$key]->month;
+                <td><input type="text" id="flat_num_{{$row['flat_number']}}" value='{{$row["flat_number"]}}' name="flat_type" placeholder='' disabled/></td>
+                 <td><input type="text" name="tenent" id="" placeholder="enter tenent name" value='{{$row["tenant_name"]}}' required disabled></td>
+                <td><input type="text" name="owner" id="" placeholder="" value='{{$row["owner_name"]}}' required disabled></td>
+                <td><input type="text" id="amount_{{$row['flat_number']}}"  name="amount" id="" placeholder=""
 
-
-
-               ?>
-              <td><input type="text" id="amount_{{$row->flat_number}}" value='{{ $amount }}' name="amount" id="" placeholder="" required ></td>
-              <td><input type="text" id="pending_amount_{{$row->flat_number}}" name="pending_amount" id="" value='{{ $pending_amount }}' placeholder="" required></td>
-             <td><input type="text" id="rPendingAmout_{{$row->flat_number}}" name="rPendingAmout" id="" value='{{$reason_pending_amount}}' placeholder="" required></td>
-                <td><input type="text" id="extra_amount_{{$row->flat_number}}" name="extra_amount" id="" value='{{$extra_amount}}'  placeholder="" required></td>
-                <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" value='{{$reason_extra_amount}}' required></td>
-                <td><select name="paid_by" id="paid_by_{{$row->flat_number}}" class="paid_by" required>
+ value="{{$amount}}" 
+                       required ></td>
+                <td><input type="text" id="pending_amount_{{$row['flat_number']}}" name="pending_amount" id=""  value="{{$pending_amount}}" 
+ placeholder="" required></td>
+                <td><input type="text" id="rPendingAmout_{{$row['flat_number']}}" name="rPendingAmout" id="" value="{{$reason_pending_amount}}"  placeholder="" required></td>
+                <td><input type="text" id="extra_amount_{{$row['flat_number']}}" name="extra_amount" id="" value="{{$extra_amount}}"   placeholder="" required></td>
+                <td><input type="text" id="extra_rAmount_{{$row['flat_number']}}" name="extra_rAmount" id="" placeholder="" value="{{$reason_extra_amount}}" required></td>
+                <td><select name="paid_by" id="paid_by_{{$row['flat_number']}}" class="paid_by" required>
                       <option value="" >Paid BY</option>
-                      <option value="Cash" @if($paid_by == 'Cash')  {{ 'selected' }} @endif>Cash</option>
+               <option value="Cash" @if($paid_by == 'Cash')  {{ 'selected' }} @endif>Cash</option>
                       <option value="Cheque" @if($paid_by == 'Cheque') {{ 'selected' }} @endif>Cheque</option>
                     </select>
                   </td>
-                    <td><input type="text" id="date_{{$row->flat_number}}" value="{{ $month }}" class="date"></td>
-                <td><button type="button" class="btn btn-primary" onClick="payMaintence({{$row->flat_number}})">Paid</button></td>
-</form>
-              @else
-      <td><input type="text" id="amount_{{$row->flat_number}}" value='' name="amount" id="" placeholder="" required ></td>
-                  <td><input type="text" id="pending_amount_{{$row->flat_number}}" name="pending_amount" id="" value='' placeholder="" required></td>
-             <td><input type="text" id="rPendingAmout_{{$row->flat_number}}" name="rPendingAmout" id="" value='' placeholder="" required></td>
-                <td><input type="text" id="extra_amount_{{$row->flat_number}}" name="extra_amount" id="" value=''  placeholder="" required></td>
-                <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" value='' required></td>
-                <td><select name="paid_by" id="paid_by_{{$row->flat_number}}" class="paid_by" required>
-                      <option value="" >Paid BY</option>
-                      <option value="Cash" >Cash</option>
-                      <option value="Cheque" >Cheque</option>
-                    </select>
-                  </td>
-                    <td><input type="text" id="date_{{$row->flat_number}}" class="date"></td>
-                <td><button type="button" class="btn btn-primary" onClick="payMaintence({{$row->flat_number}})">Paid</button></td>
-</form>
-              @endif
+                <td><input type="text" id="date_{{$row['flat_number']}}" class="date" value="{{ $month }}"></td>
+                <td><button type="button" class="btn btn-primary" onClick="payMaintence({{$row['flat_number']}})">Paid</button></td> 
             </form>
         </tr>
-
-@endforeach
-     
+        @endforeach 
+    </table>
 </div>  
 @endsection
 @section('scripts')
