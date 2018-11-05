@@ -669,8 +669,8 @@ class DashboardController extends Controller
                      $amount          =  $main_detail[$main_key]['amount'];
                      $pending_amount  =  $main_detail[$main_key]['pending_amount'];
                      $extra_amount    =  $main_detail[$main_key]['extra_amount'];
-                     $rpending_amount =  $main_detail[$main_key]['reason_pending_amount'];
-                     $rextra_amount   =  $main_detail[$main_key]['reason_extra_amount'];
+                     $reason_pending_amount =  $main_detail[$main_key]['reason_pending_amount'];
+                     $reason_extra_amount   =  $main_detail[$main_key]['reason_extra_amount'];
                      $month   =  $main_detail[$main_key]['month'];
                      $paid_by =  $main_detail[$main_key]['paid_by'];
                 }    
