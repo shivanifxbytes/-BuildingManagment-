@@ -674,15 +674,14 @@ class DashboardController extends Controller
                      $month   =  $main_detail[$main_key]['month'];
                      $paid_by =  $main_detail[$main_key]['paid_by'];
                 }    
-                $array[$main_key]['amount']                = isset($amount)?$amount:'';
-             $array[$main_key]['reason_pending_amount'] = isset($reason_pending_amount)?$reason_pending_amount:' ';
-             $array[$main_key]['reason_extra_amount']   = isset($reason_extra_amount)?$reason_extra_amount:'   ';
-             $array[$main_key]['pending_amount']        = isset($pending_amount)?$pending_amount:'  ';
-             $array[$main_key]['extra_amount']          = isset($extra_amount)?$extra_amount:'    ';
-             $array[$main_key]['month']                 = isset($month)?$month:' ';
-             $array[$main_key]['paid_by']               = isset($paid_by)?$paid_by:'   ';
-         }
-             
+            $array[$main_key]['amount']                = isset($amount)?$amount:'';
+            $array[$main_key]['reason_pending_amount'] = isset($reason_pending_amount)?$reason_pending_amount:' ';
+            $array[$main_key]['reason_extra_amount']   = isset($reason_extra_amount)?$reason_extra_amount:'   ';
+            $array[$main_key]['pending_amount']        = isset($pending_amount)?$pending_amount:'  ';
+            $array[$main_key]['extra_amount']          = isset($extra_amount)?$extra_amount:'    ';
+            $array[$main_key]['month']                 = isset($month)?$month:' ';
+            $array[$main_key]['paid_by']               = isset($paid_by)?$paid_by:'   ';
+         } 
      }
     array_push($flats,$array);
     return view('admin.maintenanceTransaction',['flats' => $flats]);
