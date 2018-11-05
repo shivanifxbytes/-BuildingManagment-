@@ -34,8 +34,8 @@ class Dashboard extends Model
     public function queryData()
     {
         return  DB::table('flats')
-             ->join('flat_type', 'flat_type.flat_type', '=', 'flats.flat_type_id')
-             ->join('users', 'flats.owner_id', '=', 'users.id')
+            ->join('flat_type', 'flat_type.flat_type', '=', 'flats.flat_type_id')
+            ->join('users', 'flats.owner_id', '=', 'users.id')
             ->select('flat_type', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
             ->where('users.user_role_id', '=', ' 2')
             ->get();
@@ -106,7 +106,7 @@ class Dashboard extends Model
      *                         select selected data from the tables
      * @return                 result array
      */
-    public function getFlatDetail()
+    public function getFlatDetail($year,$month)
     {
         $flat_detail =  DB::table('flats')
         ->select('flat_number', 'owner_id', 'tenant_id')
@@ -114,11 +114,14 @@ class Dashboard extends Model
         foreach ($flat_detail as $key => $value) {
         $owner_id = $flat_detail[$key]->owner_id;
         $tenant_id = $flat_detail[$key]->tenant_id;
-        $flat_details =  DB::table('flats')
-        ->rightJoin('flat_type as ft','flats.flat_number','=','ft.flat_number')
-        ->leftJoin('users as o', 'flats.owner_id', '=', 'o.id')
-        ->leftJoin('users as t', 'flats.tenant_id', '=', 't.id')
-        ->select('ft.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+        $flat_details =  DB::table('flats as f')
+        ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
+        ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
+        ->leftJoin('maintenance_transaction as mt', 'f.flat_number', '=', 'mt.flat_number')
+        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount')
+        ->where('f.flat_number','!=','')
+        ->orWhere(DB::raw('YEAR(month)'),$year)
+        ->orWhere(DB::raw('MONTH(month)'),$month)
         ->get();
         }
         return $flat_details;
