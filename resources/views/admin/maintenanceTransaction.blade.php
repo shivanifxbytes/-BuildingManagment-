@@ -28,7 +28,13 @@
             <th>Date</th>
             <th>Action</th>     
         </tr>
-        @foreach($flats as $key => $row)    
+        @foreach($flats['flat_details'] as $key => $row)    
+        <pre>
+                    <?php print_r($flats);
+                    print_r($flats['flat_details']);
+                     die; ?>
+
+        </pre>
         <tr>
             <form method="POST" action=""  class="form-horizontal ">   
                 <td><input type="text" id="flat_num_{{$row->flat_number}}" value='{{$row->flat_number}}' name="flat_type" placeholder='' disabled/></td>
@@ -41,8 +47,8 @@
                 <td><input type="text" id="extra_rAmount_{{$row->flat_number}}" name="extra_rAmount" id="" placeholder="" value='{{$row->reason_extra_amount}}' required></td>
                 <td><select name="paid_by" id="paid_by_{{$row->flat_number}}" class="paid_by" required>
                       <option value="" >Paid BY</option>
-                      <option value="Cash">Cash</option>
-                      <option value="Cheque">Cheque</option>
+                      <option value="Cash" @if($row->paid_by == 'Cash')  {{ 'selected' }} @endif>Cash</option>
+                      <option value="Cheque" @if($row->paid_by == 'Cheque') {{ 'selected' }} @endif>Cheque</option>
                     </select>
                   </td>
                 <td><input type="text" id="date_{{$row->flat_number}}" class="date"></td>

@@ -113,17 +113,19 @@ class Dashboard extends Model
         foreach ($flat_detail as $key => $value) {
         $owner_id = $flat_detail[$key]->owner_id;
         $tenant_id = $flat_detail[$key]->tenant_id;
-        $flat_details =  DB::table('flats as f')
+        DB::enableQueryLog();
+        $data['flat_details'] =  DB::table('flats as f')
         ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
         ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
-        ->leftJoin('maintenance_transaction as mt', 'f.flat_number', '=', 'mt.flat_number')
-        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount')
-    ->where('f.flat_number','!=','')
-        ->orWhere(DB::raw('YEAR(month)'),$year)
-        ->orWhere(DB::raw('MONTH(month)'),$month)
+        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
         ->get();
         }
-        return $flat_details;
+        $data['maintenance_transaction_detail'] = DB::table('maintenance_transaction')->select('flat_number','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount','paid_by')->where(DB::raw('YEAR(month)'),$year)
+        ->where(DB::raw('MONTH(month)'),$month)->get();
+
+
+
+        return $data;
     }
 
     /**
@@ -187,5 +189,4 @@ class Dashboard extends Model
         return $expenses_details;
 
     }
-  
 }
