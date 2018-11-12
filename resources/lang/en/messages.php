@@ -37,7 +37,7 @@ return [
     'last_name' => 'Last Name',
     'c_password' => 'Confirm Password',
     'add_flat' => 'Add Flat',
-    'add_maintenance' => 'Add Maintenance',
+    'add_maintenance' => 'Add Flat Maintenance',
     'maintenance' =>'Show Maintenance',
     'amount' => 'Amount',
     'pending_amount' => 'Pending Amount',
@@ -75,5 +75,7 @@ return [
     'edit_flat'=>'Edit Flat',
     'amount'=>'Amount',
     'edit_flat_type'=>'Edit Flat Type',
-    'add_flat_type'=>'Add Flat Type'
+    'add_flat_type'=>'Add Flat Type',
+    'edit_maintainance'=>'Edit Flat Maintainence',
+    'monthly_expenses' => 'Monthly Expenses'
 ];

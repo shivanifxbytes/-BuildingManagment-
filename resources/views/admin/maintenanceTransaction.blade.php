@@ -8,7 +8,7 @@ type="text/css" /> @endsection
         <h3 class="page-header"><i class="fa fa-file-text-o"></i> {{ __('messages.maintenance_transaction') }}</h3>
         <ol class="breadcrumb">
             <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard"> {{ __('messages.home')}}</a></li>
-            <li><i class="fa fa-file-text-o"></i> {{ __('messages.flats')}}</li>
+            <li><i class="fa fa-file-text-o"></i> {{ __('messages.maintenance_transaction')}}</li>
         </ol>
     </div>
 </div>

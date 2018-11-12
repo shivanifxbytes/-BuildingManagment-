@@ -2,10 +2,10 @@
 @section('content')       
 <div class="row">
   <div class="col-lg-12">
-    <h3 class="page-header"><i class="fa fa-file-text-o"></i>Edit Flat Maintainence</h3>
+    <h3 class="page-header"><i class="fa fa-file-text-o"></i>{{ __('messages.edit_maintainance')}}</h3>
     <ol class="breadcrumb">
       <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard"> {{ __('messages.home')}}</a></li>
-      <li><i class="fa fa-file-text-o"></i>Edit Flat Maintainence</li>
+      <li><i class="fa fa-file-text-o"></i>{{ __('messages.edit_maintainance')}}</li>
     </ol>
   </div>
 </div>      
@@ -13,7 +13,7 @@
   <div class="row"><div class="col-lg-3"></div>
   <div class="col-lg-6">
     <section class="panel">
-      <header class="panel-heading">Edit Flat Maintainence        
+      <header class="panel-heading">{{ __('messages.edit_maintainance')}}        
       </header>
       <div class="panel-body">
         @if ($errors->any())
