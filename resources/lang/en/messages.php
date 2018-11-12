@@ -74,4 +74,6 @@ return [
     'month_list'    => 'View Month List',
     'edit_flat'=>'Edit Flat',
     'amount'=>'Amount',
+    'edit_flat_type'=>'Edit Flat Type',
+    'add_flat_type'=>'Add Flat Type'
 ];

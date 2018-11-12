@@ -54,16 +54,20 @@ Route::get('downloadExcel/{type}', 'DashboardController@downloadExcel');
 Route::get('downloadExcel/{type}/{id?}', 'DashboardController@downloadMaintenanceExcel');
 // Admin for imfort file
 Route::post('importExcel', 'DashboardController@importExcel');
-// Admin maintenanceMaster
+
+// Flat Maintenance Master Table Routes For CRUD Operations
 Route::get('/maintenanceMaster', ['as'=>'maintenanceMaster','uses'=>'DashboardController@maintenanceMaster']);
 Route::get('/addMaintenanceMaster/{user_id?}', ['as'=>'addMaintenanceMaster','uses'=>'DashboardController@getMaintenanceMaster']);
 Route::post('/addMaintenanceMaster/{user_id?}', ['as'=>'editMaintenanceMaster','uses'=>'DashboardController@postMaintenanceMaster']);
 Route::get('/deleteMastere/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteMaintenanceMastere']);
-// Admin flatTypeMaster
+
+// Flat Type Master Table Routes For CRUD Operations
 Route::get('/flatType', ['as'=>'flatType','uses'=>'DashboardController@flatType']);
 Route::get('/addFlatType/{user_id?}', ['as'=>'addFlatType','uses'=>'DashboardController@getFlatType']);
 Route::post('/addFlatType/{user_id?}', ['as'=>'editFlatType','uses'=>'DashboardController@postFlatType']);
 Route::get('/delete/{user_id?}', ['as'=>'delete','uses'=>'DashboardController@deleteFlatType']);
+
+
 Route::get('/showMaintenanceTransactionList', ['as'=>'showMaintenanceTransactionList','uses'=>'DashboardController@showMaintenanceTransactionList']);
 Route::get('/addMaintenanceTransaction/{year}/{month}', ['as'=>'addMaintenanceTransaction','uses'=>'DashboardController@addMaintenanceTransaction']);
 Route::get('/monthViewList', ['as'=>'monthViewList','uses'=>'DashboardController@monthViewList']);

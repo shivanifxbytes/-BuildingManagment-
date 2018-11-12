@@ -2,10 +2,10 @@
 @section('content')       
 <div class="row">
   <div class="col-lg-12">
-    <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flat_type') }}</h3>
+    <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.add_flat_type') }}</h3>
     <ol class="breadcrumb">
       <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard"> {{ __('messages.home')}}</a></li>
-      <li><i class="fa fa-file-text-o"></i>{{ __('messages.flat_type') }}</li>
+      <li><i class="fa fa-file-text-o"></i>{{ __('messages.add_flat_type') }}</li>
     </ol>
   </div>
 </div>      
