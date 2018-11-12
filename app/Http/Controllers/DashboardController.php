@@ -70,7 +70,7 @@ class DashboardController extends Controller
      * @ShortDescription       Load users view with list of all users
      * @return                 View
      */
-    public function users()
+    public function flats()
     {
         /**
          * @ShortDescription Blank array for the data for sending the array to the view.
@@ -86,7 +86,7 @@ class DashboardController extends Controller
      *                         then it return add view If we get ID it will return edit view
      * @return                 View
      */
-    public function getUser($user_id = null)
+    public function getFlat($user_id = null)
     {
         if (!empty($user_id)) {
             try {
@@ -117,7 +117,7 @@ class DashboardController extends Controller
      * @param  int     $user_id [id of user in case of edit,null in case of add]
      * @return                 Response
      */
-    public function postUser(Request $request, $user_id = null)
+    public function postFlat(Request $request, $user_id = null)
     {
         $rules = array(
             'owner'           => 'required|max:50',
@@ -129,7 +129,7 @@ class DashboardController extends Controller
         if (empty($user_id)) {
             $rules['email']      = 'required|string|email|max:255|unique:users';
             $rules['password']   = 'required|string|min:6|confirmed';
-            
+            $rules['flat_number']     ='required|string|max:255|unique:flats';
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -153,7 +153,7 @@ class DashboardController extends Controller
                 }
                 $flat =  Flat::insertGetId($flatData);
                 if ($flat) {
-                    return redirect('adminUser')->with('message', __('messages.Record_added'));
+                    return redirect()->route('flats')->with('message', __('messages.Record_added'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
@@ -166,13 +166,14 @@ class DashboardController extends Controller
                     );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
                     $flat =  Flat::where('owner_id', $user_id)->update($flatData);
-                    return redirect('adminUser')->with('message', __('messages.Record_updated'));
+                    return redirect('flats')->with('message', __('messages.Record_updated'));
                 } else {
                     return redirect()->back()->withInput()->withErrors(__('messages.try_again'));
                 }
             }
         }
     }
+
     /**
      * @DateOfCreation         27 August 2018
      * @ShortDescription       Load user maintanence view with list of user when user id is equal to

@@ -27,15 +27,13 @@ Route::get('/userrMaintenance/{id?}/{user_id?}', ['as'=>'userrMaintenance','uses
 // Admin Dashboard 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/dashboard', ['as'=>'dashboard','uses'=>'DashboardController@index']);
-// Admin users route
-Route::get('/users', ['as'=>'users','uses'=>'DashboardController@users']);
-Route::get('/adminUser', ['as'=>'adminUser','uses'=>'DashboardController@users']);
 
 Route::get('dashboard/queryData', 'DashboardController@users');
 Route::get('dashboard/show', 'DashboardController@showmaintenance');
-// Admin Add edit route
-Route::get('/addUser/{user_id?}', ['as'=>'adduser','uses'=>'DashboardController@getUser']);
-Route::post('/addUser/{user_id?}', ['as'=>'edituser','uses'=>'DashboardController@postuser']);
+// Admin flats master CRUD
+Route::get('/flats', ['as'=>'flats','uses'=>'DashboardController@flats']);
+Route::get('/addFlat/{user_id?}', ['as'=>'addFlat','uses'=>'DashboardController@getFlat']);
+Route::post('/addFlat/{user_id?}', ['as'=>'addFlat','uses'=>'DashboardController@postFlat']);
 // Admin Dashboard show maintenance list Add edit route for maintenance
 Route::get('/showMaintenance/{id?}', ['as'=>'showmaintenance','uses'=>'DashboardController@showmaintenance']);
     // Admin Dashboard Add user

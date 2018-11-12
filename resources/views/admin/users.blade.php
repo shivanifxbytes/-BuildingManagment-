@@ -2,7 +2,7 @@
 @section('content')
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flats') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addUser"> {{__('messages.add_flat')}} </a>
+            <h3 class="page-header"><i class="fa fa-table"></i>{{ __('messages.flats') }}<a class="btn btn-primary pull-right" href=" {{ url('/') }}/addFlat"> {{__('messages.add_flat')}} </a>
           </h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="{{ url('/') }}/dashboard">{{ __('messages.home') }}</a></li>
@@ -50,7 +50,7 @@
                     <td> {!! showStatus($row->user_status) !!}</td>
                    <td>
                       <div class="btn-group">
-                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addUser/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-success" title="{{__('messages.edit')}}" href="{{ url('/') }}/addFlat/{{ Crypt::encrypt($row->id) }}" style="margin:5px;" data-toggle="tooltip">{{__('messages.edit')}}</a> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                         <a class="btn btn-danger deleteDetail" title="{{__('messages.delete')}}" data-id="{{ Crypt::encrypt($row->id) }}" style="margin:5px;" href="#" data-toggle="tooltip">{{__('messages.delete')}}</a>
                       </div>
                     </td>
@@ -84,11 +84,6 @@
                   <p>{{ Session::get('import_error') }}</p>
                 </div>
                 @endif
-                <div class="pull-right"><input  type="file"  name="import_file" /></div>
-                <div class="clearfix"></div>
-                <div class="pull-right" style="padding: 10px;">
-                <button class="btn btn-primary">Import File</button>
-                </div>
               </form>
             </section>
           </div>

@@ -19,22 +19,22 @@ use Config;
 class Dashboard extends Model
 {
     /**
-    *@ShortDescription Table for the users.
-    *
-    * @var String
-    */
+     * @ShortDescription Table for the users.
+     *
+     * @var String
+     */
     protected $table = 'users';
  
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       This function join two tables users, flat_type, and select
-    *                         the specified data from tables
-    * @return                 result array
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       This function join two tables users, flat_type, and select
+     *                         the specified data from tables
+     * @return                 result array
+     */
     public function queryData()
     {
         return  DB::table('flats')
-            ->join('flat_type', 'flat_type.flat_type', '=', 'flats.flat_type_id')
+            ->join('flat_type', 'flat_type.id', '=', 'flats.flat_type_id')
             ->join('users', 'flats.owner_id', '=', 'users.id')
             ->select('flat_type', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
             ->where('users.user_role_id', '=', ' 2')

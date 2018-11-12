@@ -12,7 +12,7 @@
        </a>
      </li>
       <li  class="{{ Request::is('users') ? 'active' : '' }}">
-       <a class="" href="{{ url('/') }}/users">
+       <a class="" href="{{ url('/') }}/flats">
          <span>{{ __('messages.flats') }}</span>
        </a>
      </li> 
