@@ -40,8 +40,7 @@ type="text/css" /> @endsection
         $paid_by = isset($row['paid_by'])?$row['paid_by']:'';
         $month = isset($row['month'])?$row['month']:'';
 
-echo "<pre>";
-    \print_r($flats[0]);
+
         ?>
         <tr>
             <form method="POST" action=""  class="form-horizontal ">   
