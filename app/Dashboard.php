@@ -193,5 +193,16 @@ class Dashboard extends Model
    $maintenance_transaction_detail = json_decode(json_encode($maintenance_transaction_detail), true);
 return $maintenance_transaction_detail;
     }
-
+/**
+*
+*/
+public function getMaintenanceFlatTypeByID($flat_type_id)
+{
+  $flat_details = DB::table('maintenance_master as m')
+        ->join('flat_type as f','f.id','=','m.flat_type_id')
+        ->select('f.flat_type', 'm.maintenance_amount')
+     ->where('m.flat_type_id',$flat_type_id)
+        ->get();  
+        return $flat_details;
+}
 }

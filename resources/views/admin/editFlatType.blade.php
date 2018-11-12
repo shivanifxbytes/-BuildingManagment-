@@ -26,12 +26,9 @@
         <div class="col-lg-12">
           <div class="form-group">
             <label for="flat_type">Flat Type</label>
-            <select name="flat_type" id="flat_type" class="form-control" >
-              <option value="1BHK" @if($user[0]->flat_type == '1BHK') {{'selected'}} @endif>1BHK</option>
-              <option value="2BHK" @if($user[0]->flat_type == '2BHK') {{'selected'}} @endif>2BHK</option>
-              <option value="3BHK" @if($user[0]->flat_type == '3BHK') {{'selected'}} @endif>3BHK</option>
-              <option value="Paint House" @if($user[0]->flat_type == 'Paint House') {{'selected'}} @endif>Paint House</option>
-            </select>           
+     
+           <input type="text" name="flat_type" id="flat_type" value="{{$user[0]->flat_type}}" class="form-control" >       
+
           </div> 
           <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">           
           <div class="form-group">

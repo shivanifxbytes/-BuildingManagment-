@@ -393,7 +393,7 @@ class DashboardController extends Controller
     public function postMaintenanceMaster(Request $request, $id = null)
     {
         $rules = array(
-            'maintenance_amount' => 'required|max:50',
+            'maintenance_amount' => 'required|numeric',
             'flat_type_id'        => 'max:10|unique:maintenance_master'
         );
         if (empty($id)) {
