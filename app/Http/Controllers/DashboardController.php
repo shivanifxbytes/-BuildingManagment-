@@ -494,8 +494,8 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'   => 'required|max:50',
-        );
+            'flat_type'   => 'required|max:50|unique:flat_type',
+    );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator->errors());
