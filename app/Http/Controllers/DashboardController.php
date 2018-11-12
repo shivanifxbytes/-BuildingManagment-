@@ -129,7 +129,7 @@ class DashboardController extends Controller
         if (empty($user_id)) {
             $rules['email']      = 'required|string|email|max:255|unique:users';
             $rules['password']   = 'required|string|min:6|confirmed';
-            $rules['flat_number']     = 'required|string|max:255|unique:flats';
+            
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -161,6 +161,7 @@ class DashboardController extends Controller
                 $user_id = Crypt::decrypt($user_id);
                 if (is_int($user_id)) {
                     $flatData = array(
+                        'flat_number'      => $request->input('flat_number'),
                         'carpet_area'      => $request->input('carpet_area'),
                     );
                     $user = Admin::where(array('id' => $user_id))->update($requestData);
@@ -493,7 +494,7 @@ class DashboardController extends Controller
     public function postFlatType(Request $request, $user_id = null)
     {
         $rules = array(
-            'flat_type'   => 'required|max:50|unique:flat_type',
+            'flat_type'   => 'required|max:50',
         );
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -764,6 +765,7 @@ class DashboardController extends Controller
         );
         return json_encode($json_data);
     }
+
     /**
      * @DateOfCreation         17 oct 2018
      * @ShortDescription       This function show the monthly expenses list using data table
@@ -804,6 +806,7 @@ class DashboardController extends Controller
         );
         return json_encode($json_data);
     }
+    
     /**
      * @DateOfCreation    17 oct 2018
      * @ShortDescription  This function generate pdf send email receipt and provide download
