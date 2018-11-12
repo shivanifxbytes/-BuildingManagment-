@@ -32,7 +32,7 @@
                     </div>  
                      <div class="form-group">
                         <label for="flat_number">Flat Number</label>
-                        <input id="flat_number" type="text" class="form-control" name="flat_number" value="{{$value->flat_number}}" required>       
+                        <input id="flat_number" type="text" class="form-control" name="flat_number" value="{{$value->flat_number}}" required readonly="">       
                     </div> 
                     <div class="form-group">
                         <label>Enter Mobile No.</label>            
