@@ -7,15 +7,15 @@ use Illuminate\Support\Facades\DB;
 use Config;
 
 /**
- * Dashboard
- *
- * @package                
- * @subpackage             Dashboard
- * @category               Model
- * @DateOfCreation         22 aug 2018
- * @ShortDescription       The model is is connected to the user table and you can perform
- *                         relevant operation with respect to this class
- */
+* Dashboard
+*
+* @package                
+* @subpackage             Dashboard
+* @category               Model
+* @DateOfCreation         22 aug 2018
+* @ShortDescription       The model is is connected to the user table and you can perform
+*                         relevant operation with respect to this class
+*/
 class Dashboard extends Model
 {
     /**
@@ -24,7 +24,7 @@ class Dashboard extends Model
      * @var String
      */
     protected $table = 'users';
- 
+
     /**
      * @DateOfCreation         23 Aug 2018
      * @ShortDescription       This function join two tables users, flat_type, and select
@@ -34,28 +34,28 @@ class Dashboard extends Model
     public function queryData()
     {
         return  DB::table('flats')
-            ->join('flat_type', 'flat_type.id', '=', 'flats.flat_type_id')
-            ->join('users', 'flats.owner_id', '=', 'users.id')
-            ->select('flat_type', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
-            ->where('users.user_role_id', '=', ' 2')
-            ->get();
+        ->join('flat_type', 'flat_type.id', '=', 'flats.flat_type_id')
+        ->join('users', 'flats.owner_id', '=', 'users.id')
+        ->select('flat_type', 'carpet_area', 'user_status', 'flats.flat_number', 'users.name', 'mobile_number', 'email','users.id')
+        ->where('users.user_role_id', '=', ' 2')
+        ->get();
     }
 
     /**
-    * @DateOfCreation         23 Aug 2018
-    * @ShortDescription       This function selects the specified data from table
-    * @return                 result array
-    */
+     * @DateOfCreation         23 Aug 2018
+     * @ShortDescription       This function selects the specified data from table
+     * @return                 result array
+     */
     public function countUsers()
     {
         return Admin::where('user_role_id', Config::get('constants.USER_ROLE'))->count();
     }
 
     /**
-    * @DateOfCreation         27 Aug 2018
-    * @ShortDescription       This function join two tables and selects the specified data from tables
-    * @return                 result array
-    */
+     * @DateOfCreation         27 Aug 2018
+     * @ShortDescription       This function join two tables and selects the specified data from tables
+     * @return                 result array
+     */
     public function showUser($id)
     {
         return  DB::table('flats')
@@ -64,7 +64,7 @@ class Dashboard extends Model
         ->where('users.user_role_id', '=', ' 2')
         ->get();
     }
- 
+
     /**
      * @DateOfCreation         27 Aug 2018
      * @ShortDescription       This function join flat_type and maintenance_master tables
@@ -99,8 +99,8 @@ class Dashboard extends Model
     {
         return DB::table('flat_type')->where('flat_number', $id)->get()->pluck('flat_type');
     }
-    
-   /**
+
+    /**
      * @DateOfCreation         10 oct 2018
      * @ShortDescription       funtion join three tables users flat_type and flats and 
      *                         select selected data from the tables
@@ -112,16 +112,16 @@ class Dashboard extends Model
         ->select('flat_number', 'owner_id', 'tenant_id')
         ->get();
         foreach ($flat_detail as $key => $value) {
-        $owner_id = $flat_detail[$key]->owner_id;
-        $tenant_id = $flat_detail[$key]->tenant_id;
-        $flat_details =  DB::table('flats as f')
-        ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
-        ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
-        ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
-        ->get();
+            $owner_id = $flat_detail[$key]->owner_id;
+            $tenant_id = $flat_detail[$key]->tenant_id;
+            $flat_details =  DB::table('flats as f')
+            ->leftJoin('users as o', 'f.owner_id', '=', 'o.id')
+            ->leftJoin('users as t', 'f.tenant_id', '=', 't.id')
+            ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
+            ->get();
         }
-$flat_details = json_decode(json_encode($flat_details), true);
-       
+        $flat_details = json_decode(json_encode($flat_details), true);
+
         return $flat_details;
     }
 
@@ -147,8 +147,8 @@ $flat_details = json_decode(json_encode($flat_details), true);
         ->get();
         return $transaction_details;
     }
-   
-   /**
+
+    /**
      * @DateOfCreation         10 oct 2018
      *  @ShortDescription      Funtion select all data from monthly_expenses table 
      *                         corresponding by year and month
@@ -175,7 +175,7 @@ $flat_details = json_decode(json_encode($flat_details), true);
      * @param  string $month          month field of the given month from database
      * @return [type]                 result array
      */
-     public function getExpensesByFlatNumber($flat_number, $month)
+    public function getExpensesByFlatNumber($flat_number, $month)
     {
         $expenses_details= DB::table('maintenance_transaction as t')
         ->join('maintenance_master as m','t.flat_number','=','m.flat_number')
@@ -187,25 +187,37 @@ $flat_details = json_decode(json_encode($flat_details), true);
 
     }
 
+    /**
+     * @DateOfCreation                10 oct 2018
+     * @ShortDescription             Funtion select data from maintenance_transaction table 
+     *                                corresponding by flat_number and month
+     * @param  string $year           year  field of the given year from database 
+     * @param  string $month          month field of the given month from database
+     * @return [type]                 result array
+     */
     public function getTransactionByMonthAndYearForFlatNumber($year,$month)
     {
-         $maintenance_transaction_detail = DB::table('maintenance_transaction')->select('flat_number as mt_flat_number','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount','paid_by')->where(DB::raw('YEAR(month)'),$year)
+        $maintenance_transaction_detail = DB::table('maintenance_transaction')->select('flat_number as mt_flat_number','amount','pending_amount','extra_amount','month',DB::raw('YEAR(month) as year'),'reason_pending_amount','reason_extra_amount','paid_by')->where(DB::raw('YEAR(month)'),$year)
         ->where(DB::raw('MONTH(month)'),$month)->get();
-   $maintenance_transaction_detail = json_decode(json_encode($maintenance_transaction_detail), true);
-return $maintenance_transaction_detail;
+        $maintenance_transaction_detail = json_decode(json_encode($maintenance_transaction_detail), true);
+        return $maintenance_transaction_detail;
     }
 
-/**
-*
-*/
-public function getMaintenanceFlatTypeByID($flat_type_id)
-{
-  $flat_details = DB::table('maintenance_master as m')
+    /**
+     * @DateOfCreation                10 oct 2018
+     * @ShortDescription             Funtion select data from maintenance_transaction table 
+     *                                corresponding by flat_number and month
+     * @param  string $flat_type_id    flat_type_id of maintainence transaction table
+     * @return [type]                 result object
+     */
+    public function getMaintenanceFlatTypeByID($flat_type_id)
+    {
+        $flat_details = DB::table('maintenance_master as m')
         ->join('flat_type as f','f.id','=','m.flat_type_id')
         ->select('f.flat_type', 'm.maintenance_amount')
-     ->where('m.flat_type_id',$flat_type_id)
+        ->where('m.flat_type_id',$flat_type_id)
         ->get();  
         return $flat_details;
-}
+    }
 
 }

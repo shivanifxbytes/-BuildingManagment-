@@ -16,8 +16,8 @@
          <span>{{ __('messages.flats') }}</span>
        </a>
      </li> 
-      <li  class="{{ Request::is('monthViewList') ? 'active' : '' }}">
-       <a class="" href="{{ url('/') }}/monthViewList">
+      <li  class="{{ Request::is('monthlyTransactionList') ? 'active' : '' }}">
+       <a class="" href="{{ url('/') }}/monthlyTransactionList">
          <span>{{ __('messages.maintenance_transaction') }}</span>
        </a>
      </li>

@@ -568,7 +568,7 @@ class DashboardController extends Controller
      * @ShortDescription       Load the month View List for maintenance transaction
      * @return                 View
      */
-    public function monthViewList()
+    public function monthlyTransactionList()
     {
         return view('admin.monthviewlist');
     }
