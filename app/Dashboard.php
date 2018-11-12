@@ -120,7 +120,8 @@ class Dashboard extends Model
         ->select('f.flat_number', 'owner_id', 'tenant_id', 't.name as tenant_name', 'o.name as owner_name')
         ->get();
         }
-        $flat_details = json_decode(json_encode($flat_details), true);      
+$flat_details = json_decode(json_encode($flat_details), true);
+       
         return $flat_details;
     }
 
@@ -137,7 +138,7 @@ class Dashboard extends Model
         $transaction_details = DB::table('flats as f')
         ->leftJoin('users as u', 'f.owner_id', '=', 'u.id')
         ->leftJoin('maintenance_transaction as t', 'f.flat_number', '=', 't.flat_number')
-        ->select('f.flat_number','f.flat_number','t.status', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
+        ->select('f.flat_number','t.status', 'owner_id', 'amount','pending_amount','extra_amount','u.name as owner_name','month',DB::raw('YEAR(month) as year'))
         ->where('f.flat_number','!=','')
         ->where(DB::raw('YEAR(month)'),$year)
         ->where(DB::raw('MONTH(month)'),$month)
@@ -176,14 +177,14 @@ class Dashboard extends Model
      */
      public function getExpensesByFlatNumber($flat_number, $month)
     {
-        $expenses_details = DB::table('maintenance_transaction as t')
-        ->join('flats as f','f.flat_number','=','t.flat_number')
-        ->join('maintenance_master as m','f.flat_type_id','=','m.flat_type_id')
+        $expenses_details= DB::table('maintenance_transaction as t')
+        ->join('maintenance_master as m','t.flat_number','=','m.flat_number')
         ->select('m.maintenance_amount', 't.flat_number','amount','pending_amount','reason_pending_amount','month','paid_by')
         ->where('t.flat_number', '=', $flat_number)
         ->where('month', '=', $month)
-        ->get();  
+        ->get();
         return $expenses_details;
+
     }
 
     public function getTransactionByMonthAndYearForFlatNumber($year,$month)
@@ -193,6 +194,7 @@ class Dashboard extends Model
    $maintenance_transaction_detail = json_decode(json_encode($maintenance_transaction_detail), true);
 return $maintenance_transaction_detail;
     }
+
 /**
 *
 */
@@ -205,4 +207,5 @@ public function getMaintenanceFlatTypeByID($flat_type_id)
         ->get();  
         return $flat_details;
 }
+
 }
